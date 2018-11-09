@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="./../../template/template.xhtml">
+
+	<ui:define name="content">
+		<h:form>
+			<div>
+				<p:outputLabel value="Pelaporan" />
+			</div>
+			<div id="rr">
+				<p:selectOneMenu id="cbJenisLaporan" onchange="submit()"
+					valueChangeListener="#{pelaporan.chooseJenisLaporan}"
+					value="#{pelaporan.selectedJenisLaporan}" lazy="true"
+					style="width:125px">
+					<f:selectItems value="#{pelaporan.selectOneJenisLaporan}"
+						var="jenisLaporan" itemValue="#{jenisLaporan.global_param_value}"
+						itemLabel="#{jenisLaporan.global_param_label}">
+						<!-- 						<f:ajax listener="#{pelaporan.chooseJenisLaporan}"/> -->
+					</f:selectItems>
+
+				</p:selectOneMenu>
+				<p:spacer />
+				<p:selectOneMenu id="cbOthers" lazy="true" style="width:125px"
+					value="#{pelaporan.selectedOthers}">
+					<f:selectItems value="#{pelaporan.selectOneOthers}" var="others"
+						itemValue="#{others.value_cb}" itemLabel="#{others.label_cb}">
+					</f:selectItems>
+				</p:selectOneMenu>
+				<p:spacer />
+			</div>
+			<div>
+
+				<div>
+					<p:selectOneMenu id="cbPeriodeLaporan"
+						value="#{pelaporan.selectedPeriodeLaporan}" lazy="true"
+						style="width:125px">
+						<f:selectItems value="#{pelaporan.selectOnePeriodeLaporan}"
+							var="periode" itemValue="#{periode.id}"
+							itemLabel="#{periode.nama}">
+						</f:selectItems>
+					</p:selectOneMenu>
+				</div>
+
+				<div align="right">
+					<p:commandButton value="Pilih" action="#{pelaporan.cari()}"
+						update="listData" ajax="false" />
+					<!-- 					<p:selectOneMenu id="cbDownload" lazy="true" style="width:125px" -->
+					<!-- 						value="#{pelaporan.selectedDownload}"> -->
+					<!-- 						<f:selectItems value="#{pelaporan.selectOneDownload}" var="download" -->
+					<!-- 							itemValue="#{download.global_param_value}" itemLabel="#{download.global_param_label}"> -->
+					<!-- 						</f:selectItems> -->
+					<!-- 					</p:selectOneMenu> -->
+					<div align="right">
+						<!-- 						<p:commandButton ajax="false" icon="fa fa-file-excel-o"> -->
+						<!-- 							<p:dataExporter type="xls" target="listData" fileName="LRA" /> -->
+						<!-- 						</p:commandButton> -->
+						<!-- 						<p:commandButton ajax="false" icon="fa fa-file-text-o"> -->
+						<!-- 							<p:dataExporter type="csv" target="listData" fileName="LRA" /> -->
+						<!-- 						</p:commandButton> -->
+						<h:form target="_blank">
+							<p:commandButton ajax="false" icon="fa fa-file-pdf-o"
+								actionListener="#{pelaporan.printPdf}" >
+								<!-- 							<p:dataExporter type="pdf" target="listData" fileName="LRA" /> -->
+							</p:commandButton>
+						</h:form>
+					</div>
+
+
+				</div>
+			</div>
+
+			<div>
+				<p:dataList value="#{pelaporan.dataPencarian}" var="dataTingkat1">
+					<!-- 					<p:columnGroup type="header"> -->
+					<!-- 						<p:column headerText="Kelompok" /> -->
+					<!-- 						<p:column headerText="Kode Akun" /> -->
+					<!-- 						<p:column headerText="Uraian" /> -->
+					<!-- 						<p:column headerText="Sebelum Eliminasi" /> -->
+					<!-- 						<p:column headerText="Sesudah Eliminasi" /> -->
+					<!-- 					</p:columnGroup> -->
+
+					<h:outputText value="#{dataTingkat1.nm_rek_1}" />
+
+					<p:dataTable var="dataTingkat2"
+						value="#{dataTingkat1.list_tingkat2}">
+
+						<p:subTable var="dataTingkat3"
+							value="#{dataTingkat2.list_tingkat3}">
+							<f:facet name="header">
+								<h:outputText value="#{dataTingkat2.nm_rek_2}" />
+							</f:facet>
+							<!-- 							<p:column > -->
+							<!-- 								<h:outputText value="#{dataTingkat2.nm_rek_2}" /> -->
+							<!-- 							</p:column> -->
+							<p:column headerText="name" style="width:20px;">
+								<h:outputText value="#{dataTingkat3.kode_akun}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{dataTingkat3.nm_rek_3}" />
+							</p:column>
+							<p:column style="text-align:right">
+
+								<h:outputText value="#{dataTingkat3.sebelum_eliminasi}">
+									<f:convertNumber pattern="###,###" locale="id_ID" />
+								</h:outputText>
+							</p:column>
+							<p:column style="text-align:right">
+								<h:outputText value="#{dataTingkat3.setelah_eliminasi}">
+									<f:convertNumber pattern="###,###" locale="id_ID" />
+								</h:outputText>
+							</p:column>
+							<p:columnGroup type="footer">
+								<p:row>
+									<p:column colspan="2"
+										footerText="Total #{dataTingkat2.nm_rek_2}"
+										style="text-align:right" />
+									<p:column style="text-align:right">
+										<f:facet name="footer" style="text-align:right">
+											<h:outputText value="#{dataTingkat2.sum_sebelum_kd_rek_2}">
+												<f:convertNumber pattern="###,###" locale="id_ID" />
+											</h:outputText>
+										</f:facet>
+									</p:column>
+									<p:column style="text-align:right">
+										<f:facet name="footer" style="text-align:right">
+											<h:outputText value="#{dataTingkat2.sum_setelah_kd_rek_2}">
+												<f:convertNumber pattern="###,###" locale="id_ID" />
+											</h:outputText>
+										</f:facet>
+									</p:column>
+								</p:row>
+							</p:columnGroup>
+						</p:subTable>
+						<p:columnGroup type="footer">
+							<p:row>
+								<p:column colspan="2"
+									footerText="Total #{dataTingkat1.nm_rek_1}"
+									style="text-align:right" />
+								<p:column style="text-align:right">
+									<f:facet name="footer" style="text-align:right">
+										<h:outputText value="#{dataTingkat1.sum_sebelum_kd_rek_1}">
+											<f:convertNumber pattern="###,###" locale="id_ID" />
+										</h:outputText>
+									</f:facet>
+								</p:column>
+								<p:column style="text-align:right">
+									<f:facet name="footer" style="text-align:right">
+										<h:outputText value="#{dataTingkat1.sum_setelah_kd_rek_1}">
+											<f:convertNumber pattern="###,###" locale="id_ID" />
+										</h:outputText>
+									</f:facet>
+								</p:column>
+							</p:row>
+						</p:columnGroup>
+					</p:dataTable>
+					<!-- 					<p:panelGrid columns="4" style="width:100%"> -->
+					<!-- 						<p:outputLabel style="width:25%" -->
+					<!-- 							value="Total #{dataTingkat1.nm_rek_1}"></p:outputLabel> -->
+					<!-- 						<p:outputLabel style="width:25%" value=""></p:outputLabel> -->
+					<!-- 						<p:outputLabel style="width:25%" -->
+					<!-- 							value="#{dataTingkat1.sum_sebelum_kd_rek_1}"> -->
+					<!-- 							<f:convertNumber type="currency" pattern="#,##0" /> -->
+					<!-- 						</p:outputLabel> -->
+					<!-- 						<p:outputLabel style="width:25%" -->
+					<!-- 							value="#{dataTingkat1.sum_setelah_kd_rek_1}"> -->
+					<!-- 							<f:convertNumber type="currency" pattern="#,##0" /> -->
+					<!-- 						</p:outputLabel> -->
+					<!-- 					</p:panelGrid> -->
+				</p:dataList>				
+			</div>
+		
+		</h:form>
+	</ui:define>
+
+
+
+</ui:composition>
+</html>
+

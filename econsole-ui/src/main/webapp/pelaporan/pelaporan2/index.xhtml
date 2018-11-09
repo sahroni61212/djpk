@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_index.xhtml">
+
+
+	<ui:define name="content2">
+	<f:metadata>
+    <f:viewParam name="foo" value="#{pelaporan2.dataPencarian}" />
+    <f:event type="preRenderView" listener="#{pelaporan2.dataIndex}" />
+</f:metadata>
+		<h:form>
+			<div>
+				<p:outputLabel value="Pelaporan" />
+			</div>
+			<div>
+				<h:dataTable id="listData" value="#{pelaporan2.dataPencarian}"
+					var="dataTingkat1" border="1">
+					<!-- 										<h:column> -->
+					<!-- 											<h:outputText value="#{dataList.nm_rek_1}" /> -->
+					<!-- 										</h:column> -->
+
+					<h:column>
+
+						<h:dataTable value="#{dataTingkat1.list_tingkat2}"
+							var="dataTingkat2" border="1">
+							<f:facet name="header">
+								<h:outputText value="#{dataTingkat1.nm_rek_1}" />
+							</f:facet>
+							<h:column>
+
+								<h:outputText value="#{dataTingkat2.nm_rek_2}" />
+							</h:column>
+							<h:column>
+								<h:dataTable value="#{dataTingkat2.list_tingkat3}"
+									var="dataTingkat3" border="1" styleClass="order-table"
+									headerClass="order-table-header"
+									rowClasses="order-table-odd-row,order-table-even-row">
+									<h:column>
+										<h:outputText value="#{dataTingkat3.kode_akun}" />
+									</h:column>
+									<h:column>
+										<h:outputText value="#{dataTingkat3.nm_rek_3}" />
+									</h:column>
+									<h:column>
+
+										<h:outputText value="#{dataTingkat3.sebelum_eliminasi}">
+											<f:convertNumber type="currency" pattern="#,##0" />
+										</h:outputText>
+										<f:facet name="footer">
+											<h:outputText value="#{dataTingkat2.sum_sebelum_kd_rek_2}">
+												<f:convertNumber type="currency" pattern="#,##0" />
+											</h:outputText>
+										</f:facet>
+									</h:column>
+									<h:column>
+										<h:outputText value="#{dataTingkat3.setelah_eliminasi}">
+											<f:convertNumber type="currency" pattern="#,##0" />
+										</h:outputText>
+										<f:facet name="footer">
+											<h:outputText value="#{dataTingkat2.sum_setelah_kd_rek_2}">
+												<f:convertNumber type="currency" pattern="#,##0" />
+											</h:outputText>
+										</f:facet>
+									</h:column>
+									<!-- 									<f:facet name="footer"> -->
+									<!-- 										<h:column> -->
+									<!-- 											<h:outputText value="Total " /> -->
+									<!-- 											<h:outputText value="#{dataTingkat2.nm_rek_2}" /> -->
+									<!-- 										</h:column> -->
+									<!-- 										<h:column> -->
+									<!-- 											<h:outputText value="#{dataTingkat2.sum_sebelum_kd_rek_2}" /> -->
+									<!-- 										</h:column> -->
+									<!-- 										<h:column> -->
+									<!-- 											<h:outputText value="#{dataTingkat2.sum_setelah_kd_rek_2}" /> -->
+									<!-- 										</h:column> -->
+									<!-- 									</f:facet> -->
+								</h:dataTable>
+							</h:column>
+							<f:facet name="footer">
+								<h:column>
+									<h:outputText value="Total " />
+									<h:outputText value="#{dataTingkat1.nm_rek_1}" />
+								</h:column>
+								<h:column>
+									<h:outputText value="#{dataTingkat1.sum_sebelum_kd_rek_1}">
+										<f:convertNumber type="currency" pattern="#,##0" />
+									</h:outputText>
+								</h:column>
+								<h:column>
+									<h:outputText value="#{dataTingkat1.sum_setelah_kd_rek_1}">
+										<f:convertNumber type="currency" pattern="#,##0" />
+									</h:outputText>
+								</h:column>
+							</f:facet>
+						</h:dataTable>
+					</h:column>
+				</h:dataTable>
+
+
+			</div>
+
+			
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>
+

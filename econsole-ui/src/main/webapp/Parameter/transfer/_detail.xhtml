@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="./../../template/template.xhtml">
+
+	
+	<ui:define name="content">
+	<h:form>
+		<div>
+				<p:outputLabel value="Tambah Jenis Transfer" />
+		</div>
+		
+				<p:panelGrid columns="3" layout="grid">
+
+					<p:outputLabel value="ID Transfer"></p:outputLabel>
+					
+					<p:inputText required="true" value="#{transferCtl.data.id}">
+						<p:keyFilter regEx="0-9"></p:keyFilter>
+					</p:inputText>
+					
+					<br />
+					
+					<p:outputLabel value="Jenis Transfer"></p:outputLabel>
+					
+					<p:inputText required="true"  value="#{transferCtl.data.jenis_transfer}">
+						
+					</p:inputText>
+					<br />
+				<h:outputText value="&lt;br/&gt;" escape="false" />
+				<h:panelGrid columns="2" border="0">
+				<p:commandButton value="Simpan" action="#{transferCtl.create}"
+					ajax="true" icon="fa fa-floppy-o"/>
+				
+			
+				<p:button value="Batal"  outcome="_index" icon="fa fa-times-circle"/>
+				</h:panelGrid>
+				</p:panelGrid>
+				
+					
+				
+		<br></br>
+		
+		</h:form>		
+			
+ 
+    
+    </ui:define>	
+     
+
+</ui:composition>
+</html>
+

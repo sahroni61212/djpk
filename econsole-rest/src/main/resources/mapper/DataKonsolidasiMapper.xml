@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sh.djpk.econsole.rest.dao.DataKonsolidasiDao">
+
+	<select id="getAll" resultType="hashmap">
+		select 
+		case 
+			WHEN a.status = 0 THEN 'Gagal Konsolidasi'  
+			WHEN a.status = 1 then 'Sukses Konsolidasi' 
+			WHEN a.status = 2 then 'Proses konsolidasi' else ''  
+		end as nama_status, 
+		a.*, b.nama as nama_laporan from compilation_header a 
+		LEFT JOIN ref_laporan b on a.laporan_id = b.id 
+		where a.aktif = 'Y';
+
+	</select>
+	
+	<insert id="insertcompheader">
+		insert into compilation_header (id, tahun, bulan, laporan_id, lvl_data, tgl_kirim_baru, aktif, status, user_id, jumlah_pemda)
+		values
+		(#{params.id},#{params.tahun},#{params.bulan},#{params.laporan_id},#{params.lvl_data},#{params.tgl_kirim_baru},
+		#{params.aktif},#{params.status},#{params.user_id},#{params.jmlPemda})
+	</insert>
+
+	<insert id="insertcomp5">
+		insert into compilation_record5 
+		(tahun, kd_provinsi, kd_pemda, kd_satker, periode_id, perubahan_id, 
+		kd_rek_1, kd_rek_2, kd_rek_3, kd_rek_4, kd_rek_5, nm_rek_1, nm_rek_2, nm_rek_3, nm_rek_4, nm_rek_5, 
+		anggaran, realisasi, d_k, created_at, user_id, cheader_id)
+		values
+		(#{params.tahun},#{params.kd_provinsi},#{params.kd_pemda},#{params.kd_satker},#{params.periode_id},#{params.perubahan_id},
+		#{params.kd_rek_1},#{params.kd_rek_2},#{params.kd_rek_3},#{params.kd_rek_4},#{params.kd_rek_5},
+		#{params.nm_rek_1},#{params.nm_rek_2},#{params.nm_rek_3},#{params.nm_rek_4},#{params.nm_rek_5},
+		#{params.anggaran},#{params.realisasi},#{params.d_k}, CURRENT_TIMESTAMP,#{user_id},#{cheader_id})
+	</insert>
+	
+	<!-- <delete id="deleteperiode">
+	DELETE from periode where id=#{params.id}
+	</delete> -->
+
+</mapper>

@@ -1,0 +1,1022 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-param" content="_csrf">
+<meta name="csrf-token"
+	content="p-OnXNznvP6dwmuufXh4YLgPZjS-Mjkug_1ad3rvHWD-oeYYkMrxpqmgX8UFHBtR6UcgQ9YLfmPcqiMeCqdsEw==">
+<title>Pemda</title>
+<link href="/konsolidasi/assets/b2e11712/css/bootstrap.css"
+	rel="stylesheet">
+<link href="/konsolidasi/assets/57d5dec5/css/kv-grid.css"
+	rel="stylesheet">
+<link href="/konsolidasi/assets/a6ad55e5/ajaxcrud.css" rel="stylesheet">
+<link href="/konsolidasi/assets/a80237db/dist/css/bootstrap-dialog.css"
+	rel="stylesheet">
+<link
+	href="/konsolidasi/assets/57d5dec5/css/jquery.resizableColumns.css"
+	rel="stylesheet">
+<link href="/konsolidasi/assets/64cb21ad/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href="/konsolidasi/assets/915b8f08/css/AdminLTE.min.css"
+	rel="stylesheet">
+<link href="/konsolidasi/assets/915b8f08/css/skins/skin-purple.min.css"
+	rel="stylesheet">
+<style>
+.bootstrap-dialog .modal-header.bootstrap-dialog-draggable {
+	cursor: move
+}
+</style>
+<script src="/konsolidasi/assets/61d5e48a/js/dialog.js"></script>
+<script type="text/javascript">var krajeeDialogDefaults_71c625b2 = {"alert":{"type":"type-info","title":"Information","buttonLabel":"<span class=\"glyphicon glyphicon-ok\"></span> Ok"},"confirm":{"type":"type-warning","title":"Confirmation","btnOKClass":"btn-warning","btnOKLabel":"<span class=\"glyphicon glyphicon-ok\"></span> Ok","btnCancelLabel":"<span class=\"glyphicon glyphicon-ban-circle\"></span> Cancel"},"prompt":{"draggable":false,"title":"Information","buttons":[{"label":"Cancel","icon":"glyphicon glyphicon-ban-circle"},{"label":"Ok","icon":"glyphicon glyphicon-ok","cssClass":"btn-primary"}],"closable":false},"dialog":{"draggable":true,"title":"Information","buttons":[{"label":"Cancel","icon":"glyphicon glyphicon-ban-circle"},{"label":"Ok","icon":"glyphicon glyphicon-ok","cssClass":"btn-primary"}]}};
+var krajeeDialog_63269c26 = {"id":"w0"};
+var krajeeDialog=new KrajeeDialog(true,krajeeDialog_63269c26,krajeeDialogDefaults_71c625b2);
+var kvGridExp_0d0327a7={"gridId":"crud-datatable","target":"_blank","messages":{"allowPopups":"Nonaktifkan semua popup blocker di browser anda untuk memastikan unduhan yang benar.","confirmDownload":"Ok untuk memproses","downloadProgress":"Menghasilkan file ekspor. Silakan tunggu ...","downloadComplete":"Permintaan disampaikan! Anda mungkin sudah bisa menutup dialog ini setelah menyimpan berkas yang anda unduh."},"exportConversions":[{"from":"<span class=\"glyphicon glyphicon-ok text-success\"></span>","to":"Aktif"},{"from":"<span class=\"glyphicon glyphicon-remove text-danger\"></span>","to":"Inactive"}],"showConfirmAlert":true};
+var kvGridExp_12735912={"filename":"grid-export","showHeader":true,"showPageSummary":true,"showFooter":true};
+var kvGridExp_9675587e={"dialogLib":"krajeeDialog","gridOpts":kvGridExp_0d0327a7,"genOpts":kvGridExp_12735912,"alertMsg":"The HTML export file will be generated for download.","config":{"cssFile":"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"}};
+var kvGridExp_dee944fa={"dialogLib":"krajeeDialog","gridOpts":kvGridExp_0d0327a7,"genOpts":kvGridExp_12735912,"alertMsg":"The CSV export file will be generated for download.","config":{"colDelimiter":",","rowDelimiter":"\r\n"}};
+var kvGridExp_6001d406={"dialogLib":"krajeeDialog","gridOpts":kvGridExp_0d0327a7,"genOpts":kvGridExp_12735912,"alertMsg":"The TEXT export file will be generated for download.","config":{"colDelimiter":"\t","rowDelimiter":"\r\n"}};
+var kvGridExp_c00601d0={"dialogLib":"krajeeDialog","gridOpts":kvGridExp_0d0327a7,"genOpts":kvGridExp_12735912,"alertMsg":"The EXCEL export file will be generated for download.","config":{"worksheet":"ExportWorksheet","cssFile":""}};
+var kvGridExp_67ec33c3={"dialogLib":"krajeeDialog","gridOpts":kvGridExp_0d0327a7,"genOpts":kvGridExp_12735912,"alertMsg":"The PDF export file will be generated for download.","config":{"mode":"UTF-8","format":"A4-L","destination":"D","marginTop":20,"marginBottom":20,"cssInline":".kv-wrap{padding:20px;}.kv-align-center{text-align:center;}.kv-align-left{text-align:left;}.kv-align-right{text-align:right;}.kv-align-top{vertical-align:top!important;}.kv-align-bottom{vertical-align:bottom!important;}.kv-align-middle{vertical-align:middle!important;}.kv-page-summary{border-top:4px double #ddd;font-weight: bold;}.kv-table-footer{border-top:4px double #ddd;font-weight: bold;}.kv-table-caption{font-size:1.5em;padding:8px;border:1px solid #ddd;border-bottom:none;}","methods":{"SetHeader":[{"odd":{"L":{"content":"Yii2 Grid Export (PDF)","font-size":8,"color":"#333333"},"C":{"content":"Grid Export","font-size":16,"color":"#333333"},"R":{"content":"Generated: Mon, 24-Sep-2018 7:35 pm CEST","font-size":8,"color":"#333333"}},"even":{"L":{"content":"Yii2 Grid Export (PDF)","font-size":8,"color":"#333333"},"C":{"content":"Grid Export","font-size":16,"color":"#333333"},"R":{"content":"Generated: Mon, 24-Sep-2018 7:35 pm CEST","font-size":8,"color":"#333333"}}}],"SetFooter":[{"odd":{"L":{"content":"© Krajee Yii2 Extensions","font-size":8,"font-style":"B","color":"#999999"},"R":{"content":"[ {PAGENO} ]","font-size":10,"font-style":"B","font-family":"serif","color":"#333333"},"line":true},"even":{"L":{"content":"© Krajee Yii2 Extensions","font-size":8,"font-style":"B","color":"#999999"},"R":{"content":"[ {PAGENO} ]","font-size":10,"font-style":"B","font-family":"serif","color":"#333333"},"line":true}}]},"options":{"title":"Grid Export","subject":"PDF export generated by kartik-v/yii2-grid extension","keywords":"krajee, grid, export, yii2-grid, pdf"},"contentBefore":"","contentAfter":""}};
+var kvGridExp_164ed2f3={"dialogLib":"krajeeDialog","gridOpts":kvGridExp_0d0327a7,"genOpts":kvGridExp_12735912,"alertMsg":"The JSON export file will be generated for download.","config":{"colHeads":[],"slugColHeads":false,"jsonReplacer":function(k,v){return typeof(v)==='string'?$.trim(v):v},"indentSpace":4}};
+kvTogOpts_3252bfeb={"id":"crud-datatable-togdata-page","pjax":1,"mode":"page","msg":"There are 542 records. Are you sure you want to display them all?","lib":krajeeDialog};</script>
+<style type="text/css">
+.form-control {
+	border-radius: 4px !important;
+}
+</style>
+</head>
+<body class="skin-purple">
+
+	<div class="wrapper">
+
+
+		<header class="main-header">
+
+			<a class="logo" href="/konsolidasi/"><span class="logo-mini">APP</span><span
+				class="logo-lg">Konsolidasi LKPD</span></a>
+			<nav class="navbar navbar-static-top" role="navigation">
+
+				<a href="#" class="sidebar-toggle" data-toggle="offcanvas"
+					role="button"> <span class="sr-only">Toggle navigation</span>
+				</a>
+
+				<div class="navbar-custom-menu">
+
+					<ul class="nav navbar-nav">
+
+						<li class="dropdown tahun notifications-menu"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"> <i
+								class="fa fa-flag"></i> <span class="hidden-xs"> Tahun
+									Anggaran: </span>Pilih!
+						</a>
+							<ul class="dropdown-menu">
+								<li>
+									<ul class="menu">
+										<li><a href="/konsolidasi/tahun?id=2016">2016</a></li>
+										<li><a href="/konsolidasi/tahun?id=2017">2017</a></li>
+										<li><a href="/konsolidasi/tahun?id=2018">2018</a></li>
+										<li><a href="/konsolidasi/tahun?id=2019">2019</a></li>
+									</ul>
+								</li>
+							</ul></li>
+						<li class="dropdown user user-menu"><a href="#"
+							class="dropdown-toggle" data-toggle="dropdown"> <img
+								class="user-image" src="/konsolidasi/images/logo.png"
+								alt="User Image"> <span class="hidden-xs">administrator</span>
+						</a>
+							<ul class="dropdown-menu">
+								<!-- User image -->
+								<li class="user-header"><img class="img-circle"
+									src="/konsolidasi/images/logo.png" alt="User Image">
+									<p>administrator</p></li>
+								<!-- Menu Footer-->
+								<li class="user-footer">
+									<div class="pull-left">
+										<a class="btn btn-default btn-flat"
+											href="/konsolidasi/profile">Profile</a>
+									</div>
+									<div class="pull-right">
+										<a class="btn btn-default btn-flat" href="/konsolidasi/logout"
+											data-method="post">Sign out</a>
+									</div>
+								</li>
+							</ul></li>
+
+					</ul>
+				</div>
+			</nav>
+		</header>
+
+
+		<aside class="main-sidebar">
+
+			<section class="sidebar">
+
+				<ul class="sidebar-menu" data-widget="tree">
+					<li><a href="/konsolidasi/"><i
+							class="fa fa-fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+					<li><a href="#"><i class="fa fa-circle-o"></i> <span>Pengaturan</span>
+							<span class="pull-right-container"><i
+								class="fa fa-angle-left pull-right"></i></span></a>
+						<ul class='treeview-menu'>
+							<li><a href="/konsolidasi/user/index"><i
+									class="fa fa-circle-o"></i> <span>User Management</span></a></li>
+							<li><a href="/konsolidasi/management/menu"><i
+									class="fa fa-circle-o"></i> <span>Akses Grup</span></a></li>
+							<li><a href="/konsolidasi/management/pengumuman"><i
+									class="fa fa-circle-o"></i> <span>Blog/Pengumuman</span></a></li>
+						</ul></li>
+					<li class="active"><a href="#"><i class="fa fa-circle-o"></i>
+							<span>Parameter</span> <span class="pull-right-container"><i
+								class="fa fa-angle-left pull-right"></i></span></a>
+						<ul class='treeview-menu' style='display: block'>
+							<li><a href="/konsolidasi/parameter/periode"><i
+									class="fa fa-circle-o"></i> <span>Periode</span></a></li>
+							<li><a href="/konsolidasi/parameter/bas"><i
+									class="fa fa-circle-o"></i> <span>Bagan Akun Standar</span></a></li>
+							<li class="active"><a href="/konsolidasi/parameter/pemda"><i
+									class="fa fa-circle-o"></i> <span>Pemda</span></a></li>
+							<li><a href="/konsolidasi/parameter/transfer"><i
+									class="fa fa-circle-o"></i> <span>Jenis Transfer</span></a></li>
+							<li><a href="/konsolidasi/parameter/wilayah"><i
+									class="fa fa-circle-o"></i> <span>Wilayah</span></a></li>
+						</ul></li>
+					<li><a href="#"><i class="fa fa-fa fa-edit"></i> <span>Konsolidasi</span>
+							<span class="pull-right-container"><i
+								class="fa fa-angle-left pull-right"></i></span></a>
+						<ul class='treeview-menu'>
+							<li><a href="/konsolidasi/konsolidasi/eliminasi"><i
+									class="fa fa-circle-o"></i> <span>Akun Eliminasi</span></a></li>
+						</ul></li>
+					<li><a href="#"><i class="fa fa-fa fa-edit"></i> <span>Pelaporan</span>
+							<span class="pull-right-container"><i
+								class="fa fa-angle-left pull-right"></i></span></a>
+						<ul class='treeview-menu'>
+							<li><a href="/konsolidasi/pelaporan/pelaporanrekap"><i
+									class="fa fa-circle-o"></i> <span>Pelaporan</span></a></li>
+							<li><a href="/konsolidasi/pelaporan/pelaporanprovinsi"><i
+									class="fa fa-circle-o"></i> <span>Pelaporan Provinsi</span></a></li>
+							<li><a href="/konsolidasi/pelaporan/pelaporanpemda"><i
+									class="fa fa-circle-o"></i> <span>Pelaporan Pemda</span></a></li>
+						</ul></li>
+				</ul>
+			</section>
+
+		</aside>
+
+		<div class="content-wrapper">
+			<section class="content-header">
+				<h1>Pemda</h1>
+
+				<ul class="breadcrumb">
+					<li><a href="/konsolidasi/">Beranda</a></li>
+					<li class="active">Parameter</li>
+					<li class="active">Pemda</li>
+				</ul>
+			</section>
+
+			<section class="content">
+				<div class="ref-pemda-index">
+					<div id="ajaxCrudDatatable">
+						<div id="crud-datatable-pjax" data-pjax-container=""
+							data-pjax-push-state data-pjax-timeout="1000">
+							<div class="kv-loader-overlay">
+								<div class="kv-loader"></div>
+							</div>
+							<div id="crud-datatable" class="grid-view hide-resize"
+								data-krajee-grid="kvGridInit_eea7d7fb">
+								<div class="panel panel-primary">
+									<div class="panel-heading">
+										<div class="pull-right">
+											<div class="summary">
+												Showing <b>1-20</b> of <b>542</b> items.
+											</div>
+										</div>
+										<h3 class="panel-title">
+											<i class="glyphicon glyphicon-list"></i> Pemda
+										</h3>
+										<div class="clearfix"></div>
+									</div>
+									<div class="kv-panel-before">
+										<div class="pull-right">
+											<div class="btn-toolbar kv-grid-toolbar" role="toolbar">
+												<div class="btn-group">
+													<a class="btn btn-default"
+														href="/konsolidasi/parameter/pemda/create"
+														title="Tambah Pemda" role="modal-remote"><i
+														class="glyphicon glyphicon-plus"></i></a><a
+														class="btn btn-default"
+														href="/konsolidasi/parameter/pemda/index"
+														title="Reset Grid" data-pjax="1"><i
+														class="glyphicon glyphicon-repeat"></i></a>
+													<div class="btn-group">
+														<a id="crud-datatable-togdata-page"
+															class="btn btn-default"
+															href="/konsolidasi/parameter/pemda/index?_togc9414601=all"
+															title="Tampilkan semua data" data-pjax="true"><i
+															class='glyphicon glyphicon-resize-full'></i> Semua</a>
+													</div>
+													<div class="btn-group">
+														<button id="w1" class="btn btn-default dropdown-toggle"
+															title="Export" data-toggle="dropdown">
+															<i class='glyphicon glyphicon-export'></i> <span
+																class="caret"></span>
+														</button>
+
+														<ul id="w2" class="dropdown-menu dropdown-menu-right">
+															<li role="presentation" class="dropdown-header">Export
+																Page Data</li>
+															<li title="Hyper Text Markup Language"><a
+																class="export-html" href="#" data-mime="text/html"
+																data-hash="082b641e646070bcadb21f9c9c6e1a2d12f4daa6bb5d0aece087f62c2fb1a74bgridviewgrid-exporttext/htmlutf-81{&quot;cssFile&quot;:&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css&quot;}"
+																tabindex="-1"><i
+																	class="text-info glyphicon glyphicon-floppy-saved"></i>
+																	HTML</a></li>
+															<li title="Comma Separated Values"><a
+																class="export-csv" href="#" data-mime="application/csv"
+																data-hash="15ef2cd69d0515cc9988bb2446872886a2261cc67d06f233141401dcd1a93f60gridviewgrid-exportapplication/csvutf-81{&quot;colDelimiter&quot;:&quot;,&quot;,&quot;rowDelimiter&quot;:&quot;\r\n&quot;}"
+																tabindex="-1"><i
+																	class="text-primary glyphicon glyphicon-floppy-open"></i>
+																	CSV</a></li>
+															<li title="Tab Delimited Text"><a class="export-txt"
+																href="#" data-mime="text/plain"
+																data-hash="243150e9c36897f2d965adfbf4be7da97fc53b838ca041cd7869d8521cdf74f0gridviewgrid-exporttext/plainutf-81{&quot;colDelimiter&quot;:&quot;\t&quot;,&quot;rowDelimiter&quot;:&quot;\r\n&quot;}"
+																tabindex="-1"><i
+																	class="text-muted glyphicon glyphicon-floppy-save"></i>
+																	Teks</a></li>
+															<li title="Microsoft Excel 95+"><a
+																class="export-xls" href="#"
+																data-mime="application/vnd.ms-excel"
+																data-hash="a9a9527b2718539a71839627f928e66bfeaa9709432094d1a7755940d3274ce8gridviewgrid-exportapplication/vnd.ms-excelutf-81{&quot;worksheet&quot;:&quot;ExportWorksheet&quot;,&quot;cssFile&quot;:&quot;&quot;}"
+																tabindex="-1"><i
+																	class="text-success glyphicon glyphicon-floppy-remove"></i>
+																	Excel</a></li>
+															<li title="Portable Document Format"><a
+																class="export-pdf" href="#" data-mime="application/pdf"
+																data-hash="231fe502ec8456b66ba8e3be71ed6963de56da347a323604d451d7cb7a8241bbgridviewgrid-exportapplication/pdfutf-81{&quot;mode&quot;:&quot;UTF-8&quot;,&quot;format&quot;:&quot;A4-L&quot;,&quot;destination&quot;:&quot;D&quot;,&quot;marginTop&quot;:20,&quot;marginBottom&quot;:20,&quot;cssInline&quot;:&quot;.kv-wrap{padding:20px;}.kv-align-center{text-align:center;}.kv-align-left{text-align:left;}.kv-align-right{text-align:right;}.kv-align-top{vertical-align:top!important;}.kv-align-bottom{vertical-align:bottom!important;}.kv-align-middle{vertical-align:middle!important;}.kv-page-summary{border-top:4px double #ddd;font-weight: bold;}.kv-table-footer{border-top:4px double #ddd;font-weight: bold;}.kv-table-caption{font-size:1.5em;padding:8px;border:1px solid #ddd;border-bottom:none;}&quot;,&quot;methods&quot;:{&quot;SetHeader&quot;:[{&quot;odd&quot;:{&quot;L&quot;:{&quot;content&quot;:&quot;Yii2 Grid Export (PDF)&quot;,&quot;font-size&quot;:8,&quot;color&quot;:&quot;#333333&quot;},&quot;C&quot;:{&quot;content&quot;:&quot;Grid Export&quot;,&quot;font-size&quot;:16,&quot;color&quot;:&quot;#333333&quot;},&quot;R&quot;:{&quot;content&quot;:&quot;Generated: Mon, 24-Sep-2018 7:35 pm CEST&quot;,&quot;font-size&quot;:8,&quot;color&quot;:&quot;#333333&quot;}},&quot;even&quot;:{&quot;L&quot;:{&quot;content&quot;:&quot;Yii2 Grid Export (PDF)&quot;,&quot;font-size&quot;:8,&quot;color&quot;:&quot;#333333&quot;},&quot;C&quot;:{&quot;content&quot;:&quot;Grid Export&quot;,&quot;font-size&quot;:16,&quot;color&quot;:&quot;#333333&quot;},&quot;R&quot;:{&quot;content&quot;:&quot;Generated: Mon, 24-Sep-2018 7:35 pm CEST&quot;,&quot;font-size&quot;:8,&quot;color&quot;:&quot;#333333&quot;}}}],&quot;SetFooter&quot;:[{&quot;odd&quot;:{&quot;L&quot;:{&quot;content&quot;:&quot;© Krajee Yii2 Extensions&quot;,&quot;font-size&quot;:8,&quot;font-style&quot;:&quot;B&quot;,&quot;color&quot;:&quot;#999999&quot;},&quot;R&quot;:{&quot;content&quot;:&quot;[ {PAGENO} ]&quot;,&quot;font-size&quot;:10,&quot;font-style&quot;:&quot;B&quot;,&quot;font-family&quot;:&quot;serif&quot;,&quot;color&quot;:&quot;#333333&quot;},&quot;line&quot;:true},&quot;even&quot;:{&quot;L&quot;:{&quot;content&quot;:&quot;© Krajee Yii2 Extensions&quot;,&quot;font-size&quot;:8,&quot;font-style&quot;:&quot;B&quot;,&quot;color&quot;:&quot;#999999&quot;},&quot;R&quot;:{&quot;content&quot;:&quot;[ {PAGENO} ]&quot;,&quot;font-size&quot;:10,&quot;font-style&quot;:&quot;B&quot;,&quot;font-family&quot;:&quot;serif&quot;,&quot;color&quot;:&quot;#333333&quot;},&quot;line&quot;:true}}]},&quot;options&quot;:{&quot;title&quot;:&quot;Grid Export&quot;,&quot;subject&quot;:&quot;PDF export generated by kartik-v/yii2-grid extension&quot;,&quot;keywords&quot;:&quot;krajee, grid, export, yii2-grid, pdf&quot;},&quot;contentBefore&quot;:&quot;&quot;,&quot;contentAfter&quot;:&quot;&quot;}"
+																tabindex="-1"><i
+																	class="text-danger glyphicon glyphicon-floppy-disk"></i>
+																	PDF</a></li>
+															<li title="JavaScript Object Notation"><a
+																class="export-json" href="#"
+																data-mime="application/json"
+																data-hash="1c3c3f9d4fe9e1d724a463a67fa79e562443e7b28a0c130c853e2f2d7b9ee7adgridviewgrid-exportapplication/jsonutf-81{&quot;colHeads&quot;:[],&quot;slugColHeads&quot;:false,&quot;indentSpace&quot;:4}"
+																tabindex="-1"><i
+																	class="text-warning glyphicon glyphicon-floppy-open"></i>
+																	JSON</a></li>
+														</ul>
+													</div>
+													<form class="kv-export-form"
+														action="/konsolidasi/gridview/export/download"
+														method="post" style="display: none"
+														target="kvDownloadDialog">
+														<input type="hidden" name="_csrf"
+															value="p-OnXNznvP6dwmuufXh4YLgPZjS-Mjkug_1ad3rvHWD-oeYYkMrxpqmgX8UFHBtR6UcgQ9YLfmPcqiMeCqdsEw==">
+														<input type="hidden" name="module_id" value="gridview">
+														<input type="hidden" name="export_hash"> <input
+															type="hidden" name="export_filetype"> <input
+															type="hidden" name="export_filename"> <input
+															type="hidden" name="export_mime"> <input
+															type="hidden" name="export_config"> <input
+															type="hidden" name="export_encoding" value="utf-8">
+														<input type="hidden" name="export_bom" value="1">
+														<textarea name="export_content"></textarea>
+													</form>
+												</div>
+											</div>
+										</div>
+										<em>* Resize table columns just like a spreadsheet by
+											dragging the column edges.</em>
+										<div class="clearfix"></div>
+									</div>
+									<div id="crud-datatable-container"
+										class="table-responsive kv-grid-container">
+										<table
+											class="kv-grid-table table table-bordered table-striped table-condensed kv-table-wrap">
+											<colgroup>
+												<col class="skip-export">
+												<col>
+												<col>
+												<col>
+												<col>
+												<col class="skip-export">
+											</colgroup>
+											<thead>
+
+												<tr>
+													<th
+														class="kv-all-select kv-align-center kv-align-middle skip-export kv-merged-header"
+														style="width: 20px;" rowspan="2" data-col-seq="0"><input
+														type="checkbox" class="select-on-check-all"
+														name="selection_all" value="1"></th>
+													<th
+														class="kv-align-center kv-align-middle kv-merged-header"
+														style="width: 30px;" rowspan="2" data-col-seq="1">#</th>
+													<th data-col-seq="2"><a
+														href="/konsolidasi/parameter/pemda/index?sort=id"
+														data-sort="id">ID</a></th>
+													<th data-col-seq="3"><a
+														href="/konsolidasi/parameter/pemda/index?sort=province_id"
+														data-sort="province_id">Province ID</a></th>
+													<th data-col-seq="4"><a
+														href="/konsolidasi/parameter/pemda/index?sort=name"
+														data-sort="name">Name</a></th>
+													<th
+														class="kv-align-center kv-align-middle skip-export kv-merged-header"
+														style="width: 80px;" rowspan="2" data-col-seq="5">Aksi</th>
+												</tr>
+												<tr id="crud-datatable-filters" class="filters skip-export">
+													<td><input type="text" class="form-control"
+														name="RefPemdaSearch[id]"></td>
+													<td><input type="text" class="form-control"
+														name="RefPemdaSearch[province_id]"></td>
+													<td><input type="text" class="form-control"
+														name="RefPemdaSearch[name]"></td>
+												</tr>
+
+											</thead>
+											<tbody>
+												<tr data-key="01.00">
+													<td
+														class="skip-export kv-align-center kv-align-middle kv-row-select"
+														style="width: 20px;" data-col-seq="0"><input
+														type="checkbox" class="kv-row-checkbox" name="selection[]"
+														value="01.00"></td>
+													<td class="kv-align-center kv-align-middle"
+														style="width: 30px;" data-col-seq="1">1</td>
+													<td data-col-seq="2">01.00</td>
+													<td data-col-seq="3">1</td>
+													<td data-col-seq="4">Provinsi Aceh</td>
+													<td class="skip-export kv-align-center kv-align-middle"
+														style="width: 80px;" data-col-seq="5"><a
+														href="/konsolidasi/parameter/pemda/view?id=01.00"
+														title="View" aria-label="Lihat" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-eye-open"></span></a> <a
+														href="/konsolidasi/parameter/pemda/update?id=01.00"
+														title="Update" aria-label="Ubah" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-pencil"></span></a> <a
+														href="/konsolidasi/parameter/pemda/delete?id=01.00"
+														title="Delete" aria-label="Hapus" data-pjax="0"
+														role="modal-remote" data-request-method="post"
+														data-toggle="tooltip" data-confirm-title="Are you sure?"
+														data-confirm-message="Are you sure want to delete this item"><span
+															class="glyphicon glyphicon-trash"></span></a></td>
+												</tr>
+												<tr data-key="01.01">
+													<td
+														class="skip-export kv-align-center kv-align-middle kv-row-select"
+														style="width: 20px;" data-col-seq="0"><input
+														type="checkbox" class="kv-row-checkbox" name="selection[]"
+														value="01.01"></td>
+													<td class="kv-align-center kv-align-middle"
+														style="width: 30px;" data-col-seq="1">2</td>
+													<td data-col-seq="2">01.01</td>
+													<td data-col-seq="3">1</td>
+													<td data-col-seq="4">Kab. Aceh Barat</td>
+													<td class="skip-export kv-align-center kv-align-middle"
+														style="width: 80px;" data-col-seq="5"><a
+														href="/konsolidasi/parameter/pemda/view?id=01.01"
+														title="View" aria-label="Lihat" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-eye-open"></span></a> <a
+														href="/konsolidasi/parameter/pemda/update?id=01.01"
+														title="Update" aria-label="Ubah" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-pencil"></span></a> <a
+														href="/konsolidasi/parameter/pemda/delete?id=01.01"
+														title="Delete" aria-label="Hapus" data-pjax="0"
+														role="modal-remote" data-request-method="post"
+														data-toggle="tooltip" data-confirm-title="Are you sure?"
+														data-confirm-message="Are you sure want to delete this item"><span
+															class="glyphicon glyphicon-trash"></span></a></td>
+												</tr>
+												<tr data-key="01.02">
+													<td
+														class="skip-export kv-align-center kv-align-middle kv-row-select"
+														style="width: 20px;" data-col-seq="0"><input
+														type="checkbox" class="kv-row-checkbox" name="selection[]"
+														value="01.02"></td>
+													<td class="kv-align-center kv-align-middle"
+														style="width: 30px;" data-col-seq="1">3</td>
+													<td data-col-seq="2">01.02</td>
+													<td data-col-seq="3">1</td>
+													<td data-col-seq="4">Kab. Aceh Besar</td>
+													<td class="skip-export kv-align-center kv-align-middle"
+														style="width: 80px;" data-col-seq="5"><a
+														href="/konsolidasi/parameter/pemda/view?id=01.02"
+														title="View" aria-label="Lihat" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-eye-open"></span></a> <a
+														href="/konsolidasi/parameter/pemda/update?id=01.02"
+														title="Update" aria-label="Ubah" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-pencil"></span></a> <a
+														href="/konsolidasi/parameter/pemda/delete?id=01.02"
+														title="Delete" aria-label="Hapus" data-pjax="0"
+														role="modal-remote" data-request-method="post"
+														data-toggle="tooltip" data-confirm-title="Are you sure?"
+														data-confirm-message="Are you sure want to delete this item"><span
+															class="glyphicon glyphicon-trash"></span></a></td>
+												</tr>
+												<tr data-key="01.03">
+													<td
+														class="skip-export kv-align-center kv-align-middle kv-row-select"
+														style="width: 20px;" data-col-seq="0"><input
+														type="checkbox" class="kv-row-checkbox" name="selection[]"
+														value="01.03"></td>
+													<td class="kv-align-center kv-align-middle"
+														style="width: 30px;" data-col-seq="1">4</td>
+													<td data-col-seq="2">01.03</td>
+													<td data-col-seq="3">1</td>
+													<td data-col-seq="4">Kab. Aceh Selatan</td>
+													<td class="skip-export kv-align-center kv-align-middle"
+														style="width: 80px;" data-col-seq="5"><a
+														href="/konsolidasi/parameter/pemda/view?id=01.03"
+														title="View" aria-label="Lihat" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-eye-open"></span></a> <a
+														href="/konsolidasi/parameter/pemda/update?id=01.03"
+														title="Update" aria-label="Ubah" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-pencil"></span></a> <a
+														href="/konsolidasi/parameter/pemda/delete?id=01.03"
+														title="Delete" aria-label="Hapus" data-pjax="0"
+														role="modal-remote" data-request-method="post"
+														data-toggle="tooltip" data-confirm-title="Are you sure?"
+														data-confirm-message="Are you sure want to delete this item"><span
+															class="glyphicon glyphicon-trash"></span></a></td>
+												</tr>
+												<tr data-key="01.04">
+													<td
+														class="skip-export kv-align-center kv-align-middle kv-row-select"
+														style="width: 20px;" data-col-seq="0"><input
+														type="checkbox" class="kv-row-checkbox" name="selection[]"
+														value="01.04"></td>
+													<td class="kv-align-center kv-align-middle"
+														style="width: 30px;" data-col-seq="1">5</td>
+													<td data-col-seq="2">01.04</td>
+													<td data-col-seq="3">1</td>
+													<td data-col-seq="4">Kab. Aceh Singkil</td>
+													<td class="skip-export kv-align-center kv-align-middle"
+														style="width: 80px;" data-col-seq="5"><a
+														href="/konsolidasi/parameter/pemda/view?id=01.04"
+														title="View" aria-label="Lihat" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-eye-open"></span></a> <a
+														href="/konsolidasi/parameter/pemda/update?id=01.04"
+														title="Update" aria-label="Ubah" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-pencil"></span></a> <a
+														href="/konsolidasi/parameter/pemda/delete?id=01.04"
+														title="Delete" aria-label="Hapus" data-pjax="0"
+														role="modal-remote" data-request-method="post"
+														data-toggle="tooltip" data-confirm-title="Are you sure?"
+														data-confirm-message="Are you sure want to delete this item"><span
+															class="glyphicon glyphicon-trash"></span></a></td>
+												</tr>
+												<tr data-key="01.05">
+													<td
+														class="skip-export kv-align-center kv-align-middle kv-row-select"
+														style="width: 20px;" data-col-seq="0"><input
+														type="checkbox" class="kv-row-checkbox" name="selection[]"
+														value="01.05"></td>
+													<td class="kv-align-center kv-align-middle"
+														style="width: 30px;" data-col-seq="1">6</td>
+													<td data-col-seq="2">01.05</td>
+													<td data-col-seq="3">1</td>
+													<td data-col-seq="4">Kab. Aceh Tengah</td>
+													<td class="skip-export kv-align-center kv-align-middle"
+														style="width: 80px;" data-col-seq="5"><a
+														href="/konsolidasi/parameter/pemda/view?id=01.05"
+														title="View" aria-label="Lihat" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-eye-open"></span></a> <a
+														href="/konsolidasi/parameter/pemda/update?id=01.05"
+														title="Update" aria-label="Ubah" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-pencil"></span></a> <a
+														href="/konsolidasi/parameter/pemda/delete?id=01.05"
+														title="Delete" aria-label="Hapus" data-pjax="0"
+														role="modal-remote" data-request-method="post"
+														data-toggle="tooltip" data-confirm-title="Are you sure?"
+														data-confirm-message="Are you sure want to delete this item"><span
+															class="glyphicon glyphicon-trash"></span></a></td>
+												</tr>
+												<tr data-key="01.06">
+													<td
+														class="skip-export kv-align-center kv-align-middle kv-row-select"
+														style="width: 20px;" data-col-seq="0"><input
+														type="checkbox" class="kv-row-checkbox" name="selection[]"
+														value="01.06"></td>
+													<td class="kv-align-center kv-align-middle"
+														style="width: 30px;" data-col-seq="1">7</td>
+													<td data-col-seq="2">01.06</td>
+													<td data-col-seq="3">1</td>
+													<td data-col-seq="4">Kab. Aceh Tenggara</td>
+													<td class="skip-export kv-align-center kv-align-middle"
+														style="width: 80px;" data-col-seq="5"><a
+														href="/konsolidasi/parameter/pemda/view?id=01.06"
+														title="View" aria-label="Lihat" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-eye-open"></span></a> <a
+														href="/konsolidasi/parameter/pemda/update?id=01.06"
+														title="Update" aria-label="Ubah" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-pencil"></span></a> <a
+														href="/konsolidasi/parameter/pemda/delete?id=01.06"
+														title="Delete" aria-label="Hapus" data-pjax="0"
+														role="modal-remote" data-request-method="post"
+														data-toggle="tooltip" data-confirm-title="Are you sure?"
+														data-confirm-message="Are you sure want to delete this item"><span
+															class="glyphicon glyphicon-trash"></span></a></td>
+												</tr>
+												<tr data-key="01.07">
+													<td
+														class="skip-export kv-align-center kv-align-middle kv-row-select"
+														style="width: 20px;" data-col-seq="0"><input
+														type="checkbox" class="kv-row-checkbox" name="selection[]"
+														value="01.07"></td>
+													<td class="kv-align-center kv-align-middle"
+														style="width: 30px;" data-col-seq="1">8</td>
+													<td data-col-seq="2">01.07</td>
+													<td data-col-seq="3">1</td>
+													<td data-col-seq="4">Kab. Aceh Timur</td>
+													<td class="skip-export kv-align-center kv-align-middle"
+														style="width: 80px;" data-col-seq="5"><a
+														href="/konsolidasi/parameter/pemda/view?id=01.07"
+														title="View" aria-label="Lihat" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-eye-open"></span></a> <a
+														href="/konsolidasi/parameter/pemda/update?id=01.07"
+														title="Update" aria-label="Ubah" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-pencil"></span></a> <a
+														href="/konsolidasi/parameter/pemda/delete?id=01.07"
+														title="Delete" aria-label="Hapus" data-pjax="0"
+														role="modal-remote" data-request-method="post"
+														data-toggle="tooltip" data-confirm-title="Are you sure?"
+														data-confirm-message="Are you sure want to delete this item"><span
+															class="glyphicon glyphicon-trash"></span></a></td>
+												</tr>
+												<tr data-key="01.08">
+													<td
+														class="skip-export kv-align-center kv-align-middle kv-row-select"
+														style="width: 20px;" data-col-seq="0"><input
+														type="checkbox" class="kv-row-checkbox" name="selection[]"
+														value="01.08"></td>
+													<td class="kv-align-center kv-align-middle"
+														style="width: 30px;" data-col-seq="1">9</td>
+													<td data-col-seq="2">01.08</td>
+													<td data-col-seq="3">1</td>
+													<td data-col-seq="4">Kab. Aceh Utara</td>
+													<td class="skip-export kv-align-center kv-align-middle"
+														style="width: 80px;" data-col-seq="5"><a
+														href="/konsolidasi/parameter/pemda/view?id=01.08"
+														title="View" aria-label="Lihat" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-eye-open"></span></a> <a
+														href="/konsolidasi/parameter/pemda/update?id=01.08"
+														title="Update" aria-label="Ubah" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-pencil"></span></a> <a
+														href="/konsolidasi/parameter/pemda/delete?id=01.08"
+														title="Delete" aria-label="Hapus" data-pjax="0"
+														role="modal-remote" data-request-method="post"
+														data-toggle="tooltip" data-confirm-title="Are you sure?"
+														data-confirm-message="Are you sure want to delete this item"><span
+															class="glyphicon glyphicon-trash"></span></a></td>
+												</tr>
+												<tr data-key="01.09">
+													<td
+														class="skip-export kv-align-center kv-align-middle kv-row-select"
+														style="width: 20px;" data-col-seq="0"><input
+														type="checkbox" class="kv-row-checkbox" name="selection[]"
+														value="01.09"></td>
+													<td class="kv-align-center kv-align-middle"
+														style="width: 30px;" data-col-seq="1">10</td>
+													<td data-col-seq="2">01.09</td>
+													<td data-col-seq="3">1</td>
+													<td data-col-seq="4">Kab. Bireuen</td>
+													<td class="skip-export kv-align-center kv-align-middle"
+														style="width: 80px;" data-col-seq="5"><a
+														href="/konsolidasi/parameter/pemda/view?id=01.09"
+														title="View" aria-label="Lihat" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-eye-open"></span></a> <a
+														href="/konsolidasi/parameter/pemda/update?id=01.09"
+														title="Update" aria-label="Ubah" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-pencil"></span></a> <a
+														href="/konsolidasi/parameter/pemda/delete?id=01.09"
+														title="Delete" aria-label="Hapus" data-pjax="0"
+														role="modal-remote" data-request-method="post"
+														data-toggle="tooltip" data-confirm-title="Are you sure?"
+														data-confirm-message="Are you sure want to delete this item"><span
+															class="glyphicon glyphicon-trash"></span></a></td>
+												</tr>
+												<tr data-key="01.10">
+													<td
+														class="skip-export kv-align-center kv-align-middle kv-row-select"
+														style="width: 20px;" data-col-seq="0"><input
+														type="checkbox" class="kv-row-checkbox" name="selection[]"
+														value="01.10"></td>
+													<td class="kv-align-center kv-align-middle"
+														style="width: 30px;" data-col-seq="1">11</td>
+													<td data-col-seq="2">01.10</td>
+													<td data-col-seq="3">1</td>
+													<td data-col-seq="4">Kab. Pidie</td>
+													<td class="skip-export kv-align-center kv-align-middle"
+														style="width: 80px;" data-col-seq="5"><a
+														href="/konsolidasi/parameter/pemda/view?id=01.10"
+														title="View" aria-label="Lihat" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-eye-open"></span></a> <a
+														href="/konsolidasi/parameter/pemda/update?id=01.10"
+														title="Update" aria-label="Ubah" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-pencil"></span></a> <a
+														href="/konsolidasi/parameter/pemda/delete?id=01.10"
+														title="Delete" aria-label="Hapus" data-pjax="0"
+														role="modal-remote" data-request-method="post"
+														data-toggle="tooltip" data-confirm-title="Are you sure?"
+														data-confirm-message="Are you sure want to delete this item"><span
+															class="glyphicon glyphicon-trash"></span></a></td>
+												</tr>
+												<tr data-key="01.11">
+													<td
+														class="skip-export kv-align-center kv-align-middle kv-row-select"
+														style="width: 20px;" data-col-seq="0"><input
+														type="checkbox" class="kv-row-checkbox" name="selection[]"
+														value="01.11"></td>
+													<td class="kv-align-center kv-align-middle"
+														style="width: 30px;" data-col-seq="1">12</td>
+													<td data-col-seq="2">01.11</td>
+													<td data-col-seq="3">1</td>
+													<td data-col-seq="4">Kab. Simeulue</td>
+													<td class="skip-export kv-align-center kv-align-middle"
+														style="width: 80px;" data-col-seq="5"><a
+														href="/konsolidasi/parameter/pemda/view?id=01.11"
+														title="View" aria-label="Lihat" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-eye-open"></span></a> <a
+														href="/konsolidasi/parameter/pemda/update?id=01.11"
+														title="Update" aria-label="Ubah" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-pencil"></span></a> <a
+														href="/konsolidasi/parameter/pemda/delete?id=01.11"
+														title="Delete" aria-label="Hapus" data-pjax="0"
+														role="modal-remote" data-request-method="post"
+														data-toggle="tooltip" data-confirm-title="Are you sure?"
+														data-confirm-message="Are you sure want to delete this item"><span
+															class="glyphicon glyphicon-trash"></span></a></td>
+												</tr>
+												<tr data-key="01.12">
+													<td
+														class="skip-export kv-align-center kv-align-middle kv-row-select"
+														style="width: 20px;" data-col-seq="0"><input
+														type="checkbox" class="kv-row-checkbox" name="selection[]"
+														value="01.12"></td>
+													<td class="kv-align-center kv-align-middle"
+														style="width: 30px;" data-col-seq="1">13</td>
+													<td data-col-seq="2">01.12</td>
+													<td data-col-seq="3">1</td>
+													<td data-col-seq="4">Kota Banda Aceh</td>
+													<td class="skip-export kv-align-center kv-align-middle"
+														style="width: 80px;" data-col-seq="5"><a
+														href="/konsolidasi/parameter/pemda/view?id=01.12"
+														title="View" aria-label="Lihat" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-eye-open"></span></a> <a
+														href="/konsolidasi/parameter/pemda/update?id=01.12"
+														title="Update" aria-label="Ubah" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-pencil"></span></a> <a
+														href="/konsolidasi/parameter/pemda/delete?id=01.12"
+														title="Delete" aria-label="Hapus" data-pjax="0"
+														role="modal-remote" data-request-method="post"
+														data-toggle="tooltip" data-confirm-title="Are you sure?"
+														data-confirm-message="Are you sure want to delete this item"><span
+															class="glyphicon glyphicon-trash"></span></a></td>
+												</tr>
+												<tr data-key="01.13">
+													<td
+														class="skip-export kv-align-center kv-align-middle kv-row-select"
+														style="width: 20px;" data-col-seq="0"><input
+														type="checkbox" class="kv-row-checkbox" name="selection[]"
+														value="01.13"></td>
+													<td class="kv-align-center kv-align-middle"
+														style="width: 30px;" data-col-seq="1">14</td>
+													<td data-col-seq="2">01.13</td>
+													<td data-col-seq="3">1</td>
+													<td data-col-seq="4">Kota Sabang</td>
+													<td class="skip-export kv-align-center kv-align-middle"
+														style="width: 80px;" data-col-seq="5"><a
+														href="/konsolidasi/parameter/pemda/view?id=01.13"
+														title="View" aria-label="Lihat" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-eye-open"></span></a> <a
+														href="/konsolidasi/parameter/pemda/update?id=01.13"
+														title="Update" aria-label="Ubah" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-pencil"></span></a> <a
+														href="/konsolidasi/parameter/pemda/delete?id=01.13"
+														title="Delete" aria-label="Hapus" data-pjax="0"
+														role="modal-remote" data-request-method="post"
+														data-toggle="tooltip" data-confirm-title="Are you sure?"
+														data-confirm-message="Are you sure want to delete this item"><span
+															class="glyphicon glyphicon-trash"></span></a></td>
+												</tr>
+												<tr data-key="01.14">
+													<td
+														class="skip-export kv-align-center kv-align-middle kv-row-select"
+														style="width: 20px;" data-col-seq="0"><input
+														type="checkbox" class="kv-row-checkbox" name="selection[]"
+														value="01.14"></td>
+													<td class="kv-align-center kv-align-middle"
+														style="width: 30px;" data-col-seq="1">15</td>
+													<td data-col-seq="2">01.14</td>
+													<td data-col-seq="3">1</td>
+													<td data-col-seq="4">Kota Langsa</td>
+													<td class="skip-export kv-align-center kv-align-middle"
+														style="width: 80px;" data-col-seq="5"><a
+														href="/konsolidasi/parameter/pemda/view?id=01.14"
+														title="View" aria-label="Lihat" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-eye-open"></span></a> <a
+														href="/konsolidasi/parameter/pemda/update?id=01.14"
+														title="Update" aria-label="Ubah" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-pencil"></span></a> <a
+														href="/konsolidasi/parameter/pemda/delete?id=01.14"
+														title="Delete" aria-label="Hapus" data-pjax="0"
+														role="modal-remote" data-request-method="post"
+														data-toggle="tooltip" data-confirm-title="Are you sure?"
+														data-confirm-message="Are you sure want to delete this item"><span
+															class="glyphicon glyphicon-trash"></span></a></td>
+												</tr>
+												<tr data-key="01.15">
+													<td
+														class="skip-export kv-align-center kv-align-middle kv-row-select"
+														style="width: 20px;" data-col-seq="0"><input
+														type="checkbox" class="kv-row-checkbox" name="selection[]"
+														value="01.15"></td>
+													<td class="kv-align-center kv-align-middle"
+														style="width: 30px;" data-col-seq="1">16</td>
+													<td data-col-seq="2">01.15</td>
+													<td data-col-seq="3">1</td>
+													<td data-col-seq="4">Kota Lhokseumawe</td>
+													<td class="skip-export kv-align-center kv-align-middle"
+														style="width: 80px;" data-col-seq="5"><a
+														href="/konsolidasi/parameter/pemda/view?id=01.15"
+														title="View" aria-label="Lihat" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-eye-open"></span></a> <a
+														href="/konsolidasi/parameter/pemda/update?id=01.15"
+														title="Update" aria-label="Ubah" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-pencil"></span></a> <a
+														href="/konsolidasi/parameter/pemda/delete?id=01.15"
+														title="Delete" aria-label="Hapus" data-pjax="0"
+														role="modal-remote" data-request-method="post"
+														data-toggle="tooltip" data-confirm-title="Are you sure?"
+														data-confirm-message="Are you sure want to delete this item"><span
+															class="glyphicon glyphicon-trash"></span></a></td>
+												</tr>
+												<tr data-key="01.16">
+													<td
+														class="skip-export kv-align-center kv-align-middle kv-row-select"
+														style="width: 20px;" data-col-seq="0"><input
+														type="checkbox" class="kv-row-checkbox" name="selection[]"
+														value="01.16"></td>
+													<td class="kv-align-center kv-align-middle"
+														style="width: 30px;" data-col-seq="1">17</td>
+													<td data-col-seq="2">01.16</td>
+													<td data-col-seq="3">1</td>
+													<td data-col-seq="4">Kab. Gayo Lues</td>
+													<td class="skip-export kv-align-center kv-align-middle"
+														style="width: 80px;" data-col-seq="5"><a
+														href="/konsolidasi/parameter/pemda/view?id=01.16"
+														title="View" aria-label="Lihat" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-eye-open"></span></a> <a
+														href="/konsolidasi/parameter/pemda/update?id=01.16"
+														title="Update" aria-label="Ubah" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-pencil"></span></a> <a
+														href="/konsolidasi/parameter/pemda/delete?id=01.16"
+														title="Delete" aria-label="Hapus" data-pjax="0"
+														role="modal-remote" data-request-method="post"
+														data-toggle="tooltip" data-confirm-title="Are you sure?"
+														data-confirm-message="Are you sure want to delete this item"><span
+															class="glyphicon glyphicon-trash"></span></a></td>
+												</tr>
+												<tr data-key="01.17">
+													<td
+														class="skip-export kv-align-center kv-align-middle kv-row-select"
+														style="width: 20px;" data-col-seq="0"><input
+														type="checkbox" class="kv-row-checkbox" name="selection[]"
+														value="01.17"></td>
+													<td class="kv-align-center kv-align-middle"
+														style="width: 30px;" data-col-seq="1">18</td>
+													<td data-col-seq="2">01.17</td>
+													<td data-col-seq="3">1</td>
+													<td data-col-seq="4">Kab. Aceh Barat Daya</td>
+													<td class="skip-export kv-align-center kv-align-middle"
+														style="width: 80px;" data-col-seq="5"><a
+														href="/konsolidasi/parameter/pemda/view?id=01.17"
+														title="View" aria-label="Lihat" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-eye-open"></span></a> <a
+														href="/konsolidasi/parameter/pemda/update?id=01.17"
+														title="Update" aria-label="Ubah" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-pencil"></span></a> <a
+														href="/konsolidasi/parameter/pemda/delete?id=01.17"
+														title="Delete" aria-label="Hapus" data-pjax="0"
+														role="modal-remote" data-request-method="post"
+														data-toggle="tooltip" data-confirm-title="Are you sure?"
+														data-confirm-message="Are you sure want to delete this item"><span
+															class="glyphicon glyphicon-trash"></span></a></td>
+												</tr>
+												<tr data-key="01.18">
+													<td
+														class="skip-export kv-align-center kv-align-middle kv-row-select"
+														style="width: 20px;" data-col-seq="0"><input
+														type="checkbox" class="kv-row-checkbox" name="selection[]"
+														value="01.18"></td>
+													<td class="kv-align-center kv-align-middle"
+														style="width: 30px;" data-col-seq="1">19</td>
+													<td data-col-seq="2">01.18</td>
+													<td data-col-seq="3">1</td>
+													<td data-col-seq="4">Kab. Aceh Jaya</td>
+													<td class="skip-export kv-align-center kv-align-middle"
+														style="width: 80px;" data-col-seq="5"><a
+														href="/konsolidasi/parameter/pemda/view?id=01.18"
+														title="View" aria-label="Lihat" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-eye-open"></span></a> <a
+														href="/konsolidasi/parameter/pemda/update?id=01.18"
+														title="Update" aria-label="Ubah" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-pencil"></span></a> <a
+														href="/konsolidasi/parameter/pemda/delete?id=01.18"
+														title="Delete" aria-label="Hapus" data-pjax="0"
+														role="modal-remote" data-request-method="post"
+														data-toggle="tooltip" data-confirm-title="Are you sure?"
+														data-confirm-message="Are you sure want to delete this item"><span
+															class="glyphicon glyphicon-trash"></span></a></td>
+												</tr>
+												<tr data-key="01.19">
+													<td
+														class="skip-export kv-align-center kv-align-middle kv-row-select"
+														style="width: 20px;" data-col-seq="0"><input
+														type="checkbox" class="kv-row-checkbox" name="selection[]"
+														value="01.19"></td>
+													<td class="kv-align-center kv-align-middle"
+														style="width: 30px;" data-col-seq="1">20</td>
+													<td data-col-seq="2">01.19</td>
+													<td data-col-seq="3">1</td>
+													<td data-col-seq="4">Kab. Nagan Raya</td>
+													<td class="skip-export kv-align-center kv-align-middle"
+														style="width: 80px;" data-col-seq="5"><a
+														href="/konsolidasi/parameter/pemda/view?id=01.19"
+														title="View" aria-label="Lihat" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-eye-open"></span></a> <a
+														href="/konsolidasi/parameter/pemda/update?id=01.19"
+														title="Update" aria-label="Ubah" data-pjax="0"
+														role="modal-remote" data-toggle="tooltip"><span
+															class="glyphicon glyphicon-pencil"></span></a> <a
+														href="/konsolidasi/parameter/pemda/delete?id=01.19"
+														title="Delete" aria-label="Hapus" data-pjax="0"
+														role="modal-remote" data-request-method="post"
+														data-toggle="tooltip" data-confirm-title="Are you sure?"
+														data-confirm-message="Are you sure want to delete this item"><span
+															class="glyphicon glyphicon-trash"></span></a></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="kv-panel-after">
+										<div class="pull-left">
+											<span class="glyphicon glyphicon-arrow-right"></span>&nbsp;&nbsp;With
+											selected&nbsp;&nbsp;<a class="btn btn-danger btn-xs"
+												href="/konsolidasi/parameter/pemda/bulk-delete"
+												role="modal-remote-bulk" data-request-method="post"
+												data-confirm-title="Are you sure?"
+												data-confirm-message="Are you sure want to delete this item"><i
+												class="glyphicon glyphicon-trash"></i>&nbsp; Delete All</a>
+										</div>
+										<div class="clearfix"></div>
+									</div>
+									<div class="panel-footer">
+										<div class="kv-panel-pager">
+											<ul class="pagination">
+												<li class="first disabled"><span>Awal</span></li>
+												<li class="prev disabled"><span>&laquo;</span></li>
+												<li class="active"><a
+													href="/konsolidasi/parameter/pemda/index?page=1"
+													data-page="0">1</a></li>
+												<li><a href="/konsolidasi/parameter/pemda/index?page=2"
+													data-page="1">2</a></li>
+												<li><a href="/konsolidasi/parameter/pemda/index?page=3"
+													data-page="2">3</a></li>
+												<li><a href="/konsolidasi/parameter/pemda/index?page=4"
+													data-page="3">4</a></li>
+												<li><a href="/konsolidasi/parameter/pemda/index?page=5"
+													data-page="4">5</a></li>
+												<li><a href="/konsolidasi/parameter/pemda/index?page=6"
+													data-page="5">6</a></li>
+												<li><a href="/konsolidasi/parameter/pemda/index?page=7"
+													data-page="6">7</a></li>
+												<li><a href="/konsolidasi/parameter/pemda/index?page=8"
+													data-page="7">8</a></li>
+												<li><a href="/konsolidasi/parameter/pemda/index?page=9"
+													data-page="8">9</a></li>
+												<li><a
+													href="/konsolidasi/parameter/pemda/index?page=10"
+													data-page="9">10</a></li>
+												<li class="next"><a
+													href="/konsolidasi/parameter/pemda/index?page=2"
+													data-page="1">&raquo;</a></li>
+												<li class="last"><a
+													href="/konsolidasi/parameter/pemda/index?page=28"
+													data-page="27">Akhir</a></li>
+											</ul>
+										</div>
+
+										<div class="clearfix"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="ajaxCrudModal" class="fade modal" role="dialog"
+					tabindex="-1">
+					<div class="modal-dialog ">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true">&times;</button>
+
+							</div>
+							<div class="modal-body"></div>
+							<div class="modal-footer"></div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<footer class="main-footer">
+			<div class="pull-right hidden-xs">
+				<b>Version</b> 1.0.0
+			</div>
+			<strong>Copyright &copy; 2017 <a
+				href="https://kemenkeu.go.id">Direktorat Jenderal Perimbangan
+					Keuangan - Kementerian Keuangan</a></strong>
+		</footer>
+	</div>
+
+	<script src="/konsolidasi/assets/ce7eb4c4/jquery.js"></script>
+	<script src="/konsolidasi/assets/f0db5521/yii.js"></script>
+	<script src="/konsolidasi/assets/b2e11712/js/bootstrap.js"></script>
+	<script src="/konsolidasi/assets/a6ad55e5/ModalRemote.js"></script>
+	<script src="/konsolidasi/assets/a6ad55e5/ajaxcrud.js"></script>
+	<script src="/konsolidasi/assets/57d5dec5/js/kv-grid-checkbox.js"></script>
+	<script src="/konsolidasi/assets/a80237db/dist/js/bootstrap-dialog.js"></script>
+	<script src="/konsolidasi/assets/61d5e48a/js/dialog-yii.js"></script>
+	<script src="/konsolidasi/assets/57d5dec5/js/kv-grid-export.js"></script>
+	<script
+		src="/konsolidasi/assets/57d5dec5/js/jquery.resizableColumns.js"></script>
+	<script src="/konsolidasi/assets/57d5dec5/js/kv-grid-toggle.js"></script>
+	<script src="/konsolidasi/assets/f0db5521/yii.gridView.js"></script>
+	<script src="/konsolidasi/assets/63aa3ad7/jquery.pjax.js"></script>
+	<script src="/konsolidasi/assets/915b8f08/js/app.min.js"></script>
+	<script type="text/javascript">jQuery(function ($) {
+kvSelectRow('crud-datatable', 'danger');
+jQuery('#crud-datatable').yiiGridView('setSelectionColumn', {"name":"selection[]","class":"kv-row-checkbox","multiple":true,"checkAll":"selection_all"});
+krajeeYiiConfirm('krajeeDialog');
+var kvGridInit_eea7d7fb=function(){
+jQuery('#crud-datatable .export-html').gridexport(kvGridExp_9675587e);jQuery('#crud-datatable .export-csv').gridexport(kvGridExp_dee944fa);jQuery('#crud-datatable .export-txt').gridexport(kvGridExp_6001d406);jQuery('#crud-datatable .export-xls').gridexport(kvGridExp_c00601d0);jQuery('#crud-datatable .export-pdf').gridexport(kvGridExp_67ec33c3);jQuery('#crud-datatable .export-json').gridexport(kvGridExp_164ed2f3);jQuery("#crud-datatable-container").resizableColumns('destroy').resizableColumns({"store":null,"resizeFromBody":false});kvToggleData(kvTogOpts_3252bfeb);
+};
+kvGridInit_eea7d7fb();
+jQuery('#w1').dropdown();
+jQuery("#crud-datatable-pjax").on('pjax:timeout', function(e){e.preventDefault()}).on('pjax:send', function(){$("#crud-datatable-pjax").addClass('kv-grid-loading')}).off('pjax:complete.5b7e74fa').on('pjax:complete.5b7e74fa', function(){setTimeout(kvGridInit_eea7d7fb, 2500);$("#crud-datatable-pjax").removeClass('kv-grid-loading');
+kvToggleData(kvTogOpts_3252bfeb);});
+jQuery('#crud-datatable').yiiGridView({"filterUrl":"\/konsolidasi\/parameter\/pemda","filterSelector":"#crud-datatable-filters input, #crud-datatable-filters select"});
+jQuery("#crud-datatable-pjax").off('pjax:complete.ed1f5f44').on('pjax:complete.ed1f5f44', function(){ kvSelectRow('crud-datatable', 'danger');
+kvSelectColumn('crud-datatable', {"name":"selection[]","multiple":true,"checkAll":"selection_all"}); });
+jQuery(document).pjax("#crud-datatable-pjax a", {"push":true,"replace":false,"timeout":1000,"scrollTo":false,"container":"#crud-datatable-pjax"});
+jQuery(document).on("submit", "#crud-datatable-pjax form[data-pjax]", function (event) {jQuery.pjax.submit(event, {"push":true,"replace":false,"timeout":1000,"scrollTo":false,"container":"#crud-datatable-pjax"});});
+jQuery('#ajaxCrudModal').modal({"show":false});
+});</script>
+</body>
+</html>

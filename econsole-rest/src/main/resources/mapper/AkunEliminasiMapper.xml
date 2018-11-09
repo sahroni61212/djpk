@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sh.djpk.econsole.rest.dao.AkunEliminasiDao">
+
+	<select id="getEliminasi" resultType="hashmap">
+		select
+		concat(a.kd_pemda,'.
+		', b.urpemda) as pemda,a.transfer_id,
+		concat(a.kd_rek_1,'.',a.kd_rek_2,'.',a.kd_rek_3) as level3,
+		concat(a.kd_rek_1,'.',a.kd_rek_2,'.',a.kd_rek_3,'.',a.kd_rek_4,'.',a.kd_rek_5)
+		as level5,
+		case WHEN c.nm_akrual_3 ISNULL THEN 'Rekening tidak
+		terdaftar di Master Rekening' ELSE c.nm_akrual_3 end,
+		case
+		WHEN
+		a.transfer_id = 1 THEN 'Regional Dalam Provinsi'
+		WHEN a.transfer_id = 2
+		then 'Antar Provinsi Dalam Wilayah'
+		WHEN a.transfer_id = 3 then 'Antar
+		Provinsi Luar Wilayah dan Pusat' else
+		''
+		end as jenis_transfer
+		from
+		elimination_account a
+		LEFT JOIN ref_pemda2 b on
+		concat(kdprovinsi,'.',kdpemda ) =
+		a.kd_pemda
+		LEFT JOIN ref_akrual_3 c on
+		concat(c.kd_akrual_1,'.',c.kd_akrual_2,'.',c.kd_akrual_3) =
+		concat(a.kd_rek_1,'.',a.kd_rek_2,'.',a.kd_rek_3)
+		where
+		a.tahun =
+		#{tahunAnggaran}
+		and a.tahun = b.tahun
+		ORDER BY kd_pemda,level3,level5
+
+	</select>
+
+	<select id="getEliminasiPemda" resultType="hashmap">
+		select
+		concat(a.kd_pemda, b.urpemda) as pemda,a.transfer_id,
+		concat(a.kd_rek_1,'.',a.kd_rek_2,'.',a.kd_rek_3) as level3,
+		concat(a.kd_rek_1,'.',a.kd_rek_2,'.',a.kd_rek_3,'.',a.kd_rek_4,'.',a.kd_rek_5)
+		as level5,
+		case WHEN c.nm_akrual_3 ISNULL THEN 'Rekening tidak
+		terdaftar di Master Rekening' ELSE c.nm_akrual_3 end,
+		case
+		WHEN
+		a.transfer_id = 1 THEN 'Regional Dalam Provinsi'
+		WHEN a.transfer_id = 2
+		then 'Antar Provinsi Dalam Wilayah'
+		WHEN a.transfer_id = 3 then 'Antar
+		Provinsi Luar Wilayah dan Pusat' else
+		''
+		end as jenis_transfer
+		from
+		elimination_account a
+		LEFT JOIN ref_pemda2 b on
+		concat(kdprovinsi,'.',kdpemda ) =
+		a.kd_pemda
+		LEFT JOIN ref_akrual_3 c on
+		concat(c.kd_akrual_1,'.',c.kd_akrual_2,'.',c.kd_akrual_3) =
+		concat(a.kd_rek_1,'.',a.kd_rek_2,'.',a.kd_rek_3)
+		where
+		a.tahun =
+		#{tahunAnggaran}
+		and a.kd_pemda = #{kodePemda}
+		and a.tahun = b.tahun
+		ORDER BY kd_pemda,level3,level5
+
+	</select>
+
+
+	<select id="getHead" resultType="hashmap">
+		SELECT a.* from
+		compilation_header a
+		WHERE
+		a.status = 2
+		AND a.aktif = 'Y'
+
+	</select>
+
+	<select id="getResiprokal" resultType="hashmap">
+		SELECT DISTINCT
+		(a.resiprokal_id) from ref_eliminasi a
+		where
+		a.laporan_id = #{lapId}
+		AND
+		a.status = 'Y'
+		AND a.tahun = #{thn}
+		ORDER BY a.resiprokal_id ASC
+
+	</select>
+
+	<select id="getAkun" resultType="hashmap">
+		select a.* FROM ref_eliminasi a
+		WHERE a.resiprokal_id = #{resId}
+		and a.tahun = #{thn}
+		ORDER BY kd_rek1
+		ASC
+
+	</select>
+
+	<select id="getCompilation53" resultType="hashmap">
+		SELECT a.* FROM compilation_record5 a, ref_eliminasi b
+		WHERE
+		b.resiprokal_id = #{resId}
+		AND a.kd_rek_1 = b.kd_rek1
+		AND a.kd_rek_2 =
+		b.kd_rek2
+		AND a.kd_rek_3 = b.kd_rek3
+		AND a.kd_rek_4 = b.kd_rek4
+		AND
+		a.kd_rek_5 = b.kd_rek5
+		AND a.tahun = b.tahun
+
+		AND b.kd_rek1 = #{kd1}
+		AND
+		b.kd_rek2 = #{kd2}
+		AND b.kd_rek3 = #{kd3}
+		AND b.kd_rek4 = #{kd4}
+		AND
+		b.kd_rek5 = #{kd5}
+		AND b.tahun = #{thn}
+
+		AND kd_pemda <![CDATA[ <> ]]>
+		concat(a.kd_provinsi,'.00')
+		AND cheader_id = #{headId}
+		ORDER BY kd_pemda
+		ASC
+
+	</select>
+
+	<select id="getCompilation43" resultType="hashmap">
+		SELECT a.* FROM compilation_record5 a, ref_eliminasi b
+		WHERE
+		b.resiprokal_id = #{resId}
+		AND a.kd_rek_1 = b.kd_rek1
+		AND a.kd_rek_2 =
+		b.kd_rek2
+		AND a.kd_rek_3 = b.kd_rek3
+		AND a.kd_rek_4 = b.kd_rek4
+		AND
+		a.tahun = b.tahun
+
+		AND b.kd_rek1 = #{kd1}
+		AND b.kd_rek2 = #{kd2}
+		AND b.kd_rek3 = #{kd3}
+		AND
+		b.kd_rek4 = #{kd4}
+		AND b.tahun = #{thn}
+
+		AND kd_pemda <![CDATA[ <> ]]>
+		concat(a.kd_provinsi,'.00')
+		AND cheader_id = #{headId}
+		ORDER BY kd_pemda
+		ASC
+
+	</select>
+
+	<select id="getCompilation33" resultType="hashmap">
+		SELECT a.* FROM compilation_record5 a, ref_eliminasi b
+		WHERE
+		b.resiprokal_id = #{resId}
+		AND a.kd_rek_1 = b.kd_rek1
+		AND a.kd_rek_2 =
+		b.kd_rek2
+		AND a.kd_rek_3 = b.kd_rek3
+		AND a.tahun = b.tahun
+
+		AND b.kd_rek1 = #{kd1}
+		AND b.kd_rek2 = #{kd2}
+		AND b.kd_rek3 = #{kd3}
+		AND
+		b.tahun = #{thn}
+
+		AND kd_pemda <![CDATA[ <> ]]>
+		concat(a.kd_provinsi,'.00')
+		AND cheader_id = #{headId}
+		ORDER BY kd_pemda
+		ASC
+
+	</select>
+
+	<select id="getCompilation52" resultType="hashmap">
+		SELECT a.* FROM
+		compilation_record5 a, ref_eliminasi b
+		WHERE
+		b.resiprokal_id = #{resId}
+		AND a.kd_rek_1 = b.kd_rek1
+		AND a.kd_rek_2 = b.kd_rek2
+		AND a.kd_rek_3 =
+		b.kd_rek3
+		AND a.kd_rek_4 = b.kd_rek4
+		AND a.kd_rek_5 = b.kd_rek5
+		AND
+		a.tahun = b.tahun
+
+		AND b.kd_rek1 = #{kd1}
+		AND b.kd_rek2 = #{kd2}
+		AND
+		b.kd_rek3 = #{kd3}
+		AND b.kd_rek4 = #{kd4}
+		AND b.kd_rek5 = #{kd5}
+		AND
+		b.tahun = #{thn}
+
+		AND kd_pemda = concat(a.kd_provinsi,'.00')
+		AND
+		cheader_id = #{headId}
+		ORDER BY kd_pemda ASC
+
+	</select>
+
+	<select id="getCompilation42" resultType="hashmap">
+		SELECT a.* FROM
+		compilation_record5 a, ref_eliminasi b
+		WHERE
+		b.resiprokal_id = #{resId}
+		AND a.kd_rek_1 = b.kd_rek1
+		AND a.kd_rek_2 = b.kd_rek2
+		AND a.kd_rek_3 =
+		b.kd_rek3
+		AND a.kd_rek_4 = b.kd_rek4
+		AND a.tahun = b.tahun
+
+		AND b.kd_rek1 = #{kd1}
+		AND b.kd_rek2 = #{kd2}
+		AND b.kd_rek3 = #{kd3}
+		AND
+		b.kd_rek4 = #{kd4}
+		AND b.tahun = #{thn}
+
+		AND kd_pemda =
+		concat(a.kd_provinsi,'.00')
+		AND cheader_id = #{headId}
+		ORDER BY kd_pemda
+		ASC
+
+	</select>
+
+	<select id="getCompilation32" resultType="hashmap">
+		SELECT a.* FROM
+		compilation_record5 a, ref_eliminasi b
+		WHERE
+		b.resiprokal_id = #{resId}
+		AND a.kd_rek_1 = b.kd_rek1
+		AND a.kd_rek_2 = b.kd_rek2
+		AND a.kd_rek_3 =
+		b.kd_rek3
+		AND a.tahun = b.tahun
+
+		AND b.kd_rek1 = #{kd1}
+		AND b.kd_rek2 = #{kd2}
+		AND b.kd_rek3 = #{kd3}
+		AND
+		b.tahun = #{thn}
+
+		AND kd_pemda = concat(a.kd_provinsi,'.00')
+		AND cheader_id = #{headId}
+		ORDER BY kd_pemda ASC
+
+	</select>
+
+	<insert id="insertEliminasi">
+		insert into elimination_account
+		(tahun, kd_pemda,
+		kd_rek_1, kd_rek_2, kd_rek_3, kd_rek_4, kd_rek_5, nama_rek,
+		d_k, nilai,
+		transfer_id, cheader_id, periode_id)
+		values
+		(#{params.tahun},#{params.kd_pemda},#{params.kd_rek_1},#{params.kd_rek_2},#{params.kd_rek_3},
+		#{params.kd_rek_4},#{params.kd_rek_5},#{params.nama_rek},
+		#{params.d_k},#{params.nilai},#{params.transfer_id},#{params.cheader_id},#{params.periode_id})
+	</insert>
+
+	<update id="updateheader">
+		update compilation_header set status = 1 where id = #{headId}
+	</update>
+
+	<select id="getSaldoAkun" resultType="hashmap">
+		SELECT sum(a.realisasi)
+		FROM compilation_record5 a
+		WHERE
+		a.tahun = #{params.tahun}
+		AND kd_pemda =
+		#{params.kd_pemda}
+		AND a.kd_rek_1 = #{params.kd_rek_1}
+		AND a.kd_rek_2 =
+		#{params.kd_rek_2}
+		AND a.kd_rek_3 = #{params.kd_rek_3}
+		AND a.kd_rek_4 =
+		#{params.kd_rek_4}
+		AND cheader_id = #{params.cheader_id}
+		AND periode_id
+		= #{params.periode_id}
+
+
+	</select>
+
+	<select id="getelimhead" resultType="hashmap">
+		select a.*,
+		case
+		WHEN a.status_balance = '0' THEN 'SAMA'
+		WHEN a.status_balance = '1' THEN
+		'BEDA'
+		else ' '
+		end as sts_bal,
+		c.nama
+		from elimination_header a, ref_laporan c
+		where
+		a.tahun = #{thn}
+		and a.laporan_id = c.id
+
+	</select>
+	
+	<insert id="insertelimhead">
+		insert into elimination_header
+		(cheader_id, tahun, otomatis, manual, status_balance, laporan_id,  periode_id)
+		values
+		(#{params.cheader_id}, #{params.tahun}, #{params.otomatis}, #{params.manual}, #{params.status_balance}, #{params.laporan_id},#{params.periode_id})
+	</insert>
+
+
+
+</mapper>

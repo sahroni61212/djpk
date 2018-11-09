@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="./../../template/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form id="formUsman">
+			<p:growl id="messages" showDetail="true" />
+			<div>
+				<p:outputLabel value="User Management" />
+			</div>
+			<div class="ui-g">
+				<div class="ui-g-12 ui-md-6 ui-lg-3" style="width: 100%"
+					align="left">
+					<p:commandButton value="Tambah" action="#{usmanCtl.add}"
+						ajax="true" icon="fa fa-plus-circle" />
+
+				</div>
+				<div class="ui-g-12 ui-md-6 ui-lg-3" style="width: 100%"
+					align="right">
+					<p:inputText value="#{usmanCtl.searchIndexUsername}"
+						placeholder="username" onchange="submit()"
+						valueChangeListener="#{usmanCtl.eventChangeUsername}"></p:inputText>
+				</div>
+
+			</div>
+			<p:dataTable id="listUser" var="listUser"
+				value="#{usmanCtl.listUser}" paginator="true" rows="15"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+				paginatorPosition="bottom">
+				<p:column headerText="Username">
+					<h:outputText value="#{listUser.username}" />
+				</p:column>
+
+				<p:column headerText="Email">
+					<h:outputText value="#{listUser.email}" />
+				</p:column>
+
+				<p:column headerText="Status">
+					<h:outputText
+						value="#{listUser.status eq 10 ? 'Active' : (listUser.status eq 1 ? 'Inactive' : 'Deleted')}" />
+				</p:column>
+
+				<p:column headerText="Role">
+					<h:outputText value="#{listUser.role}" />
+				</p:column>
+				<p:column headerText="Kd User">
+					<h:outputText value="#{listUser.ref_user_name}" />
+				</p:column>
+				<p:column headerText="Pemda">
+					<h:outputText value="#{listUser.nama_pemda}" />
+				</p:column>
+				<p:column headerText="Aksi"  style="width:140px">
+					<p:commandButton icon="fa fa-eye" action="#{usmanCtl.view}"
+						ajax="true">
+						<f:setPropertyActionListener value="#{listUser}"
+							target="#{usmanCtl.data}" />
+					</p:commandButton>
+					<p:commandButton icon="fa fa-pencil" action="#{usmanCtl.edit}"
+						ajax="true">
+						<f:setPropertyActionListener value="#{listUser}"
+							target="#{usmanCtl.data}" />
+					</p:commandButton>
+					<p:commandButton icon="fa fa-trash" onclick="PF('cd').show()"
+						ajax="true">
+						<f:setPropertyActionListener value="#{listUser}"
+							target="#{usmanCtl.data}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:confirmDialog
+				message="Apakah anda yakin akan menghapus pengguna ini?"
+				header="Konfirmasi Hapus Pengguna" severity="alert" widgetVar="cd">
+				<p:commandButton value="Batal" onclick="PF('cd').hide();"
+					icon="fa fa-times-circle" type="button" />
+				<p:commandButton action="#{usmanCtl.delete}"
+					icon="fa fa-check-circle" oncomplete="PF('cd').hide();"
+					value="Setuju" update="formUsman" ajax="true" />
+			</p:confirmDialog>
+
+
+
+			<!-- 			<p:dialog header="Basic Dialog" widgetVar="dlg1" modal="true" height="100"> -->
+			<!-- 				<h:outputText value="Apakah anda yakin akan menghapus pengguna ini?" /> -->
+			<!-- 				<h:outputText value="#{usmanCtl.data}" /> -->
+			<!-- 			</p:dialog> -->
+
+			<!-- 			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"> -->
+			<!-- 				<p:commandButton value="Setuju" type="button" -->
+			<!-- 					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" /> -->
+			<!-- 				<p:commandButton value="Batal" type="button" -->
+			<!-- 					styleClass="ui-confirmdialog-no" icon="ui-icon-close" /> -->
+			<!-- 			</p:confirmDialog> -->
+		</h:form>
+
+
+	</ui:define>
+
+</ui:composition>
+</html>
+

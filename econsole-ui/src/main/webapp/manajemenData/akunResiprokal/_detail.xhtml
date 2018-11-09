@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="./../../template/template.xhtml">
+
+
+	<ui:define name="content">
+
+		<h:form>
+			<p:growl id="messages" showDetail="true" />
+
+			<div>
+				<p:outputLabel value="Tambah Akun Resiprokal" />
+			</div>
+			<p:separator />
+
+			<p:panelGrid columns="2" layout="grid">
+			
+				<p:panelGrid columns="1" layout="grid">
+				
+					<p:outputLabel value="Jenis Laporan" style="width:100px"></p:outputLabel>
+					<p:selectOneMenu id="cbJenisLaporan"
+						value="#{akunResiprokal.selectedJenisLaporan}" lazy="true"
+						style="width:300px" >
+						<f:selectItems value="#{akunResiprokal.selectOneJenisLaporan}"
+							var="jenisLaporan" itemValue="#{jenisLaporan.global_param_value}"
+							itemLabel="#{jenisLaporan.global_param_label}">
+						
+						</f:selectItems>
+						<f:ajax event="change" render="cbAkr1" listener="#{akunResiprokal.getakr1bylap}" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="Jenis Transfer" style="width:100px"></p:outputLabel>
+					<p:selectOneMenu id="cbtransfer"
+						value="#{akunResiprokal.selectedJenisTransfer}" lazy="true"
+						style="width:300px">
+						<f:selectItems value="#{akunResiprokal.selectOneJenisTransfer}"
+							var="trf" itemValue="#{trf.id}"
+							itemLabel="#{trf.jenis_transfer}">
+						</f:selectItems>
+
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="Level Data" style="width:100px"></p:outputLabel>
+					<p:selectOneMenu id="cblevel"
+						value="#{akunResiprokal.selectedLevelData}" lazy="true"
+						style="width:300px">
+						<f:selectItems value="#{akunResiprokal.selectOneLevelData}"
+							var="lvl" itemValue="#{lvl.id}"
+							itemLabel="#{lvl.nama}">
+						</f:selectItems>
+
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="Lokasi Akun" style="width:100px"></p:outputLabel>
+					<p:selectOneMenu id="cbloc"
+						value="#{akunResiprokal.selectedLocation}" lazy="true"
+						style="width:300px">
+						<f:selectItems value="#{akunResiprokal.selectOneLocation}"
+							var="loc" itemValue="#{loc.id}"
+							itemLabel="#{loc.nama}">
+						</f:selectItems>
+
+					</p:selectOneMenu>
+					
+					
+					<p:outputLabel value="Resiprokal ID" style="width:100px"></p:outputLabel>
+					<p:inputText required="true" value="#{akunResiprokal.resiId}">
+						<p:keyFilter regEx="0-9"></p:keyFilter>
+					</p:inputText>
+					
+					<p:outputLabel value="Debet / Kredit" style="width:100px"></p:outputLabel>
+					<p:inputText required="true" value="#{akunResiprokal.jenisDk}">
+						<p:keyFilter regEx="DK"></p:keyFilter>
+					</p:inputText>
+				
+					
+					
+				
+					
+				
+				</p:panelGrid>
+			
+			
+
+				<p:panelGrid columns="1" layout="grid">
+					<p:outputLabel value="Kode Akrual 1" style="width:100px"></p:outputLabel>
+
+					<p:selectOneMenu id="cbAkr1" value="#{akunResiprokal.selectedAkr1}"
+						lazy="true" style="width:300px">
+						<f:selectItems value="#{akunResiprokal.selectOneAkr1}" 
+							var="cbakr1" itemValue="#{cbakr1.kd_akrual_1}"
+							itemLabel="#{cbakr1.nama_akun}">
+						</f:selectItems>
+						<f:ajax event="change" render="cbAkr2" listener="#{akunResiprokal.getakr2}" />
+
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Kode Akrual 2" style="width:100px"></p:outputLabel>
+					<p:selectOneMenu id="cbAkr2" value="#{akunResiprokal.selectedAkr2}"
+						lazy="true" style="width:300px">
+						<f:selectItems value="#{akunResiprokal.selectOneAkr2}"
+							var="cbakr2" itemValue="#{cbakr2.kd_akrual_2}"
+							itemLabel="#{cbakr2.nama_akun}">
+						</f:selectItems>
+						<f:ajax event="change" render="cbAkr3" listener="#{akunResiprokal.getakr3}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Kode Akrual 3" style="width:100px"></p:outputLabel>
+					<p:selectOneMenu id="cbAkr3" value="#{akunResiprokal.selectedAkr3}"
+						lazy="true" style="width:300px">
+						<f:selectItems value="#{akunResiprokal.selectOneAkr3}"
+							var="cbakr3" itemValue="#{cbakr3.kd_akrual_3}"
+							itemLabel="#{cbakr3.nama_akun}">
+						</f:selectItems>
+						<f:ajax event="change" render="cbAkr4" listener="#{akunResiprokal.getakr4}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Kode Akrual 4" style="width:100px"></p:outputLabel>
+					<p:selectOneMenu id="cbAkr4" value="#{akunResiprokal.selectedAkr4}"
+						lazy="true" style="width:300px">
+						<f:selectItems value="#{akunResiprokal.selectOneAkr4}"
+							var="cbakr4" itemValue="#{cbakr4.kd_akrual_4}"
+							itemLabel="#{cbakr4.nama_akun}">
+						</f:selectItems>
+						<f:ajax event="change" render="cbAkr5" listener="#{akunResiprokal.getakr5}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Kode Akrual 5" style="width:100px"></p:outputLabel>
+					<p:selectOneMenu id="cbAkr5" value="#{akunResiprokal.selectedAkr5}"
+						lazy="true" style="width:300px">
+						<f:selectItems value="#{akunResiprokal.selectOneAkr5}"
+							var="cbakr5" itemValue="#{cbakr5.kd_akrual_5}"
+							itemLabel="#{cbakr5.nama_akun}">
+						</f:selectItems>
+
+					</p:selectOneMenu>
+
+				</p:panelGrid>
+				
+				
+
+				
+
+
+			</p:panelGrid>
+
+
+
+			<h:panelGrid columns="2" border="0">
+				<p:commandButton value="Simpan" action="#{akunResiprokal.proses}"
+					ajax="true" update="messages" icon="fa fa-floppy-o" />
+				<p:button value="Kembali" outcome="_index" icon="fa fa-times-circle" />
+			</h:panelGrid>
+
+			<br></br>
+
+
+
+		</h:form>
+
+	</ui:define>
+
+
+</ui:composition>
+</html>
+

@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="./../../template/template.xhtml">
+
+	
+	<ui:define name="content">
+	<h:form>
+		<div>
+			<p:outputLabel value="Akun Resiprokal" />
+		</div>
+		<p:separator />
+		<div class="ui-g">
+				<div class="ui-g-12 ui-md-6 ui-lg-3" style="width: 100%"
+					align="left">
+					<p:commandButton value="Tambah Akun" action="#{akunResiprokal.add}"
+						ajax="true" icon="fa fa-plus-circle" />
+						
+					<p:commandButton value="Refresh" action="#{akunResiprokal.reload}"
+						ajax="true" icon="fa fa-undo" />
+
+				</div>
+				
+				
+		</div>
+	
+        <p:dataTable id="dataTable" var="mapAkun" value="#{akunResiprokal.mapAkun}"
+                 paginator="true" 
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" 
+                 paginatorPosition="bottom"
+                 rows="20">
+        
+ 
+        <p:column style="width:10%" >
+            <f:facet name="header">
+                <h:outputText value="ID Resiprokal" />
+            </f:facet>
+            <h:outputText value="#{mapAkun.resiprokal_id}" />
+        </p:column>
+ 		
+ 		<p:column style="width:10%">
+            <f:facet name="header">
+                <h:outputText value="Data" />
+            </f:facet>
+            <h:outputText value="#{mapAkun.nama}" />
+        </p:column>
+        
+        <p:column style="width:15%">
+            <f:facet name="header">
+                <h:outputText value="Jenis Transfer" />
+            </f:facet>
+            <h:outputText value="#{mapAkun.jenis_transfer}" />
+        </p:column>
+         <p:column style="width:10%">
+            <f:facet name="header">
+                <h:outputText value="Akun" />
+            </f:facet>
+            <h:outputText value="#{mapAkun.akun}" />
+        </p:column>
+        
+       <p:column style="width:30%">
+            <f:facet name="header">
+                <h:outputText value="Nama Akun" />
+            </f:facet>
+            <h:outputText value="#{mapAkun.nama_akun}" />
+        </p:column>
+        
+        <p:column style="width:5%">
+            <f:facet name="header">
+                <h:outputText value="D_K" />
+            </f:facet>
+            <h:outputText value="#{mapAkun.d_k}" />
+        </p:column>
+        
+        
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Aksi" />
+                	
+            </f:facet>
+            <p:commandButton icon="fa fa-eye" />
+					<p:commandButton icon="fa fa-pencil" />
+					<p:commandButton icon="fa fa-trash" />
+            
+        </p:column>
+ 
+       
+    </p:dataTable>
+ 
+    </h:form>
+    </ui:define>	
+     
+
+</ui:composition>
+
+</html>
+

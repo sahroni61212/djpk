@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="./../../template/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form>
+			<p:growl id="messages" showDetail="true" />
+			<p:outputLabel value="Tambah GROUP dan AKSES GROUP"></p:outputLabel>
+			<div>
+				<p:panelGrid columns="3" layout="grid">
+					<p:outputLabel value="Name"></p:outputLabel>
+					<p:inputText value="#{userGroupCtl.data.name}" required="true"
+						id="name"></p:inputText>
+					<h:message for="name" style="color:red" />
+					
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+					<h:panelGrid columns="2" border="0">
+					<p:commandButton value="Simpan" icon="fa fa-floppy-o"
+					action="#{userGroupCtl.create}" ajax="true" update="messages" />
+					<p:button value="Batal" outcome="_index"  icon="fa fa-times-circle"/>
+					</h:panelGrid>
+				</p:panelGrid>
+
+			</div>
+		
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>
+

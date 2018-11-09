@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sh.djpk.econsole.rest.dao.AkunResiprokalDao">
+
+	
+	<select id="getResiprokal" resultType="hashmap">
+		SELECT a.resiprokal_id, a.tahun,c.nama, b.jenis_transfer, a.level_data, a.d_k,
+case 
+		WHEN a.level_data = 3 THEN concat(TRIM(a.kd_rek1),'.',TRIM(a.kd_rek2), '.',TRIM(a.kd_rek3))
+		WHEN a.level_data = 4 THEN concat(TRIM(a.kd_rek1),'.',TRIM(a.kd_rek2), '.',TRIM(a.kd_rek3),'.',TRIM(a.kd_rek4))
+		WHEN a.level_data = 5 THEN concat(TRIM(a.kd_rek1),'.',TRIM(a.kd_rek2), '.',TRIM(a.kd_rek3),'.',TRIM(a.kd_rek4),'.',TRIM(a.kd_rek5))	
+else 'NN'  
+end as akun
+from ref_eliminasi a, ref_transfer b, ref_laporan c
+where
+a.status = 'Y'
+and a.transfer_id = b.id
+and a.laporan_id = c.id
+and a.tahun = #{tahun}
+ORDER BY a.resiprokal_id, akun ASC
+
+	</select>
+	
+	<select id="getResiprokal1" resultType="hashmap">
+		SELECT a.resiprokal_id, a.tahun,c.nama, b.jenis_transfer, a.level_data, a.d_k,
+case 
+		WHEN a.level_data = 3 THEN concat(TRIM(a.kd_rek1),'.',TRIM(a.kd_rek2), '.',TRIM(a.kd_rek3))
+		WHEN a.level_data = 4 THEN concat(TRIM(a.kd_rek1),'.',TRIM(a.kd_rek2), '.',TRIM(a.kd_rek3),'.',TRIM(a.kd_rek4))
+		WHEN a.level_data = 5 THEN concat(TRIM(a.kd_rek1),'.',TRIM(a.kd_rek2), '.',TRIM(a.kd_rek3),'.',TRIM(a.kd_rek4),'.',TRIM(a.kd_rek5))	
+else 'NN'  
+end as akun
+from ref_eliminasi a, ref_transfer b, ref_laporan c
+where
+a.status = 'Y'
+and a.transfer_id = b.id
+and a.laporan_id = c.id
+ORDER BY a.resiprokal_id, akun ASC
+
+	</select>
+	
+	<select id="getNama3" resultType="hashmap">
+		select a.nm_akrual_3 from ref_akrual_3 a
+		where 
+		concat(a.kd_akrual_1,'.',a.kd_akrual_2,'.',a.kd_akrual_3) = #{akun}
+
+	</select>
+	
+	<select id="getNama4" resultType="hashmap">
+		select a.mm_akrual_4 from ref_akrual_4 a
+		where 
+		concat(a.kd_akrual_1,'.',a.kd_akrual_2,'.',a.kd_akrual_3,'.',a.kd_akrual_4) = #{akun}
+
+	</select>
+	
+	<select id="getNama5" resultType="hashmap">
+		select a.nm_akrual_5 from ref_akrual_5 a
+		where 
+		concat(a.kd_akrual_1,'.',a.kd_akrual_2,'.',a.kd_akrual_3,'.',a.kd_akrual_4,'.',a.kd_akrual_5) = #{akun}
+
+	</select>
+	
+	<select id="getAkr1" resultType="hashmap">
+		select a.*  from ref_akrual_1 a
+
+	</select>
+	
+	<select id="getAkr1a" resultType="hashmap">
+		select a.* , concat(a.kd_akrual_1,' . ',a.nm_akrual_1) as nama_akun from ref_akrual_1 a
+		where a.kd_akrual_1 ='4' 
+		or a.kd_akrual_1 ='5' or a.kd_akrual_1 ='6' or a.kd_akrual_1 ='7' 
+
+	</select>
+	<select id="getAkr1b" resultType="hashmap">
+		select a.*, concat(a.kd_akrual_1,' . ',a.nm_akrual_1) as nama_akun from ref_akrual_1 a
+		where a.kd_akrual_1 ='1' 
+		or a.kd_akrual_1 ='2' or a.kd_akrual_1 ='3'
+
+	</select>
+	<select id="getAkr1c" resultType="hashmap">
+		select a.*, concat(a.kd_akrual_1,' . ',a.nm_akrual_1) as nama_akun  from ref_akrual_1 a
+		where a.kd_akrual_1 ='8' 
+		or a.kd_akrual_1 ='9'
+
+	</select>
+	
+	<select id="getAkr2" resultType="hashmap">
+		select a.*, concat(a.kd_akrual_2,' . ',a.nm_akrual_2) as nama_akun  from ref_akrual_2 a
+		where a.kd_akrual_1 = #{akr1}
+
+	</select>
+	
+	<select id="getAkr3" resultType="hashmap">
+		select a.*, concat(a.kd_akrual_3,' . ',a.nm_akrual_3) as nama_akun from ref_akrual_3 a
+		where 
+		a.kd_akrual_1 = #{akr1}
+		and a.kd_akrual_2 = #{akr2}
+
+	</select>
+	
+	<select id="getAkr4" resultType="hashmap">
+		select a.*, concat(a.kd_akrual_4,' . ',a.mm_akrual_4) as nama_akun from ref_akrual_4 a
+		where 
+		a.kd_akrual_1 = #{akr1}
+		and a.kd_akrual_2 = #{akr2}
+		and a.kd_akrual_3 = #{akr3}
+
+	</select>
+	
+	<select id="getAkr5" resultType="hashmap">
+		select a.*, concat(a.kd_akrual_5,' . ',a.nm_akrual_5) as nama_akun from ref_akrual_5 a
+		where 
+		a.kd_akrual_1 = #{akr1}
+		and a.kd_akrual_2 = #{akr2}
+		and a.kd_akrual_3 = #{akr3}
+		and a.kd_akrual_4 = #{akr4}
+
+	</select>
+	
+	<insert id="insertresiprokal">
+		insert into ref_eliminasi(id, tahun, kd_rek1, kd_rek2, kd_rek3, kd_rek4, kd_rek5, d_k, laporan_id, transfer_id, resiprokal_id, level_data, location_account, status)
+		values
+		(#{params.id}, #{params.tahun}, #{params.kd_rek1}, #{params.kd_rek2}, #{params.kd_rek3}, #{params.kd_rek4}, #{params.kd_rek5}, #{params.d_k}, #{params.laporan_id}, #{params.transfer_id}, #{params.resiprokal_id}, #{params.level_data}, #{params.location_account},'Y')
+	</insert>	
+
+	
+
+	
+
+</mapper>

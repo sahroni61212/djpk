@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="./../../template/template.xhtml">
+
+	
+	<ui:define name="content">
+	
+	<h:form>
+	<p:growl id="messages" showDetail="true"/>
+	
+		<div>
+				<p:outputLabel value="Proses Eliminasi Akun" />
+		</div>
+		<p:separator />
+		
+			<p:panelGrid columns="1" layout="grid">
+					
+
+					<p:outputLabel value="Header ID" style="width:100px"></p:outputLabel>
+					
+					<p:selectOneMenu id="cbHeader"
+						value="#{akunEliminasi.selectedHeader}" lazy="true"
+						style="width:300px">
+						<f:selectItems value="#{akunEliminasi.selectOneHeader}"
+							var="ccVaR" itemValue="#{ccVaR.id}"
+							itemLabel="#{ccVaR.id}">
+						</f:selectItems>
+
+					</p:selectOneMenu>
+					
+					
+					<p:outputLabel value="Jenis Data" style="width:100px"></p:outputLabel>
+					
+					<p:selectOneMenu id="cbJenisLaporan"
+						value="#{akunEliminasi.selectedJenisLaporan}" lazy="true"
+						style="width:300px">
+						<f:selectItems value="#{akunEliminasi.selectOneJenisLaporan}"
+							var="jenisLaporan" itemValue="#{jenisLaporan.global_param_value}"
+							itemLabel="#{jenisLaporan.global_param_label}">
+						</f:selectItems>
+
+					</p:selectOneMenu>
+					
+			</p:panelGrid>		
+				
+			
+				
+				<h:panelGrid columns="2" border="0">	
+				<p:commandButton value="Proses" action="#{akunEliminasi.proses}"
+					ajax="true" update="messages" icon="fa fa-floppy-o"/>		
+				<p:button value="Kembali" outcome="_index" icon="fa fa-times-circle" />
+				</h:panelGrid>
+
+		<br></br>
+		
+				
+			
+	</h:form>
+    
+    </ui:define>	
+     
+
+</ui:composition>
+</html>
+

@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="./../../template/template.xhtml">
+
+	
+	<ui:define name="content">
+                <div>
+				<p:outputLabel value="Jenis Transfer" />
+		</div>
+		<p:separator />
+		<div class="ui-g">
+				<div class="ui-g-12 ui-md-6 ui-lg-3" style="width: 100%"
+					align="left">
+					<p:commandButton value="Tambah" action="#{transferCtl.add}"
+						ajax="true" icon="fa fa-plus-circle"/>
+
+				</div>
+				
+			</div>
+                
+		<p:dataTable id="dataTable" var="trf" value="#{transferCtl.listTransfer}"
+                 paginator="true" 
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" 
+                 paginatorPosition="bottom"
+                 rows="10">
+        <f:facet name="header">
+            Jenis Transfer
+        </f:facet>
+ 
+        <p:column style="width:90px">
+            <f:facet name="header">
+                <h:outputText value="ID" />
+            </f:facet>
+            <h:outputText value="#{trf.id}" />
+        </p:column>
+ 
+        <p:column style="width:850px">
+            <f:facet name="header">
+                <h:outputText value="Jenis Transfer" />
+            </f:facet>
+            <h:outputText value="#{trf.jenis_transfer}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Aksi" />
+                	
+            </f:facet>
+            <p:commandButton icon="fa fa-eye" action="#{transferCtl.view}">
+            <f:setPropertyActionListener value="#{trf}" target="#{transferCtl.data}" /> 
+            </p:commandButton>
+			<p:commandButton icon="fa fa-pencil" action="#{transferCtl.edit}"
+					ajax="true">
+				<f:setPropertyActionListener value="#{trf}" target="#{transferCtl.data}" />
+			</p:commandButton>
+			<p:commandButton icon="fa fa-trash" action="#{transferCtl.delete}">
+				<f:setPropertyActionListener value="#{trf}" target="#{transferCtl.data}" />
+			</p:commandButton>
+            
+        </p:column>
+ 
+       
+    </p:dataTable>
+    </ui:define>	
+
+</ui:composition>
+</html>
+

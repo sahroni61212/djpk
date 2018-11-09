@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sh.djpk.econsole.rest.dao.PeriodeDao">
+
+	<select id="getPeriode" resultType="hashmap">
+		select * from periode order by id
+
+	</select>
+	
+	<insert id="insertperiode">
+		insert into periode (id, name)
+		values
+		(#{params.id},#{params.name})
+	</insert>
+
+	<update id="updateperiode">
+		update periode set id=#{params.id}, name=#{params.name} where id=#{params.id1}
+	</update>
+	
+	<delete id="deleteperiode">
+	DELETE from periode where id=#{params.id}
+	</delete>
+
+</mapper>

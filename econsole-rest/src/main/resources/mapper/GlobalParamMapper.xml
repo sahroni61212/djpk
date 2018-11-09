@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sh.djpk.econsole.rest.dao.GlobalParamDao">
+
+	<select id="getAllData" resultType="hashmap">
+		select * from mst_global_param
+		<where>
+			aktif = 'Y'
+			<if test="globalParamParent != null">
+				and global_param_parent = #{globalParamParent}
+			</if>
+			<if test="globalParamValue != null">
+				and global_param_value = #{globalParamValue}
+			</if>
+		</where>
+		order by global_param_parent, global_param_value asc
+	</select>
+
+</mapper>

@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sh.djpk.econsole.rest.dao.LraReportDao">
+
+
+
+	<select id="getLraReportDataOld" resultType="hashmap">
+		SELECT concat(a.kd_rek_1, a.kd_rek_2, a.kd_rek_3, a.kd_rek_4,
+		a.kd_rek_5) kode_akun,
+		a.kd_rek_1, a.kd_rek_2, a.kd_rek_3, a.kd_rek_4,
+		a.kd_rek_5,
+		nm_rek_1, nm_rek_2,
+		nm_rek_3, nm_rek_4, nm_rek_5,
+		COALESCE(a.realisasi,0)
+		sebelum_eliminasi,
+		(COALESCE(a.realisasi,0) -
+		COALESCE((select COALESCE(b.realisasi,0) from compilation_record5 b
+		inner join elimination_account c on b.tahun = c.tahun and b.kd_pemda =
+		c.kd_pemda and b.kd_rek_1 = c.kd_rek_1 and b.kd_rek_2 = c.kd_rek_2 and
+		b.kd_rek_3 = c.kd_rek_3 and b.kd_rek_4 = c.kd_rek_4 and b.kd_rek_5 =
+		c.kd_rek_5
+		<where>
+			a.tahun = b.tahun
+			and a.kd_pemda = b.kd_pemda
+			and a.kd_rek_1 =
+			b.kd_rek_1
+			and a.kd_rek_2 = b.kd_rek_2
+			and a.kd_rek_3 = b.kd_rek_3
+			and
+			a.kd_rek_4 = b.kd_rek_4
+			and a.kd_rek_5 = b.kd_rek_5
+			and a.kd_provinsi =
+			b.kd_provinsi
+			and a.kd_satker=b.kd_satker
+			and a.periode_id =
+			b.periode_id
+			and a.perubahan_id = b.perubahan_id
+		</where>
+		), 0))
+		setelah_eliminasi
+		FROM compilation_record5 a
+		<where>
+			a.tahun = #{tahunAnggaran}
+			AND a.periode_id =
+			#{periodeId}
+			<if test="kodeLaporan == 4">
+				AND a.kd_pemda = #{othersParam.value_cb}
+			</if>
+			<if test="kodeLaporan == 3">
+				AND a.kd_pemda in (select concat(a.kdprovinsi,'.',
+				a.kdpemda) from ref_pemda2 a where kdprovinsi =
+				#{othersParam.value_cb})
+			</if>
+			<if test="kodeLaporan == 2">
+				AND a.kd_pemda in (select concat(a.kdprovinsi,'.',
+				a.kdpemda) from ref_pemda2 a where kwilayah =
+				to_number(#{othersParam.value_cb},'999'))
+			</if>
+		</where>
+		order by a.kd_rek_1, a.kd_rek_2, a.kd_rek_3, a.kd_rek_4,
+		a.kd_rek_5 asc
+	</select>
+
+	<select id="getRefPemdaDua" resultType="hashmap">
+		<if test="kodeLaporan == 5">
+			select
+			concat(a.kdprovinsi,'.', a.kdpemda) value_cb,
+			concat(a.kdprovinsi,'.', a.kdpemda, ' ', a.urpemda) label_cb
+			from ref_pemda2 a
+			<where>
+				a.tahun = #{tahunAnggaran}
+				<if test="othersParam.kdprovinsi != null">
+					and a.kdprovinsi = #{othersParam.kdprovinsi}
+				</if>
+				<if test="othersParam.kwilayah != null">
+					and a.kwilayah = #{othersParam.kwilayah}
+				</if>
+			</where>
+		</if>
+		<if test="kodeLaporan == 4">
+			select
+			concat(a.kdprovinsi,'.', a.kdpemda) value_cb,
+			concat(a.kdprovinsi,'.', a.kdpemda, ' ', a.urpemda) label_cb
+			from
+			ref_pemda2 a
+			<where>
+				a.tahun = #{tahunAnggaran}
+				<if test="othersParam.kdprovinsi != null">
+					and a.kdprovinsi = #{othersParam.kdprovinsi}
+				</if>
+				<if test="othersParam.kwilayah != null">
+					and a.kwilayah = #{othersParam.kwilayah}
+				</if>
+			</where>
+		</if>
+		<if test="kodeLaporan == 3">
+			select
+			distinct a.kdprovinsi value_cb, concat(a.kdprovinsi,' ',
+			a.urpemda) label_cb
+			from ref_pemda2 a
+			<where>
+				a.kdpemda = '00' and a.tahun = #{tahunAnggaran}
+				<if test="othersParam.kwilayah != null">
+					and a.kwilayah = #{othersParam.kwilayah}
+				</if>
+			</where>
+			order by a.kdprovinsi asc
+		</if>
+		<if test="kodeLaporan == 2">
+			select distinct to_char(a.kwilayah, '99') value_cb,
+			concat(a.kwilayah, ' ',b.nama_wilayah) label_cb
+			from ref_pemda2 a
+			inner join ref_wilayah b on a.kwilayah = b.id
+			<where>
+				a.tahun = #{tahunAnggaran}
+			</where>
+			order by 1 asc
+		</if>
+	</select>
+
+	<select id="getPeriodeCb" resultType="hashmap">
+		select id, concat(id, '. ',
+		name) nama from periode order by id asc
+	</select>
+
+	<select id="getLraReportDataTree" resultType="hashmap">
+		select nn.kode_akun, cast(nn.kd_rek_1 as text), cast(nn.kd_rek_2 as
+		text), cast(nn.kd_rek_3 as text),
+		nn.nm_rek_1, nn.nm_rek_2,
+		nn.nm_rek_3, sum(nn.sebelum_eliminasi) sebelum_eliminasi,
+		sum(nn.setelah_eliminasi) setelah_eliminasi
+		from (
+		SELECT
+		concat(a.kd_rek_1, a.kd_rek_2, a.kd_rek_3) kode_akun,
+		a.kd_rek_1,
+		a.kd_rek_2, a.kd_rek_3,
+		nm_rek_1, nm_rek_2,
+		nm_rek_3,
+		COALESCE(a.realisasi,0)
+		sebelum_eliminasi,
+		(COALESCE(a.realisasi,0) -
+		COALESCE((select COALESCE(b.realisasi,0) from compilation_record5 b
+		inner join elimination_account c on b.tahun = c.tahun and b.kd_pemda =
+		c.kd_pemda and b.kd_rek_1 = c.kd_rek_1 and b.kd_rek_2 = c.kd_rek_2 and
+		b.kd_rek_3 = c.kd_rek_3 and b.kd_rek_4 = c.kd_rek_4 and b.kd_rek_5 =
+		c.kd_rek_5
+		<where>
+			a.tahun = b.tahun
+			and a.kd_pemda = b.kd_pemda
+			and a.kd_rek_1 =
+			b.kd_rek_1
+			and a.kd_rek_2 = b.kd_rek_2
+			and a.kd_rek_3 = b.kd_rek_3
+			and
+			a.kd_rek_4 = b.kd_rek_4
+			and a.kd_rek_5 = b.kd_rek_5
+			and a.kd_provinsi =
+			b.kd_provinsi
+			and a.kd_satker=b.kd_satker
+			and a.periode_id =
+			b.periode_id
+			and a.perubahan_id = b.perubahan_id
+		</where>
+		), 0))
+		setelah_eliminasi
+		FROM compilation_record5 a
+		<where>
+			a.tahun = #{tahunAnggaran}
+			AND a.periode_id =
+			#{periodeId}
+			<if test="kodeLaporan == 4">
+				AND a.kd_pemda = #{othersParam.value_cb}
+			</if>
+			<if test="kodeLaporan == 3">
+				AND a.kd_pemda in (select concat(a.kdprovinsi,'.',
+				a.kdpemda) from ref_pemda2 a where kdprovinsi =
+				#{othersParam.value_cb})
+			</if>
+			<if test="kodeLaporan == 2">
+				AND a.kd_pemda in (select concat(a.kdprovinsi,'.',
+				a.kdpemda) from ref_pemda2 a where kwilayah =
+				to_number(#{othersParam.value_cb},'999'))
+			</if>
+		</where>
+		)nn group by nn.kode_akun, nn.kd_rek_1, nn.kd_rek_2, nn.kd_rek_3,
+		nn.nm_rek_1, nn.nm_rek_2, nn.nm_rek_3
+		order by nn.kd_rek_1,
+		nn.kd_rek_2, nn.kd_rek_3 asc
+	</select>
+
+	<select id="getLraReportData" resultType="hashmap">
+
+		<if test="kodeLaporan == 4">
+			select nn.kode_akun, cast(nn.kd_rek_1 as text),
+			cast(nn.kd_rek_2 as
+			text), cast(nn.kd_rek_3 as text),
+			nn.nm_rek_1,
+			nn.nm_rek_2,
+			nn.nm_rek_3, sebelum_eliminasi,
+			(COALESCE(sebelum_eliminasi,0) - COALESCE(xx, 0))
+			setelah_eliminasi
+			from (
+			SELECT concat(a.kd_rek_1, a.kd_rek_2,
+			a.kd_rek_3) kode_akun,
+			a.kd_rek_1, a.kd_rek_2, a.kd_rek_3, nm_rek_1,
+			nm_rek_2,
+			COALESCE(nm_rek_3,
+			'tidak ada desc') nm_rek_3,
+			sum(COALESCE(a.realisasi,0))
+			sebelum_eliminasi,
+			(select
+			sum(b.realisasi) from compilation_record5 b
+			inner join
+			elimination_account c on b.tahun = c.tahun
+			and b.kd_pemda =
+			c.kd_pemda
+			and b.kd_rek_1 = c.kd_rek_1 and b.kd_rek_2 =
+			c.kd_rek_2
+			and
+			b.kd_rek_3
+			= c.kd_rek_3 WHERE b.tahun = #{tahunAnggaran} AND
+			b.periode_id =
+			#{periodeId}
+			and b.kd_rek_1 = a.kd_rek_1 and b.kd_rek_2
+			= a.kd_rek_2
+			and b.kd_rek_3 =
+			a.kd_rek_3
+			AND b.kd_pemda =
+			#{othersParam.value_cb}  and b.kd_rek_1 in ('4','5','6','7')) xx
+			FROM
+			compilation_record5 a WHERE a.tahun =
+			#{tahunAnggaran} AND
+			a.periode_id = #{periodeId}
+			AND a.kd_pemda =
+			#{othersParam.value_cb} and a.kd_rek_1 in ('4','5','6','7')
+			group by a.kd_rek_1, a.kd_rek_2, a.kd_rek_3,
+			nm_rek_1, nm_rek_2,
+			nm_rek_3
+			) nn order by kd_rek_1, kd_rek_2, kd_rek_3
+		</if>
+		<if test="kodeLaporan == 3">
+			select nn.kode_akun, cast(nn.kd_rek_1 as text),
+			cast(nn.kd_rek_2 as
+			text), cast(nn.kd_rek_3 as text),
+			nn.nm_rek_1,
+			nn.nm_rek_2,
+			nn.nm_rek_3, sebelum_eliminasi,
+			(COALESCE(sebelum_eliminasi,0) - COALESCE(xx, 0))
+			setelah_eliminasi
+			from (
+			SELECT concat(a.kd_rek_1, a.kd_rek_2, a.kd_rek_3) kode_akun,
+			a.kd_rek_1, a.kd_rek_2, a.kd_rek_3, nm_rek_1, nm_rek_2,
+			COALESCE(nm_rek_3,
+			'tidak ada desc') nm_rek_3,
+			sum(COALESCE(a.realisasi,0)) sebelum_eliminasi,
+			(select
+			sum(b.realisasi) from compilation_record5 b inner join
+			elimination_account c on b.tahun = c.tahun
+			and b.kd_pemda = c.kd_pemda
+			and b.kd_rek_1 = c.kd_rek_1 and b.kd_rek_2 =
+			c.kd_rek_2
+			and b.kd_rek_3
+			= c.kd_rek_3 WHERE b.tahun = #{tahunAnggaran} and  b.kd_rek_1 in ('4','5','6','7') AND b.periode_id =
+			#{periodeId} and b.kd_rek_1 = a.kd_rek_1 and b.kd_rek_2 = a.kd_rek_2
+			and b.kd_rek_3 = a.kd_rek_3
+			AND b.kd_pemda in (select
+			concat(b.kdprovinsi,'.', b.kdpemda) from
+			ref_pemda2 b where kdprovinsi
+			= #{othersParam.value_cb})) xx
+			FROM compilation_record5 a WHERE
+			a.tahun = #{tahunAnggaran} and a.kd_rek_1 in ('4','5','6','7') AND a.periode_id = #{periodeId}
+			AND
+			a.kd_pemda in (select concat(a.kdprovinsi,'.', a.kdpemda) from
+			ref_pemda2 a where kdprovinsi = #{othersParam.value_cb}) group by
+			a.kd_rek_1,
+			a.kd_rek_2, a.kd_rek_3, nm_rek_1, nm_rek_2, nm_rek_3
+			) nn
+
+		</if>
+		<if test="kodeLaporan == 2">
+			select nn.kode_akun, cast(nn.kd_rek_1 as text),
+			cast(nn.kd_rek_2 as
+			text), cast(nn.kd_rek_3 as text),
+			nn.nm_rek_1, nn.nm_rek_2,
+			nn.nm_rek_3, sebelum_eliminasi, (COALESCE(sebelum_eliminasi,0) - COALESCE(xx, 0))
+			setelah_eliminasi from (
+			SELECT concat(a.kd_rek_1, a.kd_rek_2, a.kd_rek_3) kode_akun,
+			a.kd_rek_1, a.kd_rek_2, a.kd_rek_3, nm_rek_1, nm_rek_2, COALESCE(nm_rek_3,
+			'tidak ada desc') nm_rek_3,
+			sum(COALESCE(a.realisasi,0)) sebelum_eliminasi,
+			(select sum(b.realisasi) from compilation_record5 b inner join
+			elimination_account c on b.tahun = c.tahun
+			and b.kd_pemda = c.kd_pemda and b.kd_rek_1 = c.kd_rek_1 and b.kd_rek_2 =
+			c.kd_rek_2
+			and b.kd_rek_3 = c.kd_rek_3 WHERE b.tahun = #{tahunAnggaran} and b.kd_rek_1 in ('4','5','6','7') AND b.periode_id = #{periodeId}
+			and b.kd_rek_1 = a.kd_rek_1 and b.kd_rek_2 = a.kd_rek_2
+			and b.kd_rek_3 = a.kd_rek_3
+			AND b.kd_pemda in (select pemda_id from pemda_wilayah where wilayah_id = to_number(#{othersParam.value_cb},'999'))) xx
+			FROM compilation_record5 a WHERE a.tahun = #{tahunAnggaran} and a.kd_rek_1 in ('4','5','6','7') AND a.periode_id = #{periodeId}
+			AND a.kd_pemda in (select pemda_id from pemda_wilayah where wilayah_id = to_number(#{othersParam.value_cb},'999')) group by
+			a.kd_rek_1, a.kd_rek_2, a.kd_rek_3, nm_rek_1, nm_rek_2, nm_rek_3
+			) nn  order by kd_rek_1, kd_rek_2, kd_rek_3, nm_rek_1, nm_rek_2, nm_rek_3
+		</if>
+		<if test="kodeLaporan == 1">
+			select nn.kode_akun, cast(nn.kd_rek_1 as text),
+			cast(nn.kd_rek_2 as
+			text), cast(nn.kd_rek_3 as text),
+			nn.nm_rek_1,
+			nn.nm_rek_2,
+			nn.nm_rek_3, sebelum_eliminasi,
+			(COALESCE(sebelum_eliminasi,0) - COALESCE(xx, 0))
+			setelah_eliminasi
+			from (
+			SELECT concat(a.kd_rek_1, a.kd_rek_2, a.kd_rek_3) kode_akun,
+			a.kd_rek_1, a.kd_rek_2, a.kd_rek_3, nm_rek_1, nm_rek_2,
+			COALESCE(nm_rek_3,
+			'tidak ada desc') nm_rek_3,
+			sum(COALESCE(a.realisasi,0)) sebelum_eliminasi,
+			(select
+			sum(b.realisasi) from compilation_record5 b inner join
+			elimination_account c on b.tahun = c.tahun
+			and b.kd_pemda = c.kd_pemda
+			and b.kd_rek_1 = c.kd_rek_1 and b.kd_rek_2 =
+			c.kd_rek_2
+			and b.kd_rek_3
+			= c.kd_rek_3 WHERE b.tahun = #{tahunAnggaran} and b.kd_rek_1 in ('4','5','6','7') AND b.periode_id = #{periodeId}
+			and b.kd_rek_1 = a.kd_rek_1 and b.kd_rek_2 = a.kd_rek_2
+			and b.kd_rek_3 = a.kd_rek_3
+			) xx
+			FROM compilation_record5 a WHERE
+			a.tahun = #{tahunAnggaran} and a.kd_rek_1 in ('4','5','6','7') AND a.periode_id = #{periodeId}
+			group by
+			a.kd_rek_1, a.kd_rek_2, a.kd_rek_3, nm_rek_1, nm_rek_2,
+			nm_rek_3
+			) nn
+		</if>
+
+	</select>
+
+</mapper>

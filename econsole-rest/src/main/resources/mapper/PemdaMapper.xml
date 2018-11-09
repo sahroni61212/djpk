@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sh.djpk.econsole.rest.dao.PemdaDao">
+
+	<select id="getAllPemda" resultType="hashmap">
+		select
+			concat(a.kdprovinsi,'.', a.kdpemda) as pemda_id,
+			(a.kdprovinsi) as province_id,
+			(a.urpemda) as name, a.*
+			from ref_pemda2 a
+
+	</select>
+	
+	<select id="getAllPemdaLkp" resultType="hashmap">
+		select
+			a.*
+			from ref_pemda2 a
+
+	</select>
+
+
+</mapper>

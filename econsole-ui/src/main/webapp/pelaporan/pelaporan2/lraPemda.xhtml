@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="indexrekap.xhtml">
+
+
+	<ui:define name="content2">
+	
+		
+		<h:form>
+			<div>
+				<p:outputLabel value="Pelaporan LRA Pemda" />
+			</div>
+			
+			<div>
+				<p:dataList value="#{pelaporan2.dataPencarian}" var="dataTingkat1">
+					<!-- 					<p:columnGroup type="header"> -->
+					<!-- 						<p:column headerText="Kelompok" /> -->
+					<!-- 						<p:column headerText="Kode Akun" /> -->
+					<!-- 						<p:column headerText="Uraian" /> -->
+					<!-- 						<p:column headerText="Sebelum Eliminasi" /> -->
+					<!-- 						<p:column headerText="Sesudah Eliminasi" /> -->
+					<!-- 					</p:columnGroup> -->
+
+					<h:outputText value="#{dataTingkat1.nm_rek_1}" />
+
+					<p:dataTable var="dataTingkat2"
+						value="#{dataTingkat1.list_tingkat2}">
+
+						<p:subTable var="dataTingkat3"
+							value="#{dataTingkat2.list_tingkat3}">
+							<f:facet name="header">
+								<h:outputText value="#{dataTingkat2.nm_rek_2}" />
+							</f:facet>
+							<!-- 							<p:column > -->
+							<!-- 								<h:outputText value="#{dataTingkat2.nm_rek_2}" /> -->
+							<!-- 							</p:column> -->
+							<p:column headerText="name" style="width:20px;">
+								<h:outputText value="#{dataTingkat3.kode_akun}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{dataTingkat3.nm_rek_3}" />
+							</p:column>
+							<p:column style="text-align:right">
+
+								<h:outputText value="#{dataTingkat3.sebelum_eliminasi}">
+									<f:convertNumber pattern="###,###" locale="id_ID" />
+								</h:outputText>
+							</p:column>
+							<p:column style="text-align:right">
+								<h:outputText value="#{dataTingkat3.setelah_eliminasi}">
+									<f:convertNumber pattern="###,###" locale="id_ID" />
+								</h:outputText>
+							</p:column>
+							<p:columnGroup type="footer">
+								<p:row>
+									<p:column colspan="2"
+										footerText="Total #{dataTingkat2.nm_rek_2}"
+										style="text-align:right" />
+									<p:column style="text-align:right">
+										<f:facet name="footer" style="text-align:right">
+											<h:outputText value="#{dataTingkat2.sum_sebelum_kd_rek_2}">
+												<f:convertNumber pattern="###,###" locale="id_ID" />
+											</h:outputText>
+										</f:facet>
+									</p:column>
+									<p:column style="text-align:right">
+										<f:facet name="footer" style="text-align:right">
+											<h:outputText value="#{dataTingkat2.sum_setelah_kd_rek_2}">
+												<f:convertNumber pattern="###,###" locale="id_ID" />
+											</h:outputText>
+										</f:facet>
+									</p:column>
+								</p:row>
+							</p:columnGroup>
+						</p:subTable>
+						<p:columnGroup type="footer">
+							<p:row>
+								<p:column colspan="2"
+									footerText="Total #{dataTingkat1.nm_rek_1}"
+									style="text-align:right" />
+								<p:column style="text-align:right">
+									<f:facet name="footer" style="text-align:right">
+										<h:outputText value="#{dataTingkat1.sum_sebelum_kd_rek_1}">
+											<f:convertNumber pattern="###,###" locale="id_ID" />
+										</h:outputText>
+									</f:facet>
+								</p:column>
+								<p:column style="text-align:right">
+									<f:facet name="footer" style="text-align:right">
+										<h:outputText value="#{dataTingkat1.sum_setelah_kd_rek_1}">
+											<f:convertNumber pattern="###,###" locale="id_ID" />
+										</h:outputText>
+									</f:facet>
+								</p:column>
+							</p:row>
+						</p:columnGroup>
+					</p:dataTable>
+					<!-- 					<p:panelGrid columns="4" style="width:100%"> -->
+					<!-- 						<p:outputLabel style="width:25%" -->
+					<!-- 							value="Total #{dataTingkat1.nm_rek_1}"></p:outputLabel> -->
+					<!-- 						<p:outputLabel style="width:25%" value=""></p:outputLabel> -->
+					<!-- 						<p:outputLabel style="width:25%" -->
+					<!-- 							value="#{dataTingkat1.sum_sebelum_kd_rek_1}"> -->
+					<!-- 							<f:convertNumber type="currency" pattern="#,##0" /> -->
+					<!-- 						</p:outputLabel> -->
+					<!-- 						<p:outputLabel style="width:25%" -->
+					<!-- 							value="#{dataTingkat1.sum_setelah_kd_rek_1}"> -->
+					<!-- 							<f:convertNumber type="currency" pattern="#,##0" /> -->
+					<!-- 						</p:outputLabel> -->
+					<!-- 					</p:panelGrid> -->
+				</p:dataList>				
+			</div>
+			
+			<!--  
+			
+			<p:dataTable var="listakun" value="#{pelaporan2.dataPencarian}">
+				<p:column headerText="Tingkat" groupRow="true">
+					<h:outputText value="Regional Dalam Provinsi" />
+				</p:column>
+				<p:column headerText="Pemda">
+					<h:outputText value="#{dataPencarian.urpemda}" />
+				</p:column>
+				<p:column headerText="Rekening">
+					<h:outputText value="#{dataPencarian.level_5}" />
+				</p:column>
+				<p:column headerText="Keterangan">
+					<h:outputText value="#{dataPencarian.nm_akrual_3}" />
+				</p:column>
+				<p:column headerText="Saldo">
+					<h:outputText value="#{listakun.realisasi}" >
+					<f:convertNumber type="currency" pattern="#,##0" /> 
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Saldo">
+					<h:outputText value="#{dataPencarian.realisasi}" />
+					<f:convertNumber type="currency" pattern="#,##0" />
+				</p:column>
+			</p:dataTable>
+			
+			-->
+			
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>
+

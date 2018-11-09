@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="./../../template/template.xhtml">
+
+	
+	<ui:define name="content">
+	
+	<h:form>
+		<p:growl id="messages" showDetail="true"/>
+	
+		
+		<div>
+				<p:outputLabel value="DATA KONSOLIDASI" />
+		</div>
+		<p:separator/>
+		<div class="ui-g">
+				<div class="ui-g-12 ui-md-6 ui-lg-3" style="width: 100%"
+					align="left">
+					<p:commandButton value="Impor XLS" action="#{dataKonsolidasiCtl.add}"
+						ajax="true" icon="fa fa-plus-circle" />
+						
+					<p:commandButton value="Refresh" action="#{dataKonsolidasiCtl.reload}"
+						ajax="true" icon="fa fa-undo" />
+
+				</div>
+				
+			</div>
+	</h:form>
+		<!-- <p:repeat value="#{sidebarTemplate.menuAkses}" var="menuParent"> -->
+		<h:form style="overflow: scroll;max-height:500px">
+        <p:dataTable id="dataTable" value="#{dataKonsolidasiCtl.headerlist}" var="headerlist" 
+                 paginator="true" 
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" 
+                 paginatorPosition="bottom"
+                 rows="10">
+        <f:facet name="header">
+            Data Konsolidasi
+        </f:facet>
+ 
+        <p:column style="width:15%">
+            <f:facet name="header">
+                <h:outputText value="Header Id" />
+            </f:facet>
+            <h:outputText value="#{headerlist.id}" />
+        </p:column>
+ 
+        <p:column style="width:8%">
+            <f:facet name="header">
+                <h:outputText value="Data" />
+            </f:facet>
+            <h:outputText value="#{headerlist.nama_laporan}" />
+        </p:column>
+        
+        <p:column style="width:8%">
+            <f:facet name="header">
+                <h:outputText value="Tahun" />
+            </f:facet>
+            <h:outputText value="#{headerlist.tahun}" />
+        </p:column>
+        
+        <p:column style="width:8%">
+            <f:facet name="header">
+                <h:outputText value="Periode" />
+            </f:facet>
+            <h:outputText value="#{headerlist.bulan}" />
+        </p:column>
+        
+        <p:column style="width:8%">
+            <f:facet name="header">
+                <h:outputText value="Pemda" />
+            </f:facet>
+            <h:outputText value="#{headerlist.jumlah_pemda}" />
+        </p:column>
+        
+        <p:column style="width:8%">
+            <f:facet name="header">
+                <h:outputText value="Level" />
+            </f:facet>
+            <h:outputText value="#{headerlist.lvl_data}" />
+        </p:column>
+        
+        <p:column style="width:30%">
+            <f:facet name="header">
+                <h:outputText value="Status" />
+            </f:facet>
+            <h:outputText value="#{headerlist.nama_status}" />
+        </p:column>
+ 
+        <p:column style="width:20%">
+            <f:facet name="header">
+                <h:outputText value="Aksi" />
+                	
+            </f:facet>
+            <p:commandButton icon="fa fa-eye" action="#">
+            <f:setPropertyActionListener value="#{headerlist}"
+							target="#{dataKonsolidasiCtl.data}" /> 
+            </p:commandButton>
+			<p:commandButton icon="fa fa-pencil" action="#"
+					ajax="true">
+				<f:setPropertyActionListener value="#{headerlist}" target="#{dataKonsolidasiCtl.data}" />
+			</p:commandButton>
+			<p:commandButton icon="fa fa-trash" action="#">
+				<f:setPropertyActionListener value="#{headerlist}" target="#{dataKonsolidasiCtl.data}" />
+			</p:commandButton>
+            
+        </p:column>
+ 
+       
+    </p:dataTable>
+    </h:form>
+ 	
+    
+    </ui:define>	
+     
+
+</ui:composition>
+</html>
+

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="./../../template/template.xhtml">
+
+	
+	<ui:define name="content">
+		<h:form>
+			<p:growl id="messages" showDetail="true" />
+			<div>
+				<p:outputLabel value="Setting Koneksi Database"></p:outputLabel>
+			</div>
+			<div>
+				<p:panelGrid columns="3" layout="grid">
+					<p:outputLabel value="Database Url" ></p:outputLabel>					
+					<p:inputText value="" required="true" requiredMessage="Database Url harap diisi"></p:inputText>
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+					<p:outputLabel value="Username" ></p:outputLabel>
+					<p:inputText value="" required="true" requiredMessage="username harap diisi"></p:inputText>
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+					<p:outputLabel value="Password"></p:outputLabel>
+					<p:password value=""  required="true" requiredMessage="password harap diisi"/>
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+					<p:outputLabel value="SQL Command" ></p:outputLabel>					
+					<p:inputText value="" required="true" requiredMessage="Sql Command harap diisi"></p:inputText>
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+					<h:panelGrid columns="2" border="0">
+					
+						<p:commandButton value="Run" icon="fa fa-floppy-o"
+							ajax="true" update="messages" />						
+					</h:panelGrid>
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+				</p:panelGrid>
+			</div>
+
+		</h:form>
+	</ui:define>
+     
+
+</ui:composition>
+</html>
+

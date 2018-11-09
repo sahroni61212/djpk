@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="./../../template/template.xhtml">
+
+	
+	<ui:define name="content">
+               <div>
+				<p:outputLabel value="WILAYAH" />
+		</div>
+		<p:separator />
+		<div class="ui-g">
+				<div class="ui-g-12 ui-md-6 ui-lg-3" style="width: 100%"
+					align="left">
+					<p:commandButton value="Tambah" action="#{wilayahCtl.add}"
+						ajax="true" icon="fa fa-plus-circle" />
+
+				</div>
+				
+			</div>
+    	
+    	<p:dataTable id="dataTable" var="wilayah" value="#{wilayahCtl.listWilayah}"
+                 paginator="true" 
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" 
+                 paginatorPosition="bottom"
+                 rows="10">
+        <f:facet name="header">
+            WILAYAH
+        </f:facet>
+ 
+        <p:column style="width:90px">
+            <f:facet name="header">
+                <h:outputText value="Kodifikasi" />
+            </f:facet>
+            <h:outputText value="#{wilayah.kodifikasi}" />
+        </p:column>
+ 
+        <p:column style="width:860px">
+            <f:facet name="header">
+                <h:outputText value="Nama Wilayah" />
+            </f:facet>
+            <h:outputText value="#{wilayah.nama_wilayah}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Aksi" />
+                	
+            </f:facet>
+        <p:commandButton icon="fa fa-eye" action="#{wilayahCtl.view}">
+            <f:setPropertyActionListener value="#{wilayah}"
+							target="#{wilayahCtl.data}" /> 
+            </p:commandButton>
+			<p:commandButton icon="fa fa-pencil" action="#{wilayahCtl.edit}"
+					ajax="true">
+				<f:setPropertyActionListener value="#{wilayah}" target="#{wilayahCtl.data}" />
+			</p:commandButton>
+			<p:commandButton icon="fa fa-trash">
+				<f:setPropertyActionListener value="#{wilayah}" target="#{wilayahCtl.data}" />
+			</p:commandButton>
+            
+        </p:column>
+ 
+       
+    	</p:dataTable>            
+                
+    </ui:define>	
+
+</ui:composition>
+</html>
+

@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:form>
+
+<ui:composition template="./../../template/template.xhtml">
+
+	
+	<ui:define name="content">
+	<div>
+				<p:outputLabel value="Bagan Akun Standar" />
+		</div>
+		
+		
+		<p:separator />
+	
+        <p:dataTable id="dataTable" var="mapAkun" value="#{akunLevel3Ctl.mapAkun}"
+                 paginator="true" 
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" 
+                 paginatorPosition="bottom"
+                 rows="20">
+                
+        <f:facet name="header">
+            Rekening Level 3
+            
+            
+        </f:facet>
+        
+ 
+        <p:column style="width:90px">
+            <f:facet name="header">
+                <h:outputText value="Kd Akrual 1" />
+            </f:facet>
+            <h:outputText value="#{mapAkun.kd_akrual_1}" />
+        </p:column>
+ 		
+ 		<p:column style="width:90px">
+            <f:facet name="header">
+                <h:outputText value="Kd Akrual 2" />
+            </f:facet>
+            <h:outputText value="#{mapAkun.kd_akrual_2}" />
+        </p:column>
+        
+        <p:column style="width:90px">
+            <f:facet name="header">
+                <h:outputText value="Kd Akrual 3" />
+            </f:facet>
+            <h:outputText value="#{mapAkun.kd_akrual_3}" />
+        </p:column>
+        
+        <p:column style="width:550px">
+            <f:facet name="header">
+                <h:outputText value="Nama Akrual 3" />
+            </f:facet>
+            <h:outputText value="#{mapAkun.nm_akrual_3}" />
+        </p:column>
+        
+         <p:column style="width:120px">
+            <f:facet name="header">
+                <h:outputText value="Saldo Norm" />
+            </f:facet>
+            <h:outputText value="#{mapAkun.saldonorm}" />
+        </p:column>
+        
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Aksi" />
+                	
+            </f:facet>
+            <p:commandButton icon="fa fa-eye" />
+					<p:commandButton icon="fa fa-pencil" />
+					<p:commandButton icon="fa fa-trash" />
+            
+        </p:column>
+ 
+       
+    </p:dataTable>
+ 
+    
+    </ui:define>	
+     
+
+</ui:composition>
+</h:form>
+</html>
+

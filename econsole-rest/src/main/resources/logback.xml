@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- SOURCE VARIABLE THAT USED IN CONFIG -->
+    <property scope="context" resource="config-log.properties" />    
+            
+    <!-- BEGIN APPENDERs DECLARATION -->
+   <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.file.name}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.file.name}.%d{dd-MM-yyyy}.zip</fileNamePattern>
+            <maxHistory>${log.file.maxHistory}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%-5level %date{dd-MM-yyyy HH:mm:ss.SSS} %logger : %msg %ex%n</pattern>
+        </encoder>
+    </appender>   
+  
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%-5level %date{dd-MM-yyyy HH:mm:ss.SSS} %logger : %msg %ex%n</pattern>
+        </encoder>
+    </appender>
+    <!-- END APPENDERs DECLARATION -->    
+   
+	<logger name="com.sh.djpk" level="DEBUG" />
+	
+    <root level="DEBUG">
+        <appender-ref ref="console" />
+        <appender-ref ref="fileAppender" />
+    </root>
+</configuration>

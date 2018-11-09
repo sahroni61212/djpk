@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="indexrekap.xhtml">
+
+
+	<ui:define name="content2">
+	
+		pelaporan akun ELiminasi
+		<h:form>
+			<div>
+				<p:outputLabel value="Pelaporan Rekap Akun Eliminasi" />
+			</div>
+			
+			
+			<p:dataTable var="listakun" value="#{pelaporan2.dataPencarian}">
+				<p:column headerText="Tingkat" groupRow="true" style="width:150px">
+					<h:outputText value="Regional Dalam Provinsi" />
+				</p:column>
+				<p:column headerText="Pemda" groupRow="true" style="width:150px">
+					<h:outputText value="#{listakun.urpemda}" />
+				</p:column>
+				<p:column headerText="Rekening" style="width:120px">
+					<h:outputText value="#{listakun.level5}" />
+				</p:column>
+				<p:column headerText="Keterangan" style="width:450px">
+					<h:outputText value="#{listakun.namarekening}" />
+				</p:column>
+				<p:column headerText="Saldo">
+					<h:outputText value="#{listakun.realisasi}" style="text-align:right" >
+					<f:convertNumber type="currency" pattern="#,##0" /> 
+					</h:outputText>
+				</p:column>
+			</p:dataTable>
+			
+			<!--  
+			
+			<p:dataTable var="listakun" value="#{pelaporan2.dataPencarian}">
+				<p:column headerText="Tingkat" groupRow="true">
+					<h:outputText value="Regional Dalam Provinsi" />
+				</p:column>
+				<p:column headerText="Pemda">
+					<h:outputText value="#{dataPencarian.urpemda}" />
+				</p:column>
+				<p:column headerText="Rekening">
+					<h:outputText value="#{dataPencarian.level_5}" />
+				</p:column>
+				<p:column headerText="Keterangan">
+					<h:outputText value="#{dataPencarian.nm_akrual_3}" />
+				</p:column>
+				<p:column headerText="Saldo">
+					<h:outputText value="#{listakun.realisasi}" >
+					<f:convertNumber type="currency" pattern="#,##0" /> 
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Saldo">
+					<h:outputText value="#{dataPencarian.realisasi}" />
+					<f:convertNumber type="currency" pattern="#,##0" />
+				</p:column>
+			</p:dataTable>
+			
+			-->
+			
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>
+

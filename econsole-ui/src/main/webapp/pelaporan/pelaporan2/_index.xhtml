@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="./../../template/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form>
+			<div>
+				<p:outputLabel value="Pelaporan" />
+			</div>
+			<div id="rr">
+				<p:selectOneMenu id="cbJenisLaporan" onchange="submit()"
+					valueChangeListener="#{pelaporan2.chooseJenisLaporan}"
+					value="#{pelaporan2.selectedJenisLaporan}" lazy="true"
+					style="width:125px">
+					<f:selectItems value="#{pelaporan2.selectOneJenisLaporan}"
+						var="jenisLaporan" itemValue="#{jenisLaporan.global_param_value}"
+						itemLabel="#{jenisLaporan.global_param_label}">
+						<!-- 						<f:ajax listener="#{pelaporan2.chooseJenisLaporan}"/> -->
+					</f:selectItems>
+
+				</p:selectOneMenu>
+				<p:spacer />
+				<p:selectOneMenu id="cbOthers" lazy="true" style="width:125px"
+					value="#{pelaporan2.selectedOthers}">
+					<f:selectItems value="#{pelaporan2.selectOneOthers}" var="others"
+						itemValue="#{others.value_cb}" itemLabel="#{others.label_cb}">
+					</f:selectItems>
+				</p:selectOneMenu>
+
+			</div>
+			<div>
+
+				<div>
+					<p:selectOneMenu id="cbPeriodeLaporan"
+						value="#{pelaporan2.selectedPeriodeLaporan}" lazy="true"
+						style="width:125px">
+						<f:selectItems value="#{pelaporan2.selectOnePeriodeLaporan}"
+							var="periode" itemValue="#{periode.id}"
+							itemLabel="#{periode.nama}">
+						</f:selectItems>
+					</p:selectOneMenu>
+				</div>
+
+				<div align="right">
+					<p:commandButton value="Cari" action="#{pelaporan2.cari()}"
+						update="listData" ajax="false" />
+					<!-- 					<p:selectOneMenu id="cbDownload" lazy="true" style="width:125px" -->
+					<!-- 						value="#{pelaporan2.selectedDownload}"> -->
+					<!-- 						<f:selectItems value="#{pelaporan2.selectOneDownload}" var="download" -->
+					<!-- 							itemValue="#{download.global_param_value}" itemLabel="#{download.global_param_label}"> -->
+					<!-- 						</f:selectItems> -->
+					<!-- 					</p:selectOneMenu> -->
+					<div align="right">
+						<p:commandButton ajax="false" icon="fa fa-file-excel-o">
+							<p:dataExporter type="xls" target="listData" fileName="LRA" />
+						</p:commandButton>
+						<p:commandButton ajax="false" icon="fa fa-file-text-o">
+							<p:dataExporter type="csv" target="listData" fileName="LRA" />
+						</p:commandButton>
+						<p:commandButton ajax="false" icon="fa fa-file-pdf-o">
+							<p:dataExporter type="pdf" target="listData" fileName="LRA" />
+						</p:commandButton>
+
+					</div>
+
+
+				</div>
+			</div>
+			<div>
+			
+			<div>
+				<p:outputLabel value="Pelaporan Rekap Akun Eliminasi" />
+			</div>
+			
+			
+			<p:dataTable var="listakun" value="#{pelaporan2.dataPencarian}">
+				<p:column headerText="Tingkat" groupRow="true" style="width:150px">
+					<h:outputText value="Regional Dalam Provinsi" />
+				</p:column>
+				<p:column headerText="Pemda" groupRow="true" style="width:150px">
+					<h:outputText value="#{listakun.urpemda}" />
+				</p:column>
+				<p:column headerText="Rekening" style="width:120px">
+					<h:outputText value="#{listakun.level5}" />
+				</p:column>
+				<p:column headerText="Keterangan" style="width:450px">
+					<h:outputText value="#{listakun.nm_akrual_3}" />
+				</p:column>
+				<p:column headerText="Saldo">
+					<h:outputText value="#{listakun.realisasi}" >
+					<f:convertNumber type="currency" pattern="#,##0" /> 
+					</h:outputText>
+				</p:column>
+			</p:dataTable>
+			
+			</div>
+
+			
+		</h:form>
+		
+		
+	</ui:define>
+
+</ui:composition>
+</html>
+

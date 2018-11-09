@@ -1,0 +1,311 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="./../../template/template.xhtml">
+
+	<ui:define name="content">
+
+		<div>
+			<p:outputLabel value="LKPD Konsolidasian Nasional" />
+		</div>
+
+		<div id="rr">
+			<h:form id="form" >
+				<p:panelGrid columns="4" layout="grid" id="panelGridFilter">
+					<p:outputLabel value="Jenis Laporan" />
+					<p:selectOneMenu id="cbJenisLaporan"
+						value="#{pelaporanNasional.selectedJenisLaporan}" lazy="true"
+						style="width:125px">
+						<f:selectItems value="#{pelaporanNasional.selectOneJenisLaporan}"
+							var="jenisLaporan" itemValue="#{jenisLaporan.global_param_value}"
+							itemLabel="#{jenisLaporan.global_param_label}">
+						</f:selectItems>
+
+					</p:selectOneMenu>
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+
+					<p:outputLabel value="Periode" />
+					<p:selectOneMenu id="cbPeriodeLaporan"
+						value="#{pelaporanNasional.selectedPeriodeLaporan}" lazy="true"
+						style="width:125px">
+						<f:selectItems value="#{pelaporanNasional.selectOnePeriodeLaporan}"
+							var="periode" itemValue="#{periode.id}"
+							itemLabel="#{periode.nama}">
+						</f:selectItems>
+					</p:selectOneMenu>
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+					<p:commandButton value="Pilih" action="#{pelaporanNasional.cari()}"
+						update="listData" ajax="false" id="btnCari" />
+				</p:panelGrid>
+			</h:form>
+		</div>
+
+
+		<div align="right">
+			<h:form target="_blank">
+				<p:commandButton ajax="false" icon="fa fa-file-pdf-o"
+					actionListener="#{pelaporanNasional.printPdf}">
+					<!-- 							<p:dataExporter type="pdf" target="listData" fileName="LRA" /> -->
+				</p:commandButton>
+			</h:form>
+		</div>
+
+		<div>
+			<h:form style="overflow: scroll;max-height:500px">
+				<p:dataList value="#{pelaporanNasional.dataPencarian}" var="dataTingkat1"
+					id="listData"  rendered="#{pelaporanNasional.renderListData}">
+					<!-- 					<p:columnGroup type="header"> -->
+					<!-- 						<p:column headerText="Kelompok" /> -->
+					<!-- 						<p:column headerText="Kode Akun" /> -->
+					<!-- 						<p:column headerText="Uraian" /> -->
+					<!-- 						<p:column headerText="Sebelum Eliminasi" /> -->
+					<!-- 						<p:column headerText="Sesudah Eliminasi" /> -->
+					<!-- 					</p:columnGroup> -->
+
+					<h:outputText value="#{dataTingkat1.nm_rek_1}" />
+
+					<p:dataTable var="dataTingkat2"
+						value="#{dataTingkat1.list_tingkat2}">
+
+						<p:subTable var="dataTingkat3"
+							value="#{dataTingkat2.list_tingkat3}">
+							<f:facet name="header">
+								<h:outputText value="#{dataTingkat2.nm_rek_2}" />
+							</f:facet>
+							<!-- 							<p:column > -->
+							<!-- 								<h:outputText value="#{dataTingkat2.nm_rek_2}" /> -->
+							<!-- 							</p:column> -->
+							<p:column headerText="name" style="width:20px;">
+								<h:outputText value="#{dataTingkat3.kode_akun}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{dataTingkat3.nm_rek_3}" />
+							</p:column>
+							<p:column style="text-align:right">
+
+								<h:outputText value="#{dataTingkat3.sebelum_eliminasi}">
+									<f:convertNumber pattern="###,###" locale="id_ID" />
+								</h:outputText>
+							</p:column>
+							<p:column style="text-align:right">
+								<h:outputText value="#{dataTingkat3.setelah_eliminasi}">
+									<f:convertNumber pattern="###,###" locale="id_ID" />
+								</h:outputText>
+							</p:column>
+							<p:columnGroup type="footer">
+								<p:row>
+									<p:column colspan="2"
+										footerText="Total #{dataTingkat2.nm_rek_2}"
+										style="text-align:right" />
+									<p:column style="text-align:right">
+										<f:facet name="footer" style="text-align:right">
+											<h:outputText value="#{dataTingkat2.sum_sebelum_kd_rek_2}">
+												<f:convertNumber pattern="###,###" locale="id_ID" />
+											</h:outputText>
+										</f:facet>
+									</p:column>
+									<p:column style="text-align:right">
+										<f:facet name="footer" style="text-align:right">
+											<h:outputText value="#{dataTingkat2.sum_setelah_kd_rek_2}">
+												<f:convertNumber pattern="###,###" locale="id_ID" />
+											</h:outputText>
+										</f:facet>
+									</p:column>
+								</p:row>
+							</p:columnGroup>
+						</p:subTable>
+						<p:columnGroup type="footer">
+							<p:row>
+								<p:column colspan="2"
+									footerText="Total #{dataTingkat1.nm_rek_1}"
+									style="text-align:right" />
+								<p:column style="text-align:right">
+									<f:facet name="footer" style="text-align:right">
+										<h:outputText value="#{dataTingkat1.sum_sebelum_kd_rek_1}">
+											<f:convertNumber pattern="###,###" locale="id_ID" />
+										</h:outputText>
+									</f:facet>
+								</p:column>
+								<p:column style="text-align:right">
+									<f:facet name="footer" style="text-align:right">
+										<h:outputText value="#{dataTingkat1.sum_setelah_kd_rek_1}">
+											<f:convertNumber pattern="###,###" locale="id_ID" />
+										</h:outputText>
+									</f:facet>
+								</p:column>
+							</p:row>
+						</p:columnGroup>
+					</p:dataTable>
+					<!-- 					<p:panelGrid columns="4" style="width:100%"> -->
+					<!-- 						<p:outputLabel style="width:25%" -->
+					<!-- 							value="Total #{dataTingkat1.nm_rek_1}"></p:outputLabel> -->
+					<!-- 						<p:outputLabel style="width:25%" value=""></p:outputLabel> -->
+					<!-- 						<p:outputLabel style="width:25%" -->
+					<!-- 							value="#{dataTingkat1.sum_sebelum_kd_rek_1}"> -->
+					<!-- 							<f:convertNumber type="currency" pattern="#,##0" /> -->
+					<!-- 						</p:outputLabel> -->
+					<!-- 						<p:outputLabel style="width:25%" -->
+					<!-- 							value="#{dataTingkat1.sum_setelah_kd_rek_1}"> -->
+					<!-- 							<f:convertNumber type="currency" pattern="#,##0" /> -->
+					<!-- 						</p:outputLabel> -->
+					<!-- 					</p:panelGrid> -->
+				</p:dataList>
+				
+				
+				<p:outputPanel id="panelLpe"
+					rendered="#{pelaporanNasional.renderPanelLpe}">
+					<p:panelGrid columns="3" style="width:100%">
+						<h:outputText value="Uraian" />
+						<h:outputText value="#{pelaporanNasional.sessionTahunAnggaran}" />
+						<h:outputText value="#{pelaporanNasional.sessionTahunAnggaran - 1}" />
+
+						<h:outputText value="Ekuitas Awal" />
+						<h:outputText
+							value="#{pelaporanNasional.dataPencarianMap.ekuitasAwal_1}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+						<h:outputText
+							value="#{pelaporanNasional.dataPencarianMap.ekuitasAwal}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+						<h:outputText value="Surplus/Defisit - LO" />
+						<h:outputText
+							value="#{pelaporanNasional.dataPencarianMap.surplusDefisit_1}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+						<h:outputText
+							value="#{pelaporanNasional.dataPencarianMap.surplusDefisit}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+						<h:outputText
+							value="Dampak Kumulatif Perubahan Kebijakan/Kesalahan Mendasar:" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+
+						<h:outputText
+							value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;Koreksi Nilai Persediaan" />
+						<h:outputText
+							value="#{pelaporanNasional.dataPencarianMap.koreksiPersediaan_1}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+						<h:outputText
+							value="#{pelaporanNasional.dataPencarianMap.koreksiPersediaan}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+
+						<h:outputText
+							value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;Selisih Revaluasi Aset Tetap" />
+						<h:outputText
+							value="#{pelaporanNasional.dataPencarianMap.selisihRevaluasiAset_1}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+						<h:outputText
+							value="#{pelaporanNasional.dataPencarianMap.selisihRevaluasiAset}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+
+						<h:outputText
+							value="&#160;&#160;&#160;&#160;&#160;&#160;&#160;Lain-Lain" />
+						<h:outputText
+							value="#{pelaporanNasional.dataPencarianMap.lainlain_1}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+						<h:outputText value="#{pelaporanNasional.dataPencarianMap.lainlain}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+
+						<h:outputText value="Ekuitas Akhir" />
+						<h:outputText
+							value="#{pelaporanNasional.dataPencarianMap.ekuitasAkhir_1}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+						<h:outputText
+							value="#{pelaporanNasional.dataPencarianMap.ekuitasAkhir}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+
+					</p:panelGrid>
+				</p:outputPanel>
+
+				<p:outputPanel id="panelLpsal"
+					rendered="#{pelaporanNasional.renderPanelLpsal}">
+					<p:panelGrid columns="3" style="width:100%">
+						<h:outputText value="Uraian" />
+						<h:outputText value="#{pelaporanNasional.sessionTahunAnggaran}" />
+						<h:outputText value="#{pelaporanNasional.sessionTahunAnggaran - 1}" />
+
+						<h:outputText value="Saldo Anggaran Lebih Awal" />
+						<h:outputText value="#{pelaporanNasional.dataPencarianMap.salAwal_1}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+						<h:outputText value="#{pelaporanNasional.dataPencarianMap.salAwal}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+
+						<h:outputText
+							value="Penggunaan SAL sebagai Penerimaan Pembiayaan Tahun Berjalan" />
+						<h:outputText
+							value="#{pelaporanNasional.dataPencarianMap.penggunaanSal_1}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+						<h:outputText
+							value="#{pelaporanNasional.dataPencarianMap.penggunaanSal}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+
+						<h:outputText
+							value="Sisa Lebih/Kurang Pembiayaan Anggaran (SiLPA/SiKPA)" />
+						<h:outputText value="#{pelaporanNasional.dataPencarianMap.silpa_1}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+						<h:outputText value="#{pelaporanNasional.dataPencarianMap.silpa}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+
+						<h:outputText value="Koreksi Kesalahan Pembukuan Tahun Sebelumnya" />
+						<h:outputText value="#{pelaporanNasional.dataPencarianMap.koreksi_1}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+						<h:outputText value="#{pelaporanNasional.dataPencarianMap.koreksi}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+
+						<h:outputText value="Lain-Lain" />
+						<h:outputText value="#{pelaporanNasional.dataPencarianMap.lainnya_1}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+						<h:outputText value="#{pelaporanNasional.dataPencarianMap.lainnya}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+
+						<h:outputText value="Saldo Anggaran Lebih Akhir" />
+						<h:outputText
+							value="#{pelaporanNasional.dataPencarianMap.salAkhir_1}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+						<h:outputText value="#{pelaporanNasional.dataPencarianMap.salAkhir}">
+							<f:convertNumber pattern="###,###" locale="id_ID" />
+						</h:outputText>
+
+					</p:panelGrid>
+				</p:outputPanel>
+			</h:form>
+		</div>
+
+
+	</ui:define>
+
+
+
+</ui:composition>
+</html>
+

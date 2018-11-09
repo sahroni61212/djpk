@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="./../../template/template.xhtml">
+
+
+	<ui:define name="content">
+               GROUP dan AKSES GROUP
+               <h:form id="formAksesGrup">
+			<p:growl id="messages" showDetail="true" />
+			<div class="ui-g">
+				<div class="ui-g-12 ui-md-6 ui-lg-3" style="width: 100%"
+					align="left">
+
+					<p:commandButton value="Tambah" action="#{userGroupCtl.add}"
+						ajax="true" icon="fa fa-plus-circle"/>
+
+				</div>
+
+
+			</div>
+
+			<p:dataTable id="dataTable" var="grp"
+				value="#{userGroupCtl.listGroup}" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+				paginatorPosition="bottom" rows="15">
+				
+				<p:column style="width:10%">
+					<f:facet name="header">
+						<h:outputText value="ID" />
+					</f:facet>
+					<h:outputText value="#{grp.id}" />
+				</p:column>
+
+				<p:column >
+					<f:facet name="header">
+						<h:outputText value="NAMA" />
+					</f:facet>
+					<h:outputText value="#{grp.name}" />
+				</p:column>
+
+				<p:column style="width:140px">
+					<f:facet name="header">
+						<h:outputText value="Aksi" />
+
+					</f:facet>
+					<p:commandButton icon="fa fa-key" action="#{userGroupCtl.hakAkses}"
+						ajax="false">
+						<f:setPropertyActionListener value="#{grp}"
+							target="#{userGroupCtl.data}" />
+					</p:commandButton>
+					<p:commandButton icon="fa fa-pencil" action="#{userGroupCtl.edit}"
+						ajax="true">
+						<f:setPropertyActionListener value="#{grp}"
+							target="#{userGroupCtl.data}" />
+					</p:commandButton>
+					<p:commandButton icon="fa fa-trash" onclick="PF('cd').show()" 
+						ajax="true">
+						<f:setPropertyActionListener value="#{grp}"
+							target="#{userGroupCtl.data}" />
+					</p:commandButton>
+
+				</p:column>
+
+
+			</p:dataTable>
+			
+			<p:confirmDialog
+				message="Apakah anda yakin akan menghapus Akses Grup ini?"
+				header="Konfirmasi Hapus Akses Grup" severity="alert" widgetVar="cd">
+				<p:commandButton value="Batal" onclick="PF('cd').hide();" icon="fa fa-times-circle"
+					type="button" />
+				<p:commandButton action="#{userGroupCtl.delete}" icon="fa fa-check-circle"
+					oncomplete="PF('cd').hide();" value="Setuju" update="formAksesGrup"
+					ajax="true" />
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>
+

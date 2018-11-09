@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body style="margin-left:30px">
+    <h2>PrimeFaces File Upload Example</h2>
+    <h:form>
+        <p:fileUpload update="content" ajax="false" auto="false" style="width:500px;" 
+         oncomplete="uploadBusinessLogic();"
+                      fileUploadListener="#{fileUploadBean.handleUpload}"/>
+		<p:remoteCommand name="uploadBusinessLogic" actionListener="#{fileUploadBean.uploadLogic}"/>
+        <p:panel id="content" style="border:none;">
+            <p:outputPanel rendered="#{fileUploadBean.fileName ne null}">
+                <h4>File name:</h4>
+                #{fileUploadBean.fileName}
+                <h4>File content:</h4>
+                #{fileUploadBean.fileContent}
+            </p:outputPanel>
+        </p:panel>
+    </h:form>
+</h:body>
+</html>

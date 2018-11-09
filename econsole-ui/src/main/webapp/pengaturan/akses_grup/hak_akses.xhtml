@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+<f:view contentType="text/html">
+	<h:head>
+		<f:facet name="first">
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+		</f:facet>
+	</h:head>
+	<h:body>
+
+		<h:form style="overflow: scroll">
+			<p:growl id="messages" showDetail="true" />
+			<p:outputLabel value="Hak akses #{userGroupCtl.data.name}"></p:outputLabel>
+			<p:dataTable id="dataTable" var="grp" 
+				value="#{userGroupCtl.listMenu}" paginator="true" rows="10"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+				paginatorPosition="bottom">
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Main Menu" />
+					</f:facet>
+					<h:outputText value="#{grp.menu_parent_name}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Sub Menu" />
+					</f:facet>
+					<h:outputText value="#{grp.menu_name}" />
+				</p:column>
+				<p:column style="width:80px">
+					<f:facet name="header">
+						<h:outputText value="Tambah" />
+					</f:facet>
+					
+					<p:commandButton icon="fa fa-times-circle" action="#{userGroupCtl.doOpenAdd}"
+						title="Pasang" ajax="false"
+						rendered="#{grp.is_add_menu eq 'Y' and grp.is_add ne 'Y'  ? true : false}">
+						<f:setPropertyActionListener value="#{grp}"
+							target="#{userGroupCtl.menuAkses}" />
+					</p:commandButton>
+					<p:commandButton icon="fa fa-check-circle-o" action="#{userGroupCtl.doCloseAdd}"
+						title="Lepas" ajax="false"
+						rendered="#{grp.is_add_menu eq 'Y' and grp.is_add eq 'Y' ? true : false}">
+						<f:setPropertyActionListener value="#{grp}"
+							target="#{userGroupCtl.menuAkses}" />
+					</p:commandButton>
+				</p:column>
+				<p:column style="width:80px">
+					<f:facet name="header">
+						<h:outputText value="Ubah" />
+					</f:facet>
+					<p:commandButton icon="fa fa-times-circle" action="#{userGroupCtl.doOpenEdit}"
+						title="Pasang" ajax="false"
+						rendered="#{grp.is_edit_menu eq 'Y' and grp.is_edit ne 'Y'  ? true : false}">
+						<f:setPropertyActionListener value="#{grp}"
+							target="#{userGroupCtl.menuAkses}" />
+					</p:commandButton>
+					<p:commandButton icon="fa fa-check-circle-o" action="#{userGroupCtl.doCloseEdit}"
+						title="Lepas" ajax="false"
+						rendered="#{grp.is_edit_menu eq 'Y' and grp.is_edit eq 'Y' ? true : false}">
+						<f:setPropertyActionListener value="#{grp}"
+							target="#{userGroupCtl.menuAkses}" />
+					</p:commandButton>
+				</p:column>
+				<p:column style="width:80px">
+					<f:facet name="header">
+						<h:outputText value="Hapus" />
+					</f:facet>
+					<p:commandButton icon="fa fa-times-circle" action="#{userGroupCtl.doOpenDelete}"
+						title="Pasang" ajax="false"
+						rendered="#{grp.is_delete_menu eq 'Y' and grp.is_delete ne 'Y'  ? true : false}">
+						<f:setPropertyActionListener value="#{grp}"
+							target="#{userGroupCtl.menuAkses}" />
+					</p:commandButton>
+					<p:commandButton icon="fa fa-check-circle-o" action="#{userGroupCtl.doCloseDelete}"
+						title="Lepas" ajax="false"
+						rendered="#{grp.is_delete_menu eq 'Y' and grp.is_delete eq 'Y' ? true : false}">
+						<f:setPropertyActionListener value="#{grp}"
+							target="#{userGroupCtl.menuAkses}" />
+					</p:commandButton>
+				</p:column>
+				<p:column style="width:100px">
+					<f:facet name="header">
+						<h:outputText value="Akses" />
+					</f:facet>
+					<p:commandButton icon="fa fa-lock" action="#{userGroupCtl.doOpen}"
+						title="Buka Akses" ajax="false"
+						rendered="#{grp.menu_ref_user eq grp.menu_code ? false : true}">
+						<f:setPropertyActionListener value="#{grp}"
+							target="#{userGroupCtl.menuAkses}" />
+					</p:commandButton>
+					<p:commandButton icon="fa fa-sign-in"
+						action="#{userGroupCtl.doClose}" title="Tutup Akses" ajax="false"
+						rendered="#{grp.menu_ref_user eq grp.menu_code ? true : false}">
+						<f:setPropertyActionListener value="#{grp}"
+							target="#{userGroupCtl.menuAkses}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+		</h:form>
+	</h:body>
+</f:view>
+
+</html>
+

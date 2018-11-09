@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sh.djpk.econsole.rest.dao.PelaporanDao">
+
+
+
+	<select id="getCompilationRecord5" resultType="hashmap">
+		select nn.kode_akun, cast(nn.kd_rek_1 as text), cast(nn.kd_rek_2 as
+			text), cast(nn.kd_rek_3 as text),
+			nn.nm_rek_1,
+			nn.nm_rek_2,
+			nn.nm_rek_3, sebelum_eliminasi,
+			(COALESCE(sebelum_eliminasi,0) - COALESCE(xx, 0)) setelah_eliminasi
+		from (
+			SELECT concat(a.kd_rek_1, a.kd_rek_2, a.kd_rek_3) kode_akun,
+				a.kd_rek_1, a.kd_rek_2, a.kd_rek_3, nm_rek_1,
+				nm_rek_2,
+				COALESCE(nm_rek_3, 'Tidak ada Desc / Duplikat') nm_rek_3,
+				sum(COALESCE(a.realisasi,0)) sebelum_eliminasi,
+				(select
+					sum(c.nilai) 
+				from elimination_account c
+				<where>
+					c.tahun = #{tahunAnggaran} 
+					AND	c.periode_id = #{periodeId}
+					and c.kd_rek_1 = a.kd_rek_1 
+					and c.kd_rek_2 = a.kd_rek_2
+					and c.kd_rek_3 = a.kd_rek_3
+					<if test="jenisLaporan == 1">
+						and c.kd_rek_1 in ('4','5','6','7')
+					</if>
+					<if test="jenisLaporan == 2">
+						and c.kd_rek_1 in ('1','2','3')
+					</if>
+					<if test="jenisLaporan == 3">
+						and c.kd_rek_1 in ('8','9')
+					</if>
+					<if test="kodeLaporan == 4">
+						AND c.kd_pemda = #{othersParam.value_cb}
+					</if>
+					<if test="kodeLaporan == 3">
+						AND c.kd_pemda in (select concat(b.kdprovinsi,'.', b.kdpemda) 
+							from ref_pemda2 b 
+							<where>
+							 	kdprovinsi	= #{othersParam.value_cb}
+							</where>
+							)
+					</if>
+					<if test="kodeLaporan == 2">
+						AND c.kd_pemda in (select pemda_id from pemda_wilayah a
+						where wilayah_id =
+						to_number(#{othersParam.value_cb},'999'))
+					</if>
+				</where>) xx
+			FROM
+			compilation_record5 a
+			<where>
+				a.tahun = #{tahunAnggaran}
+				AND a.periode_id = #{periodeId}
+				<if test="jenisLaporan == 1">
+					and a.kd_rek_1 in ('4','5','6','7')
+				</if>
+				<if test="jenisLaporan == 2">
+					and a.kd_rek_1 in ('1','2','3')
+				</if>
+				<if test="jenisLaporan == 3">
+					and a.kd_rek_1 in ('8','9')
+				</if>
+				<if test="kodeLaporan == 4">
+					AND a.kd_pemda = #{othersParam.value_cb}
+				</if>
+				<if test="kodeLaporan == 3">
+					AND a.kd_provinsi = ${@java.lang.Integer@valueOf(othersParam.value_cb)}
+				</if>
+				<if test="kodeLaporan == 2">
+					AND a.kd_pemda in (select pemda_id from pemda_wilayah a
+					where wilayah_id =
+					to_number(#{othersParam.value_cb},'999'))
+				</if>
+			</where>
+			group by a.kd_rek_1, a.kd_rek_2, a.kd_rek_3, nm_rek_1, nm_rek_2, nm_rek_3
+		) nn order by kd_rek_1, kd_rek_2, kd_rek_3
+	</select>
+
+
+
+	<select id="getCompilationLak" resultType="hashmap">
+		select nn.kode_akun, cast(nn.kd_rek_1 as text), cast(nn.kd_rek_2 as
+			text), cast(nn.kd_rek_3 as text),
+			nn.nm_rek_1,
+			nn.nm_rek_2,
+			nn.nm_rek_3, sebelum_eliminasi, setelah_eliminasi
+		from (
+			SELECT concat(a.kd_rek_1, a.kd_rek_2, a.kd_rek_3) kode_akun,
+				a.kd_rek_1, a.kd_rek_2, a.kd_rek_3, a.nm_rek_1,
+				a.nm_rek_2,
+				COALESCE(a.nm_rek_3, 'Tidak ada Desc / Duplikat') nm_rek_3,
+				sum(COALESCE(a.realisasi,0)) sebelum_eliminasi,
+				sum(COALESCE(b.realisasi,0)) setelah_eliminasi
+			FROM
+			compilation_lak a
+			left join compilation_lak b on b.tahun = #{tahunAnggaranSebelum}
+				and a.kd_provinsi = b.kd_provinsi 
+				and a.kd_pemda = b.kd_pemda
+				and a.kd_satker = b.kd_satker
+				and a.periode_id = b.periode_id
+				and a.perubahan_id = b.perubahan_id
+				and a.kd_rek_1 = b.kd_rek_1
+				and a.kd_rek_2 = b.kd_rek_2
+				and a.kd_rek_3 = b.kd_rek_3
+			<where>
+				a.tahun = #{tahunAnggaran}
+				AND a.periode_id = #{periodeId}		
+				<if test="kodeLaporan == 4">
+					AND a.kd_satker = (select kd_satker from ref_kodepemda where kd_pemda = #{othersParam.value_cb})
+				</if>
+				<if test="kodeLaporan == 3">
+					AND a.kd_provinsi =  ${@java.lang.Integer@valueOf(othersParam.value_cb)}
+				</if>
+				<if test="kodeLaporan == 2">
+					AND a.kd_satker in (select kd_satker from ref_kodepemda where kd_pemda in (select pemda_id from pemda_wilayah a
+					where wilayah_id =
+					to_number(#{othersParam.value_cb},'999')))
+				</if>						
+			</where>
+			group by a.kd_rek_1, a.kd_rek_2, a.kd_rek_3, a.nm_rek_1, a.nm_rek_2, a.nm_rek_3
+		) nn order by kd_rek_1, kd_rek_2, kd_rek_3
+	</select>
+
+
+
+	<select id="getCompilationLpe" resultType="hashmap">
+		select a.tahun, a.periode_id, sum(a."ekuitasAwal") ekuitasAwal,
+		sum(a."surplusDefisit") surplusDefisit, sum(a."koreksiPersediaan")
+		koreksiPersediaan,
+		sum(a."selisihRevaluasiAset") selisihRevaluasiAset, sum(a.lainlain) lainlain from compilation_lpe a
+		<where>
+			a.tahun = #{tahunAnggaran}
+			AND a.periode_id = #{periodeId}
+			<if test="kodeLaporan == 4">
+				AND a.kd_pemda = #{othersParam.value_cb}
+			</if>
+			<if test="kodeLaporan == 3">
+				AND a.kd_provinsi = #{othersParam.value_cb}
+			</if>
+			<if test="kodeLaporan == 2">
+				AND a.kd_pemda in (select pemda_id from pemda_wilayah a
+				where wilayah_id =
+				to_number(#{othersParam.value_cb},'999'))
+			</if>
+		</where>
+		group by a.tahun, a.periode_id
+	</select>
+
+
+	<select id="getCompilationLpsal" resultType="hashmap">
+		select a.tahun, a.periode_id, sum(a."salAwal") salAwal,
+		sum(a."penggunaanSal") penggunaanSal, sum(a.silpa) silpa,
+		sum(a.koreksi) koreksi, sum(a.lainnya) lainnya from compilation_lpsal a
+		<where>
+			a.tahun = #{tahunAnggaran}
+			AND a.periode_id = #{periodeId}
+			<if test="kodeLaporan == 4">
+				AND a.kd_pemda = #{othersParam.value_cb}
+			</if>
+			<if test="kodeLaporan == 3">
+				AND a.kd_provinsi = #{othersParam.value_cb}
+			</if>
+			<if test="kodeLaporan == 2">
+				AND a.kd_pemda in (select pemda_id from pemda_wilayah a
+				where wilayah_id =
+				to_number(#{othersParam.value_cb},'999'))
+			</if>
+		</where>
+		group by a.tahun, a.periode_id
+	</select>
+
+</mapper>

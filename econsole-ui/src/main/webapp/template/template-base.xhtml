@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Konsolidasi LKPD</title>
+</h:head>
+<f:view contentType="text/html">
+	<h:head>
+		<f:facet name="first">
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+			<title>Konsolidasi LKPD</title>
+		</f:facet>
+	</h:head>
+
+	<h:body>
+
+		<p:layout fullPage="true">
+
+			<p:layoutUnit position="north" size="50" resizable="true"
+				closable="true" collapsible="true">
+                    Konsolidasi LKPD
+                </p:layoutUnit>
+
+
+			<!-- 			<p:layoutUnit position="south" size="100" closable="true" -->
+			<!-- 				collapsible="true"> -->
+			<!--                     Footer -->
+			<!--                 </p:layoutUnit> -->
+
+			<p:layoutUnit position="west" size="230"  collapsible="true" >
+				<p:panelMenu>
+					<p:submenu label="Pengaturan">
+						<p:menuitem value="User Management"
+							url="/pages/pengaturan/usman/_index.xhtml" />
+						<p:menuitem value="Akses Grup"
+							url="/pages/pengaturan/akses_grup/_index.xhtml" />
+						<p:menuitem value="Blog/Pengumuman"
+							url="/pages/pengaturan/blog/_index.xhtml" />
+					</p:submenu>
+
+					<p:submenu label="Parameter">
+						<p:menuitem value="Periode"
+							url="/pages/Parameter/periode/_index.xhtml" />
+						<p:menuitem value="Bagan Akun Standar"
+							url="/pages/Parameter/baganakun/_index3.xhtml" />
+						<p:menuitem value="Pemda"
+							url="/pages/Parameter/pemda/_index.xhtml" />
+						<p:menuitem value="Jenis Transfer"
+							url="/pages/Parameter/transfer/_index.xhtml" />
+						<p:menuitem value="Wilayah"
+							url="/pages/Parameter/wilayah/_index.xhtml" />
+					</p:submenu>
+					
+					<p:submenu label="Konsolidasi">
+						<p:menuitem value="Akun Eliminasi"
+							url="/pages/konsolidasi/akuneliminasi/_index.xhtml" />						
+					</p:submenu>
+					
+					<p:submenu label="Pelaporan">
+						<p:menuitem value="Pelaporan"
+							url="/pages/pelaporan/pelaporan/_index.xhtml" />
+						<p:menuitem value="Pelaporan Provinsi"
+							url="/pages/pengaturan/akses_grup/_index.xhtml" />
+						<p:menuitem value="Pelaporan Pemda"
+							url="/pages/pengaturan/blog/_index.xhtml" />
+					</p:submenu>
+					
+					<p:submenu label="Rekap Akun dan Monitoring ">
+						<p:menuitem value="Pelaporan"
+							url="/pages/pelaporan/pelaporan/_index.xhtml" />
+						<p:menuitem value="Pelaporan Provinsi"
+							url="/pages/pengaturan/akses_grup/_index.xhtml" />
+						<p:menuitem value="Pelaporan Pemda"
+							url="/pages/pengaturan/blog/_index.xhtml" />
+					</p:submenu>
+
+				</p:panelMenu>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="center">
+				<ui:insert name="content">Content</ui:insert>
+			</p:layoutUnit>
+
+		</p:layout>
+
+	</h:body>
+
+</f:view>
+</html>
+

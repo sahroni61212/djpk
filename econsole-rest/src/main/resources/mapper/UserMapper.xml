@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sh.djpk.econsole.rest.dao.UserDao">
+
+	<select id="getAllPaging" resultType="hashmap">
+		select u.id, u.kd_user, u.auth_key, u.email, u.username, u.status, u.pemda_id, 
+		aa.item_name as role, ru.name ref_user_name, rp.urpemda nama_pemda
+		from econsole.user u
+		left join auth_assignment aa on u.id = aa.user_id
+		left join ref_user ru on u.kd_user = ru.id
+		left join ref_pemda2 rp on u.pemda_id = concat(rp.kdprovinsi,'.',rp.kdpemda)  and rp.tahun = cast(extract(year from now()) as text) 
+		<where>
+			<if test="params.username != null">
+				u.username like #{params.username}
+			</if>
+		</where>
+		order by ${orderBy} ${direction}
+		limit #{pageSize} offset (#{pageSize}
+		* #{pageSequence})
+	</select>
+
+	<insert id="insertUser" useGeneratedKeys="true" keyColumn="id"
+		keyProperty="params.id">
+		insert into econsole.user
+		(kd_user, auth_key, email, password_hash, username, status, pemda_id,
+		created_at, updated_at )
+		values
+		( to_number(#{params.kd_user},'999') , #{params.auth_key}, #{params.email},
+		#{params.password_hash},
+		#{params.username}, to_number(#{params.status},'99'), #{params.pemda_id}, #{params.created_at},
+		#{params.updated_at})
+	</insert>
+
+	<update id="updateUser">
+		update econsole.user set kd_user = to_number(#{params.kd_user},'999'),
+		password_hash = #{params.password_hash}, email = #{params.email},
+		username = #{params.username}, status = to_number(#{params.status},'99'), pemda_id =
+		#{params.pemda_id}
+		where id = #{params.id}
+	</update>
+
+	<delete id="deleteUser">
+		delete from econsole.user where id = #{params.id}
+	</delete>
+
+	<insert id="insertAuthAssignment">
+		insert into auth_assignment (item_name, user_id,
+		created_at)
+		values
+		(#{params.role},#{params.id},#{params.created_at})
+	</insert>
+	
+	<insert id="insertUserPemda">
+		insert into user_pemda (user_id,
+		pemda_id)
+		values
+		(#{params.id},#{params.pemda_id})
+	</insert>
+	
+	<delete id="deleteAuthAssignment">
+		delete from auth_assignment where user_id = #{params.id}
+	</delete>
+	
+	<delete id="deleteUserPemda">
+		delete from user_pemda where user_id = #{params.id}
+	</delete>
+	
+	<update id="updateAuthAssignment">
+		update auth_assignment set item_name = #{params.role} where user_id = #{params.id}
+	</update>
+	
+	<update id="updateUserPemda">
+		update user_pemda set pemda_id = #{params.pemda_id} where user_id = #{params.id}
+	</update>
+	
+	<select id="getAllAuthItem" resultType="hashmap">
+		select * from auth_item order by name asc
+	</select>
+	
+	<select id="login" resultType="hashmap">
+		select u.id, u.kd_user, u.email, u.username, u.status, u.pemda_id, rp.urpemda, rp.id id_pemda_id, rp.kdprovinsi, rp.kdpemda, rp.kwilayah, rp.tahun 
+		from econsole.user u  
+		left join econsole.ref_pemda2 rp on u.pemda_id = concat(rp.kdprovinsi,'.',rp.kdpemda) and rp.tahun = cast(extract(year from now()) as text)
+		where u.username = #{params.username} and u.password_hash = #{params.password_hash} and status = 10
+	
+	</select>
+	
+	<select id="getMenuAkses" resultType="hashmap">
+		select ma.menu_code, ma.menu_name, ma.menu_url, ma.aktif, ma.is_add is_add_menu, ma.is_edit is_edit_menu, ma.is_delete is_delete_menu, ma.is_parent, ma.menu_parent, 
+		COALESCE((select mb.menu_name from mst_menu mb where mb.menu_code = ma.menu_parent), '0') menu_parent_name,
+		rum.is_add, rum.is_edit, rum.is_delete
+		from mst_menu ma  inner JOIN ref_user_menu rum on ma.menu_code = rum.menu and kd_user = (select kd_user from econsole.user where id = #{params.id})
+		WHERE ma.aktif = 'Y' and ma.is_parent != 'Y' ORDER BY seq_no asc
+	</select>
+	
+</mapper>

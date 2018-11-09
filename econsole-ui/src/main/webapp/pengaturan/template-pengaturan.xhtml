@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="./../template/template-base.xhtml">
+
+
+	<ui:define name="content">
+		<ui:insert name="menu_name_pengaturan">Nama Menu</ui:insert>
+		<br />
+		<ui:insert name="button_add_pengaturan">
+			<p:commandButton value="Tambah" />
+		</ui:insert>
+		<p:panelGrid columns="1">
+			<p:outputLabel value="Nama Menu" />
+			<ui:insert name="content_pengaturan">Content Pengaturan</ui:insert>
+		</p:panelGrid>
+	</ui:define>
+
+</ui:composition>
+</html>
+

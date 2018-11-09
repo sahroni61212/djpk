@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="./../../template/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form id="formView">
+			<p:growl id="messages" showDetail="true" />
+			<div>
+				<p:outputLabel value="View Pengguna"></p:outputLabel>
+			</div>
+			<div>
+				<p:panelGrid columns="3" layout="grid">
+					<p:outputLabel value="Username"></p:outputLabel>
+					<p:outputLabel value="#{usmanCtl.data.username}" />
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+
+					<p:outputLabel value="Email"></p:outputLabel>
+					<p:outputLabel value="#{usmanCtl.data.email}" />
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+
+
+					<p:outputLabel value="Pemda"></p:outputLabel>
+					<p:outputLabel value="#{usmanCtl.data.nama_pemda}" />
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+
+					<p:outputLabel value="Kd. User"></p:outputLabel>
+					<p:outputLabel value="#{usmanCtl.data.ref_user_name}" />
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+
+					<p:outputLabel value="Status"></p:outputLabel>
+					<p:outputLabel
+						value="#{usmanCtl.data.status eq 10 ? 'Active' : (usmanCtl.data.status eq 1 ? 'Inactive' : 'Deleted')}" />
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+
+					<p:outputLabel value="Role"></p:outputLabel>
+					<p:outputLabel value="#{usmanCtl.data.role}" />
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+					<h:panelGrid columns="3" border="0">
+
+						<p:button value="Kembali" outcome="_index"
+							icon="fa fa-rotate-left" />
+						<p:button value="Ubah" outcome="_detail" icon="fa fa-pencil" />
+						<p:commandButton icon="fa fa-trash" value="Hapus" ajax="true"
+							onclick="PF('ss').show()" />
+					</h:panelGrid>
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+				</p:panelGrid>
+			</div>
+
+
+			<p:confirmDialog
+				message="Apakah anda yakin akan menghapus pengguna ini?"
+				header="Konfirmasi Hapus Pengguna" severity="alert" widgetVar="ss">
+				<p:commandButton value="Batal" onclick="PF('ss').hide();"
+					icon="fa fa-times-circle" type="button" />
+				<p:commandButton action="#{usmanCtl.deleteOnView}"
+					icon="fa fa-check-circle" oncomplete="PF('ss').hide();"
+					value="Setuju" update="formView" ajax="true" />
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>
+

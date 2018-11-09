@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="./../../template/template.xhtml">
+
+	
+	<ui:define name="content">
+	
+	<h:form>
+	<p:growl id="messages" showDetail="true"/>
+	
+		<div>
+				<p:outputLabel value="Tambah Akun Resiprokal" />
+		</div>
+		<p:separator />
+		
+			<p:panelGrid columns="1" layout="grid">
+					
+
+					<p:outputLabel value="Kode Akrual 1" style="width:100px"></p:outputLabel>
+					
+					<p:selectOneMenu id="cbAkr1"
+						value="#{akunResiprokal.selectedAkr1}" lazy="true"
+						style="width:300px">
+						<f:selectItems value="#{akunResiprokal.selectOneAkr1}"
+							var="cbakr1" itemValue="#{cbakr1.kd_akrual_1}"
+							itemLabel="#{cbakr1.nm_akrual_1}">
+						</f:selectItems>
+
+					</p:selectOneMenu>
+					
+					
+					
+					
+			</p:panelGrid>		
+				
+			
+				
+				<h:panelGrid columns="2" border="0">	
+				<p:commandButton value="Simpan" action="#{akunResiprokal.proses}"
+					ajax="true" update="messages" icon="fa fa-floppy-o"/>		
+				<p:button value="Kembali" outcome="_index" icon="fa fa-times-circle" />
+				</h:panelGrid>
+
+		<br></br>
+		
+				
+			
+	</h:form>
+    
+    </ui:define>	
+     
+
+</ui:composition>
+</html>
+

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sh.djpk.econsole.rest.dao.RefAkrualDao">
+
+	<select id="getAkrual1" resultType="hashmap">
+		select * from ref_akrual_1
+
+	</select>
+	
+	<select id="getAkrual2" resultType="hashmap">
+		select * from ref_akrual_2
+
+	</select>
+	
+	<select id="getAkrual3" resultType="hashmap">
+		select * from ref_akrual_3
+
+	</select>
+	
+	<select id="getAkrual4" resultType="hashmap">
+		select * from ref_akrual_4
+
+	</select>
+	
+	<select id="getAkrual5" resultType="hashmap">
+		select * from ref_akrual_5
+
+	</select>
+	
+	
+
+
+</mapper>

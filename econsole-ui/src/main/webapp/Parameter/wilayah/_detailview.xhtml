@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="./../../template/template.xhtml">
+
+	
+	<ui:define name="content">
+		<div>
+				<p:outputLabel value="Tambah Periode" />
+		</div>
+		
+				<p:panelGrid columns="3" layout="grid">
+
+					<p:outputLabel value="ID Periode"></p:outputLabel>
+					<p:inputText required="true" value="#{wilayahCtl.data.kodifikasi}">
+						<p:keyFilter regEx="0-9"></p:keyFilter>
+					</p:inputText>
+					<br />
+					<p:outputLabel value="Nama Periode"></p:outputLabel>
+					
+					<p:inputText required="true"  value="#{wilayahCtl.data.nama_wilayah}">
+						
+					</p:inputText>
+					<br/>
+				<p:button value="Kembali" outcome="_index" icon="fa fa-times-circle"/>
+		</p:panelGrid>
+			
+ 
+    
+    </ui:define>	
+     
+
+</ui:composition>
+</html>
+

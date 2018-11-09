@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sh.djpk.econsole.rest.dao.RptRekapAkunEliminasiDao">
+
+	<select id="getRekapEliminasi" resultType="hashmap">
+	
+		select a.kd_pemda,c.urpemda, a.periode_id, concat(a.kd_rek_1,'.',a.kd_rek_2,'.',a.kd_rek_3) AS level3,
+concat(a.kd_rek_1,'.',a.kd_rek_2,'.',a.kd_rek_3,'.',a.kd_rek_4,'.',a.kd_rek_5) as level5,
+a.nm_rek_5 as namarekening,a.realisasi
+from compilation_record5 a, elimination_account b, ref_pemda2 c  
+where 
+a.kd_pemda = b.kd_pemda
+and a.tahun = b.tahun
+and a.tahun = c.tahun
+and a.kd_rek_1 = b.kd_rek_1
+and a.kd_rek_2 = b.kd_rek_2
+and a.kd_rek_3 = b.kd_rek_3
+and concat(c.kdprovinsi,'.',c.kdpemda ) = a.kd_pemda
+and a.tahun = #{tahunAnggaran} 
+and a.kd_pemda =  #{kodePemda}
+and a.periode_id= #{periodeId} 
+
+
+	</select>
+
+
+	<select id="getSaldoAkun" resultType="hashmap">
+		select case when (sum (a.realisasi)) ISNULL then 0 ELSE (sum (a.realisasi)) END AS realisasi from compilation_record5 a
+WHERE 
+concat(a.kd_rek_1,'.',a.kd_rek_2,'.',a.kd_rek_3) = #{level3}
+and a.kd_pemda = #{kodePemda}
+AND a.periode_id = #{periodeId}
+and a.tahun = #{tahunAnggaran}
+
+
+
+	</select>
+
+</mapper>

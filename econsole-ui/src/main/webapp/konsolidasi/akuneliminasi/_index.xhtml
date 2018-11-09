@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="./../../template/template.xhtml">
+
+	
+	<ui:define name="content">
+	<h:form>
+		<div>
+			<p:outputLabel value="Eliminasi Akun" />
+		</div>
+		<p:separator />
+		<div class="ui-g">
+				<div class="ui-g-12 ui-md-6 ui-lg-3" style="width: 100%"
+					align="left">
+					<p:commandButton value="Proses Eliminasi" action="#{akunEliminasi.add}"
+						ajax="true" icon="fa fa-plus-circle" />
+
+				</div>
+				
+			</div>
+	
+        <p:dataTable id="dataTable" var="elimhead" value="#{akunEliminasi.elimhead}"
+                 paginator="true" 
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" 
+                 paginatorPosition="bottom"
+                 rows="20">
+        
+ 
+        <p:column style="width:15%" >
+            <f:facet name="header">
+                <h:outputText value="Header ID" />
+            </f:facet>
+            <h:outputText value="#{elimhead.cheader_id}" />
+        </p:column>
+ 		
+ 		<p:column style="width:10%">
+            <f:facet name="header">
+                <h:outputText value="Data" />
+            </f:facet>
+            <h:outputText value="#{elimhead.nama}" />
+        </p:column>
+        
+        <p:column style="width:10%">
+            <f:facet name="header">
+                <h:outputText value="Otomatis" />
+            </f:facet>
+            <h:outputText value="#{elimhead.otomatis}" />
+        </p:column>
+        
+        <p:column style="width:10%">
+            <f:facet name="header">
+                <h:outputText value="Manual" />
+            </f:facet>
+            <h:outputText value="#{elimhead.manual}" />
+        </p:column>
+        
+        <p:column style="width:10%">
+            <f:facet name="header">
+                <h:outputText value="Cek Balance" />
+            </f:facet>
+            <h:outputText value="#{elimhead.sts_bal}" />
+        </p:column>
+        
+        
+        
+ 
+       
+    </p:dataTable>
+ 
+    </h:form>
+    </ui:define>	
+     
+
+</ui:composition>
+
+</html>
+

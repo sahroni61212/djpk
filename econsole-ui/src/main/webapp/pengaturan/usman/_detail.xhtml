@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="./../../template/template.xhtml">
+
+
+	<ui:define name="content">
+		<h:form>
+			<p:growl id="messages" showDetail="true" />
+			<div>
+				<p:outputLabel value="Tambah User"></p:outputLabel>
+			</div>
+			<div>
+				<p:panelGrid columns="3" layout="grid">
+					<p:outputLabel value="Username" ></p:outputLabel>
+					<p:inputText value="#{usmanCtl.data.username}" required="true" requiredMessage="username harap diisi"></p:inputText>
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+					<p:outputLabel value="Email"></p:outputLabel>
+					<p:inputText value="#{usmanCtl.data.email}"  required="true" requiredMessage="email harap diisi">
+						<p:keyFilter regEx="/[a-z0-9_\.\-@]/i"></p:keyFilter>
+					</p:inputText>
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+					<p:outputLabel value="Password"></p:outputLabel>
+					<p:password value="#{usmanCtl.data.password_hash}"  required="true" requiredMessage="password harap diisi"/>
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+					<p:outputLabel value="Pemda"></p:outputLabel>
+					<p:selectOneMenu id="cbOthers" lazy="true" style="width:125px"
+						value="#{usmanCtl.data.pemda_id}">
+						<f:selectItems value="#{usmanCtl.selectOnePemda}" var="others"
+							itemValue="#{others.value_cb}" itemLabel="#{others.label_cb}">
+						</f:selectItems>
+					</p:selectOneMenu>
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+					<p:outputLabel value="Akses Grup"></p:outputLabel>
+					<p:selectOneMenu lazy="true" style="width:125px"
+						value="#{usmanCtl.data.kd_user}">
+						<f:selectItems value="#{usmanCtl.selectOneKdUser}" var="kdusr"
+							itemValue="#{kdusr.id}" itemLabel="#{kdusr.name}">
+						</f:selectItems>
+					</p:selectOneMenu>
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+					<p:outputLabel value="Status"></p:outputLabel>
+					<p:selectOneMenu id="status" value="#{usmanCtl.data.status}"
+						style="width:125px">
+						<f:selectItem itemLabel="Active" itemValue="10" />
+						<f:selectItem itemLabel="Inactive" itemValue="1" />
+						<f:selectItem itemLabel="Deleted" itemValue="0" />
+					</p:selectOneMenu>
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+					<p:outputLabel value="Role"></p:outputLabel>
+					<p:selectOneMenu lazy="true" style="width:125px"
+						value="#{usmanCtl.data.role}">
+						<f:selectItems value="#{usmanCtl.selectOneAuthItem}" var="auth"
+							itemValue="#{auth.name}" itemLabel="#{auth.name}">
+						</f:selectItems>
+					</p:selectOneMenu>
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+					<h:panelGrid columns="2" border="0">
+						<p:commandButton value="Simpan" action="#{usmanCtl.create}" icon="fa fa-floppy-o"
+							ajax="true" update="messages" />
+						<p:button value="Batal" outcome="_index"  icon="fa fa-times-circle"/>
+					</h:panelGrid>
+					<h:outputText value="&lt;br/&gt;" escape="false" />
+				</p:panelGrid>
+			</div>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>
+

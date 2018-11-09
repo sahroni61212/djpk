@@ -1,0 +1,78 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.sh.djpk</groupId>
+	<artifactId>djpk-parent</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	<name>djpk-parent</name>
+	<description>Parent semua jar</description>
+	<properties>
+		<jackson.version>1.9.13</jackson.version>
+		<slf4j.version>1.7.7</slf4j.version>
+		<logback.version>1.1.2</logback.version>
+		<sh.spring.version>4.0.0</sh.spring.version>
+		<commons.dbcp.version>1.4</commons.dbcp.version>
+		<share.version>1.0.0</share.version>
+		<connection.version>1.0.0</connection.version>
+		<spring.core.version>4.0.3.RELEASE</spring.core.version>
+		<jackson.version>1.9.13</jackson.version>
+		<poi.version>3.16</poi.version>
+		<jasperreport.version>6.0.0</jasperreport.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<adminfaces.version>1.0.0-RC18</adminfaces.version>
+		<primefaces.version>6.2</primefaces.version>
+		<primefaces-extensions.version>6.2</primefaces-extensions.version>
+		<jsf.version>2.2.14</jsf.version>
+		<commons-fileupload.version>1.3</commons-fileupload.version>
+		<commons-io.version>2.6</commons-io.version>
+		<javaee.version>7.0</javaee.version>
+		<jackson-core.version>2.4.1.1</jackson-core.version>
+		<jackson-annotations.version>2.4.1</jackson-annotations.version>
+		<groovy-all.version>2.3.9</groovy-all.version>
+		<itext.version>2.1.7</itext.version>
+		<servlet-api.version>3.0.1</servlet-api.version>
+		<jstl.version>1.2</jstl.version>
+	</properties>
+
+		<dependencies>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		</dependencies>
+	
+	<modules>
+	<module>../djpk-share</module>
+	<module>../connection</module>	
+	<module>../econsole-ui</module>
+	<module>../econsole-rest</module>
+	</modules>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

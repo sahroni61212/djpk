@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="./../../template/template.xhtml">
+
+<ui:define name="content">
+	<div >
+<!-- 		<div class="content-header"> -->
+<!-- 			<h1>Pemda</h1> -->
+
+<!-- 			<ul class="breadcrumb"> -->
+<!-- 				<li><a href="enconsole-ui/pages/index.xhtml">Beranda</a></li> -->
+<!-- 				<li class="active">Parameter</li> -->
+<!-- 				<li class="active">Pemda</li> -->
+<!-- 			</ul> -->
+<!-- 		</div> -->
+
+		<div class="content">
+
+			<p:dataTable id="dataTable" var="listPemda"
+				value="#{pemdaCtl.listPemda}" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+				paginatorPosition="bottom" rows="10">
+				<f:facet name="header">
+            Pemda
+        </f:facet>
+
+				<p:column  style="align:center">
+					<f:facet name="header">
+						<h:outputText value="Kode Pemda" />
+					</f:facet>
+					<h:outputText value="#{listPemda.pemda_id}" />
+				</p:column>
+
+
+				<p:column style="align:center">
+					<f:facet name="header">
+						<h:outputText value="Kode Provinsi" />
+					</f:facet>
+					<h:outputText value="#{listPemda.province_id}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Nama" />
+					</f:facet>
+					<h:outputText value="#{listPemda.name}" />
+				</p:column>
+
+
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Aksi" />
+
+					</f:facet>
+					<p:commandButton icon="fa fa-eye" />
+					<p:commandButton icon="fa fa-pencil" />
+					<p:commandButton icon="fa fa-trash" />
+
+				</p:column>
+
+
+			</p:dataTable>
+		</div>
+	</div>
+
+ </ui:define>
+</ui:composition>
+</html>
+

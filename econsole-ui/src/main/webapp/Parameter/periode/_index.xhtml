@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="./../../template/template.xhtml">
+
+	
+	<ui:define name="content">
+	<h:form>
+		<p:growl id="messages" showDetail="true"/>
+	
+		
+		<div>
+				<p:outputLabel value="PERIODE" />
+		</div>
+		<p:separator />
+		<div class="ui-g">
+				<div class="ui-g-12 ui-md-6 ui-lg-3" style="width: 100%"
+					align="left">
+					<p:commandButton value="Tambah" action="#{periodeCtl.add}"
+						ajax="true" icon="fa fa-plus-circle" />
+
+				</div>
+				
+			</div>
+		<!-- <p:repeat value="#{sidebarTemplate.menuAkses}" var="menuParent"> -->
+	
+        <p:dataTable id="dataTable" value="#{periodeCtl.periodlist}" var="periodlist" 
+                 paginator="true" 
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}" 
+                 paginatorPosition="bottom"
+                 rows="10">
+        <f:facet name="header">
+            Periode
+        </f:facet>
+ 
+        <p:column style="width:90px">
+            <f:facet name="header">
+                <h:outputText value="Kode" />
+            </f:facet>
+            <h:outputText value="#{periodlist.id}" />
+        </p:column>
+ 
+        <p:column style="width:860px">
+            <f:facet name="header">
+                <h:outputText value="Nama Periode" />
+            </f:facet>
+            <h:outputText value="#{periodlist.name}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Aksi" />
+                	
+            </f:facet>
+            <p:commandButton icon="fa fa-eye" action="#{periodeCtl.view}">
+            <f:setPropertyActionListener value="#{periodlist}"
+							target="#{periodeCtl.data}" /> 
+            </p:commandButton>
+			<p:commandButton icon="fa fa-pencil" action="#{periodeCtl.edit}"
+					ajax="true">
+				<f:setPropertyActionListener value="#{periodlist}" target="#{periodeCtl.data}" />
+			</p:commandButton>
+			<p:commandButton icon="fa fa-trash" action="#{periodeCtl.delete}">
+				<f:setPropertyActionListener value="#{periodlist}" target="#{periodeCtl.data}" />
+			</p:commandButton>
+            
+        </p:column>
+ 
+       
+    </p:dataTable>
+ 	
+    </h:form>
+    </ui:define>	
+     
+
+</ui:composition>
+</html>
+

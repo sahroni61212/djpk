@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sh.djpk.econsole.rest.dao.UserGroupDao">
+
+	<select id="getUsrGrp" resultType="hashmap">
+		select * from ref_user order
+		by id asc
+
+	</select>
+
+	<insert id="insert">
+		insert into ref_user (name) values (#{params.name})
+	</insert>
+
+	<update id="update">
+		update ref_user set name = #{params.name} where id =
+		#{params.id}
+	</update>
+
+	<delete id="delete">
+		delete from ref_user where id = #{params.id}
+	</delete>
+
+	<select id="getAllMenu" resultType="hashmap">
+		select ma.menu_code, ma.menu_name, ma.aktif, ma.is_add is_add_menu, ma.is_edit is_edit_menu, ma.is_delete is_delete_menu, ma.is_parent, ma.menu_parent, 
+		COALESCE((select mb.menu_name from mst_menu mb where mb.menu_code = ma.menu_parent), '0') menu_parent_name,
+		rum.is_add, rum.is_edit, rum.is_delete, menu as menu_ref_user
+		from mst_menu ma  left JOIN ref_user_menu rum on ma.menu_code = rum.menu and kd_user = #{kdUser}
+		WHERE ma.aktif = 'Y' and ma.is_parent != 'Y' ORDER BY menu_parent_name asc
+	</select>
+
+	<select id="getRefUserMenuByKdUser" resultType="hashmap">
+		select * from
+		ref_user_menu where kd_user = #{kdUser} order by 1 asc
+	</select>
+	
+	<select id="getRefUserMenuByPk" resultType="hashmap">
+		select * from
+		ref_user_menu where kd_user = #{kdUser} and menu =  #{menu}  order by 1 asc
+	</select>
+
+	<insert id="insertRefUserMenu">
+		insert into ref_user_menu (menu, kd_user, is_add,
+		is_edit, is_delete) values (#{params.menu_code}, #{params.kd_user},
+		#{params.is_add}, #{params.is_edit}, #{params.is_delete})
+	</insert>
+
+	<update id="updateRefUserMenu">
+		update ref_user_menu	set	
+				is_add = #{params.is_add}
+				,is_edit = #{params.is_edit}			
+				,is_delete = #{params.is_delete}			
+		<where>
+			kd_user =
+			#{params.kd_user} and menu = #{params.menu_code}
+		</where>
+
+	</update>
+
+	<delete id="deleteRefUserMenu">
+		delete from ref_user_menu where kd_user =
+		#{params.kd_user} and menu = #{params.menu_code}
+	</delete>
+
+</mapper>
